@@ -1,0 +1,99 @@
+###############################################
+# Evergreen Template for AI-ML-Testing Pipeline
+###############################################
+
+# Mark a failure as a system/bootstrap failure (purple box) rather then a task
+# failure by default.
+# Actual testing tasks are marked with `type: test`
+command_type: system
+
+# Protect ourself against rogue test case, or curl gone wild, that runs forever
+# Good rule of thumb: the averageish length a task takes, times 5
+# That roughly accounts for variable system performance for various buildvariants
+exec_timeout_secs:
+  3600 # 60 minutes is the longest we'll ever run (primarily
+  # for macos hosts)
+
+# What to do when evergreen hits the timeout (`post:` tasks are run automatically)
+timeout:
+  - command: shell.exec
+    params:
+      script: |
+        ls -la
+
+functions:
+  "fetch source":
+    - command: git.get_project
+      params:
+        directory: "src"
+
+  "fetch repo":
+    - command: shell.exec
+      params:
+        working_dir: "src"
+        script: |
+          if [ ! -d "${DIR}" ]; then
+            echo '${REPO_NAME} could not be found' 1>&2
+            exit 1
+          fi
+          cd ${DIR}
+          git clone ${CLONE_URL}
+
+  # This is a NO-OP step. Here to show where one can
+  # configure remote atlas however they need to before running tests
+  "provision remote atlas":
+    - command: shell.exec
+      params:
+        working_dir: "src"
+        script: |
+          export CONN_STRING=$CONN_STRING
+
+  "execute tests":
+    - command: subprocess.exec
+      type: test
+      params:
+        add_expansions_to_env: true
+        add_to_path: ["/home/ubuntu/.local/bin"]
+        working_dir: "src/${DIR}/${REPO_NAME}"
+        binary: bash
+        args:
+          - ../run.sh
+
+pre:
+  - func: "fetch source"
+
+tasks:
+  - name: test-semantic-kernel-python
+    commands:
+      - func: "provision remote atlas"
+      - func: "fetch repo"
+      - func: "execute tests"
+
+  - name: test-langchain-python
+    commands:
+      - func: "provision remote atlas"
+      - func: "fetch repo"
+      - func: "execute tests"
+
+buildvariants:
+  - name: test-semantic-kernel-python-mac
+    display_name: Semantic-Kernel Mac Python
+    expansions:
+      DIR: semantic-kernel-python
+      REPO_NAME: semantic-kernel
+      CLONE_URL: https://github.com/microsoft/semantic-kernel.git
+    run_on:
+      - ubuntu2204-small
+    tasks:
+      - name: test-semantic-kernel-python
+
+  - name: test-langchain-python-mac
+    display_name: Langchain Mac Python
+    expansions:
+      DIR: langchain-python
+      REPO_NAME: langchain
+      CLONE_URL: https://github.com/langchain-ai/langchain.git
+    run_on:
+      - ubuntu2204-small
+    tasks:
+      - name: test-langchain-python
