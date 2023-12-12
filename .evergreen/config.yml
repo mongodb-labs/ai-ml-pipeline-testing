@@ -39,15 +39,6 @@ functions:
           cd ${DIR}
           git clone ${CLONE_URL}
 
-  # This is a NO-OP step. Here to show where one can
-  # configure remote atlas however they need to before running tests
-  "provision remote atlas":
-    - command: shell.exec
-      params:
-        working_dir: "src"
-        script: |
-          export CONN_STRING=$CONN_STRING
-
   "execute tests":
     - command: subprocess.exec
       type: test
@@ -65,19 +56,18 @@ pre:
 tasks:
   - name: test-semantic-kernel-python
     commands:
-      - func: "provision remote atlas"
       - func: "fetch repo"
       - func: "execute tests"
 
   - name: test-langchain-python
     commands:
-      - func: "provision remote atlas"
       - func: "fetch repo"
       - func: "execute tests"
 
 buildvariants:
-  - name: test-semantic-kernel-python-mac
-    display_name: Semantic-Kernel Mac Python
+  - name: test-semantic-kernel-python-ubuntu
+    display_name: Semantic-Kernel Ubuntu Python
+    cron: @weekly
     expansions:
       DIR: semantic-kernel-python
       REPO_NAME: semantic-kernel
@@ -87,8 +77,9 @@ buildvariants:
     tasks:
       - name: test-semantic-kernel-python
 
-  - name: test-langchain-python-mac
-    display_name: Langchain Mac Python
+  - name: test-langchain-python-ubuntu
+    display_name: Langchain Ubuntu Python
+    cron: @weekly
     expansions:
       DIR: langchain-python
       REPO_NAME: langchain
