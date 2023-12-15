@@ -67,7 +67,6 @@ tasks:
 buildvariants:
   - name: test-semantic-kernel-python-ubuntu
     display_name: Semantic-Kernel Ubuntu Python
-    cron: @weekly
     expansions:
       DIR: semantic-kernel-python
       REPO_NAME: semantic-kernel
@@ -79,7 +78,6 @@ buildvariants:
 
   - name: test-langchain-python-ubuntu
     display_name: Langchain Ubuntu Python
-    cron: @weekly
     expansions:
       DIR: langchain-python
       REPO_NAME: langchain
