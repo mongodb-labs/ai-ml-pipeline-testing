@@ -6,7 +6,8 @@ This repository exists to test our integrations in Third-Party AI/ML testing lib
 
 ## Motivation
 
-With the public release`$vectorSearch`, has come an even larger push to have our drivers integrate into these AI/ML sponsored libraries. ([LangChain](https://github.com/langchain-ai/langchainjs), [LlamaIndex](https://github.com/run-llama/llama_index), [Semantic Kernel](https://github.com/microsoft/semantic-kernel)... etc) As we continue to iterate and improve on these libraries, it's in our best interest to establish a consistent system for tracking the functionality of these integrations–similar to how we have continuous testing for our driver libraries. To that end, we should create a generalized repository to run continuous testing against each of these repos we integrate with to ensure faster signal on picking up any potential breaking changes we, or their systems introduce so we can gets fixes out as soon as possible.
+With the public release of `$vectorSearch`, we have needed to integrate into these AI/ML sponsored libraries. 
+([LangChain](https://github.com/langchain-ai/langchainjs), [LlamaIndex](https://github.com/run-llama/llama_index), [Semantic Kernel](https://github.com/microsoft/semantic-kernel)... etc) This repository runs continuous testing against each of these repos.
 
 ## How to add a test
 
