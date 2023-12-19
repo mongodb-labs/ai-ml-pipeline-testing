@@ -19,5 +19,9 @@ sed -i -e 's/"MongoDB Atlas cluster is required"/null/g' dotnet/src/IntegrationT
 # Run tests
 echo "Running MongoDBMemoryStoreTests"
 # Stored in evergreen VARIABLES
+<<<<<<< HEAD
 MongoDB__ConnectionString=$($atlas deployments connect $DIR --connectWith connectionString) \
+=======
+MongoDB__ConnectionString=$semantic_kernel_mongodb_uri \
+>>>>>>> f793c95 (CSHARP: Integration tests for .NET SK memory connector)
 $DOTNET_SDK_PATH/dotnet test dotnet/src/IntegrationTests/IntegrationTests.csproj --filter SemanticKernel.IntegrationTests.Connectors.MongoDB.MongoDBMemoryStoreTests
