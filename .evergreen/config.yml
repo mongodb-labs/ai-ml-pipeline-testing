@@ -59,6 +59,11 @@ tasks:
       - func: "fetch repo"
       - func: "execute tests"
 
+  - name: test-semantic-kernel-csharp
+    commands:
+      - func: "fetch repo"
+      - func: "execute tests"
+
   - name: test-langchain-python
     commands:
       - func: "fetch repo"
@@ -75,6 +80,17 @@ buildvariants:
       - ubuntu2204-small
     tasks:
       - name: test-semantic-kernel-python
+
+  - name: test-semantic-kernel-csharp-ubuntu
+    display_name: Semantic-Kernel Ubuntu CSharp
+    expansions:
+      DIR: semantic-kernel-csharp
+      REPO_NAME: semantic-kernel
+      CLONE_URL: https://github.com/microsoft/semantic-kernel.git
+    run_on:
+      - ubuntu2204-small
+    tasks:
+      - name: test-semantic-kernel-csharp
 
   - name: test-langchain-python-ubuntu
     display_name: Langchain Ubuntu Python
