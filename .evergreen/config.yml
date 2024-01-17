@@ -105,7 +105,6 @@ functions:
         script: |
           alias atlas=${PROJECT_DIRECTORY}/atlas/bin/atlas
           set -ex
-          cd ${PROJECT_DIRECTORY}
           atlas deployments setup EGDB --type local --force
           atlas deployments start EGDB
           CONN_STRING=$(atlas deployments connect EGDB --connectWith connectionString) \
