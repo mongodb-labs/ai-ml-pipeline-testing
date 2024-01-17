@@ -1,0 +1,70 @@
+[
+    {
+        "_id": "7",
+        "additionalMetadata": {
+            "_id": "7",
+            "text": "7 text",
+            "externalSourceName": "7 external source",
+            "description": "7 description",
+            "additionalMetadata": "7 additional metadata",
+            "isReference": false
+        },
+        "embedding": [
+            0.14285714285714285,
+            0.125,
+            0.1111111111111111
+        ],
+        "timestamp": null
+    },
+    {
+        "_id": "1",
+        "additionalMetadata": {
+            "_id": "1",
+            "text": "1 text",
+            "externalSourceName": "1 external source",
+            "description": "1 description",
+            "additionalMetadata": "1 additional metadata",
+            "isReference": false
+        },
+        "embedding": [
+            1.0,
+            0.5,
+            0.3333333333333333
+        ],
+        "timestamp": null
+    },
+    {
+        "_id": "2",
+        "additionalMetadata": {
+            "_id": "2",
+            "text": "2 text",
+            "externalSourceName": "2 external source",
+            "description": "2 description",
+            "additionalMetadata": "2 additional metadata",
+            "isReference": false
+        },
+        "embedding": [
+            0.5,
+            0.3333333333333333,
+            0.25
+        ],
+        "timestamp": null
+    },
+    {
+        "_id": "3",
+        "additionalMetadata": {
+            "_id": "3",
+            "text": "3 text",
+            "externalSourceName": "3 external source",
+            "description": "3 description",
+            "additionalMetadata": "3 additional metadata",
+            "isReference": false
+        },
+        "embedding": [
+            0.3333333333333333,
+            0.25,
+            0.2
+        ],
+        "timestamp": null
+    }
+]

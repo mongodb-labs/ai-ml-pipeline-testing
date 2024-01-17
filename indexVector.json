@@ -1,0 +1,8 @@
+{
+    "collectionName": "local",
+    "database": "app",
+    "mappings": {
+        "dynamic": true
+    },
+    "name": "searchIndex"
+}

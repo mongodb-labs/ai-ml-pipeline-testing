@@ -44,75 +44,29 @@ functions:
       type: test
       params:
         add_expansions_to_env: true
-        add_to_path: ["/home/ubuntu/.local/bin"]
         working_dir: "src/${DIR}/${REPO_NAME}"
         binary: bash
+        env:
+          atlas: ${workdir}/src/atlas/bin/atlas
         args:
           - ../run.sh
-  
-  "install atlas cli": &install_atlas_cli
-    command: shell.exec
-    type: setup
-    params:
-      working_dir: mms
-      script: |
-        set -ex
-        curl_opts='--silent --show-error --fail --location --retry 3'
-        # We only need mongocli for Ops Manager tests, which only run on Linux.
-        curl $curl_opts --output mongocli.tgz https://github.com/mongodb/mongocli/releases/download/v${mongocli_version}/mongocli_${mongocli_version}_linux_x86_64.tar.gz
-        tar zxf mongocli.tgz
-        mv mongocli_* mongocli
-  
-  "install atlascligit":
-    - command: shell.exec
-      params:
-        working_dir: src
-        script: |
-          set -ex
-          git clone https://github.com/mongodb/mongodb-atlas-cli.git
-          cd mongodb-atlas-cli
-          make build-atlascli
-          alias atlas=./bin
-          atlas deployments setup ATLASCLI --type local --force
-          atlas deployments start ATLASCLI
-          CONN_STRING=$(atlas deployments connect ATLASCLI --connectWith connectionString) \
-          python -c "from pymongo import MongoClient; import os; MongoClient(os.environ['CONN_STRING']).${DATABASE}.create_collection('${COLLECTION}')"
-          atlas deployments search indexes create --file indexVector.json --deploymentName ATLASCLI
 
-
-  "install local atlas":
-  # TODO: Make this subprocess.exec
-    - command: shell.exec
+  "setup atlas cli":
+    - command: subprocess.exec
+      type: setup
       params:
+        add_expansions_to_env: true
+        continue_on_err: true
         working_dir: "src"
-        script: |
-          set -ex
-          mkdir ${PROJECT_DIRECTORY}
-          cd ${PROJECT_DIRECTORY}
-          curl https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_1.13.0_macos_x86_64.zip -o mongodb-atlas-cli.zip
-          unzip mongodb-atlas-cli.zip -d atlas
-          alias atlas=${PROJECT_DIRECTORY}/atlas/bin/atlas
-
-  # TODO: Still needs more fixing
-  # Core steps
-  #   connect to the local database
-  #   create the database; create the collection
-  #   create the predefined index from the provided `.json` file
-  "provision local atlas":
-    - command: shell.exec
-      params:
-        working_dir: "src"
-        script: |
-          alias atlas=${PROJECT_DIRECTORY}/atlas/bin/atlas
-          set -ex
-          atlas deployments setup EGDB --type local --force
-          atlas deployments start EGDB
-          CONN_STRING=$(atlas deployments connect EGDB --connectWith connectionString) \
-          python -c "from pymongo import MongoClient; import os; MongoClient(os.environ['CONN_STRING']).${DATABASE}.create_collection('${COLLECTION}')"
-          atlas deployments search indexes create --file indexVector.json --deploymentName EGDB
+        binary: bash
+        env:
+          atlas: ${workdir}/src/atlas/bin/atlas
+        args:
+          - .evergreen/provision-atlas.sh
 
 pre:
   - func: "fetch source"
+  - func: "setup atlas cli"
 
 tasks:
   - name: test-semantic-kernel-python
@@ -130,68 +84,38 @@ tasks:
       - func: "fetch repo"
       - func: "execute tests"
 
-  - name: test-atlas-git
-    commands:
-      - func: "install atlascligit"
-
-  - name: test-atlas-OG
-    commands:
-      - func: "install local atlas"
-      - func: "provision local atlas"
-
-
 buildvariants:
-  - name: test-semantic-kernel-python-ubuntu
-    display_name: Semantic-Kernel Ubuntu Python
+  - name: test-semantic-kernel-python-rhel
+    display_name: Semantic-Kernel RHEL Python
     expansions:
       DIR: semantic-kernel-python
       REPO_NAME: semantic-kernel
       CLONE_URL: https://github.com/microsoft/semantic-kernel.git
+      DATABASE: pyMSKTest
     run_on:
-      - ubuntu2204-small
+      - rhel80-small
     tasks:
       - name: test-semantic-kernel-python
 
-  - name: test-semantic-kernel-csharp-ubuntu
-    display_name: Semantic-Kernel Ubuntu CSharp
+  - name: test-semantic-kernel-csharp-rhel
+    display_name: Semantic-Kernel RHEL CSharp
     expansions:
       DIR: semantic-kernel-csharp
       REPO_NAME: semantic-kernel
       CLONE_URL: https://github.com/microsoft/semantic-kernel.git
+      DATABASE: dotnetMSKNearestTest
     run_on:
-      - ubuntu2204-small
+      - rhel80-small
     tasks:
       - name: test-semantic-kernel-csharp
 
-  - name: test-langchain-python-ubuntu
-    display_name: Langchain Ubuntu Python
+  - name: test-langchain-python-rhel
+    display_name: Langchain RHEL Python
     expansions:
       DIR: langchain-python
       REPO_NAME: langchain
       CLONE_URL: https://github.com/langchain-ai/langchain.git
     run_on:
-      - ubuntu2204-small
+      - rhel80-small
     tasks:
       - name: test-langchain-python
-  
-  - name: test-installation-git-ubuntu
-    display_name: Atlas CLI Git test
-    expansions:
-      DATABASE: app
-      COLLECTION: local
-    run_on:
-      - ubuntu2204-small
-    tasks:
-      - name: test-atlas-git
-
-  - name: test-installation-OG-ubuntu
-    display_name: Atlas CLI Git test
-    expansions:
-      DATABASE: app
-      COLLECTION: local
-      PROJECT_DIRECTORY: atlas
-    run_on:
-      - ubuntu2204-small
-    tasks:
-      - name: test-atlas-OG
-      

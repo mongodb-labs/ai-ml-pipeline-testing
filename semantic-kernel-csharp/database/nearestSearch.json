@@ -1,0 +1,138 @@
+[
+    {
+        "_id": "test_0",
+        "metadata": {
+            "isReference": false,
+            "externalSourceName": "",
+            "_id": "test_0",
+            "description": "description_0",
+            "text": "text_0",
+            "additionalMetadata": ""
+        },
+        "embedding": [
+            1.0,
+            1.0,
+            0.0
+        ],
+        "timestamp": "2024-01-22 23:46:31.408000"
+    },
+    {
+        "_id": "test_1",
+        "metadata": {
+            "isReference": false,
+            "externalSourceName": "",
+            "_id": "test_1",
+            "description": "description_1",
+            "text": "text_1",
+            "additionalMetadata": ""
+        },
+        "embedding": [
+            1.0,
+            0.9238795042037964,
+            0.3826834261417389
+        ],
+        "timestamp": "2024-01-22 23:46:31.408000"
+    },
+    {
+        "_id": "test_2",
+        "metadata": {
+            "isReference": false,
+            "externalSourceName": "",
+            "_id": "test_2",
+            "description": "description_2",
+            "text": "text_2",
+            "additionalMetadata": ""
+        },
+        "embedding": [
+            1.0,
+            0.7071067690849304,
+            0.7071067690849304
+        ],
+        "timestamp": "2024-01-22 23:46:31.408000"
+    },
+    {
+        "_id": "test_3",
+        "metadata": {
+            "isReference": false,
+            "externalSourceName": "",
+            "_id": "test_3",
+            "description": "description_3",
+            "text": "text_3",
+            "additionalMetadata": ""
+        },
+        "embedding": [
+            1.0,
+            0.3826834261417389,
+            0.9238795042037964
+        ],
+        "timestamp": "2024-01-22 23:46:31.408000"
+    },
+    {
+        "_id": "test_4",
+        "metadata": {
+            "isReference": false,
+            "externalSourceName": "",
+            "_id": "test_4",
+            "description": "description_4",
+            "text": "text_4",
+            "additionalMetadata": ""
+        },
+        "embedding": [
+            1.0,
+            6.123234262925839e-17,
+            1.0
+        ],
+        "timestamp": "2024-01-22 23:46:31.408000"
+    },
+    {
+        "_id": "test_5",
+        "metadata": {
+            "isReference": false,
+            "externalSourceName": "",
+            "_id": "test_5",
+            "description": "description_5",
+            "text": "text_5",
+            "additionalMetadata": ""
+        },
+        "embedding": [
+            1.0,
+            -0.3826834261417389,
+            0.9238795042037964
+        ],
+        "timestamp": "2024-01-22 23:46:31.408000"
+    },
+    {
+        "_id": "test_6",
+        "metadata": {
+            "isReference": false,
+            "externalSourceName": "",
+            "_id": "test_6",
+            "description": "description_6",
+            "text": "text_6",
+            "additionalMetadata": ""
+        },
+        "embedding": [
+            1.0,
+            -0.7071067690849304,
+            0.7071067690849304
+        ],
+        "timestamp": "2024-01-22 23:46:31.408000"
+    },
+    {
+        "_id": "test_7",
+        "metadata": {
+            "isReference": false,
+            "externalSourceName": "",
+            "_id": "test_7",
+            "description": "description_7",
+            "text": "text_7",
+            "additionalMetadata": ""
+        },
+        "embedding": [
+            1.0,
+            -0.9238795042037964,
+            0.3826834261417389
+        ],
+        "timestamp": "2024-01-22 23:46:31.408000"
+    }
+]
