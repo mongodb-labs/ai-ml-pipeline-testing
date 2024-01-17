@@ -71,7 +71,8 @@ functions:
           set -ex
           git clone https://github.com/mongodb/mongodb-atlas-cli.git
           cd mongodb-atlas-cli
-          make install-atlascli
+          make build-atlascli
+          alias atlas=./bin
           atlas deployments setup ATLASCLI --type local --force
           atlas deployments start ATLASCLI
           CONN_STRING=$(atlas deployments connect ATLASCLI --connectWith connectionString) \
@@ -86,6 +87,7 @@ functions:
         working_dir: "src"
         script: |
           set -ex
+          mkdir ${PROJECT_DIRECTORY}
           cd ${PROJECT_DIRECTORY}
           curl https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_1.13.0_macos_x86_64.zip -o mongodb-atlas-cli.zip
           unzip mongodb-atlas-cli.zip -d atlas
