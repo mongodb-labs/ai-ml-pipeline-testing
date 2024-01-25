@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. utils.sh
+. .evergreen/utils.sh
 
 PYTHON_BINARY=$(find_python3)
 

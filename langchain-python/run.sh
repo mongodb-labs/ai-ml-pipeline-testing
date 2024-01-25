@@ -3,7 +3,7 @@
 # WORKING_DIR = src/langchain-python/langchain
 set -x
 
-. .evergreen/utils.sh
+. $workdir/src/.evergreen/utils.sh
 
 PYTHON_BINARY=$(find_python3)
 
