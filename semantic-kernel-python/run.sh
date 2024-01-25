@@ -2,7 +2,7 @@
 
 set -x
 
-. .evergreen/utils.sh
+. $workdir/src/.evergreen/utils.sh
 
 CONN_STRING=$($atlas deployments connect $DIR --connectWith connectionString)
 PYTHON_BINARY=$(find_python3)
