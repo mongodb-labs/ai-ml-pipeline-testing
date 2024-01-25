@@ -16,18 +16,18 @@ curl https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_1.14.0_linux_x86_64.t
 tar zxf atlas.tgz
 mv mongodb-atlas-cli_1.14.0* atlas
 
-# Install Podman based on OS
-set -Eeou pipefail
-if [ -n "$(which yum 2>/dev/null)" ]; then
-    sudo yum install -y podman
-elif [ -n "$(which apt-get 2>/dev/null)" ]; then
-    sudo apt-get update
-    sudo apt-get install -y podman
-elif [ -n "$(which zypper 2>/dev/null)" ]; then
-    sudo zypper install -y podman
-elif [ -n "$(which brew 2>/dev/null)" ]; then
-    sudo brew install podman
-fi
+# # Install Podman based on OS
+# set -Eeou pipefail
+# if [ -n "$(which yum 2>/dev/null)" ]; then
+#     sudo yum install -y podman
+# elif [ -n "$(which apt-get 2>/dev/null)" ]; then
+#     sudo apt-get update
+#     sudo apt-get install -y podman
+# elif [ -n "$(which zypper 2>/dev/null)" ]; then
+#     sudo zypper install -y podman
+# elif [ -n "$(which brew 2>/dev/null)" ]; then
+#     sudo brew install podman
+# fi
 
 # Create a local atlas deployment and store the connection string as an env var
 $atlas deployments setup $DIR --type local --force

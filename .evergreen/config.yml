@@ -93,7 +93,7 @@ buildvariants:
       CLONE_URL: https://github.com/microsoft/semantic-kernel.git
       DATABASE: pyMSKTest
     run_on:
-      - rhel80-small
+      - rhel90-small
     tasks:
       - name: test-semantic-kernel-python
 
@@ -105,7 +105,7 @@ buildvariants:
       CLONE_URL: https://github.com/microsoft/semantic-kernel.git
       DATABASE: dotnetMSKNearestTest
     run_on:
-      - rhel80-small
+      - rhel90-small
     tasks:
       - name: test-semantic-kernel-csharp
 
@@ -116,6 +116,6 @@ buildvariants:
       REPO_NAME: langchain
       CLONE_URL: https://github.com/langchain-ai/langchain.git
     run_on:
-      - rhel80-small
+      - rhel90-small
     tasks:
       - name: test-langchain-python

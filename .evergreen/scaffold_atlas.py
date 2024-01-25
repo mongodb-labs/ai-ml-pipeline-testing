@@ -19,6 +19,13 @@ DB_PATH = "database"
 
 
 def scaffold(database: MongoClient, filename: Path) -> None:
+    """Take the supplied file contents and upload the data collection
+
+    :param database: The database linking to the Mongo Atlas client
+    :type database: MongoClient
+    :param filename: Collection with json contents
+    :type filename: Path
+    """
     loaded_collection: Union[list[dict[str, Any]], dict[str, Any]]
     collection_name: str = filename.name.removesuffix(".json")
     with filename.open() as f:
@@ -32,6 +39,11 @@ def scaffold(database: MongoClient, filename: Path) -> None:
 
 
 def walk_collection_directory() -> list[str]:
+    """Return all *.json filenames in the database directory
+
+    :return: List of json filenames
+    :rtype: list[str]
+    """
     database_dir = Path(TARGET_DIR).joinpath(DB_PATH)
     return (
         [file for file in database_dir.iterdir() if file.suffix == ".json"]
