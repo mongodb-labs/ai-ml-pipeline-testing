@@ -2,12 +2,14 @@
 
 set -x
 
+. .evergree/utils.sh
+
 CONN_STRING=$($atlas deployments connect $DIR --connectWith connectionString)
+PYTHON_BINARY=$(find_python3)
 
 # WORKING_DIR = src/semantic-kernel-python/semantic-kernel
 cd python
 
-PYTHON_BINARY=/opt/python/3.10/bin/python3
 $PYTHON_BINARY -m venv .
 source ./bin/activate
 

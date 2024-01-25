@@ -1,6 +1,8 @@
 #!/bin/bash
 
-PYTHON_BINARY=/opt/python/3.10/bin/python3
+. utils.sh
+
+PYTHON_BINARY=$(find_python3)
 
 # Should be called from src
 EVERGREEN_PATH=$(pwd)/.evergreen

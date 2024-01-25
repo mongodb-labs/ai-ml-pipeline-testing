@@ -3,10 +3,12 @@
 # WORKING_DIR = src/langchain-python/langchain
 set -x
 
+. .evergreen/utils.sh
+
+PYTHON_BINARY=$(find_python3)
+
 cd libs/langchain
 
-
-PYTHON_BINARY=/opt/python/3.10/bin/python3
 $PYTHON_BINARY -m venv .
 source ./bin/activate
 
