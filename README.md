@@ -17,9 +17,9 @@ With the public release of `$vectorSearch`, we have needed to integrate into the
 Each AI/ML pipeline is sorted by the composite of the name of the library, and the driver language the library is implemented in. This comes out in the format `{pipeline}-{language}` --> `semantic-kernel-python`. All tests should be scoped within the bounds of these subdirectories.
 
 Within each subdirectory you should expect to have:
-- `run.sh`  --  This run script will handle any additional library installation, or steps to get the test suite running. Note, it does not need to include steps to scaffold the atlas database. 
+- `run.sh`  --  This run script will handle any additional library installation, or steps to get the test suite running. Note, it does not need to include steps to scaffold the atlas database.
 - `database/` -- Optional directory where the `.evergreen/scaffold_atlas.py` will read and use to population a mongo database with collection Information. Only provide this If your tests assume a pre-populated database
-- `database/{collection}.json` -- JSON file with the mongo documents that will be upload to `$DATABASE.{collection}` 
+- `database/{collection}.json` -- JSON file with the mongo documents that will be upload to `$DATABASE.{collection}`
 - `indexConfig.json` -- File with Atlas Search Index configuration.
 - Additionally, you can add useful environment files such as a `.env` file.
 
@@ -30,7 +30,7 @@ The general layout of this repo will looks like this:
 ├── LICENSE										# License Agreeement
 ├── README.md									# This Document
 ├── langchain-python							# Folder scoped for one Integration
-│   └── run.sh									# script that executes test					
+│   └── run.sh									# script that executes test
 ├── semantic-kernel-csharp						# Folder scoped for one Integration
 │   ├── database								# Optional database definition
 │   │   └── nearestSearch.json					# Populates $DATABASE.nearestSearch
@@ -48,8 +48,8 @@ CONN_STRING=$($atlas deployments connect $DIR --connectWith connectionString)
 Stores the local atlas mongodb uri within the CONN_STRING var. It can then place that as an `ENV_VAR` prior to running the test suite for the integrated library.
 
 #### Pre-populating the Local Atlas Deployment
-You can pre-populate the generated local atlas deployment before running the `run.sh` script by providing json files in the `database` directory of your created subdirectory. The `.evergreen/scaffold_atlas.py` file will search for every json file within this database directory and upload the documents to the database provided by the `DATABASE` expansion provided in your `config.yml` setup. The collection the script uploads to will be based on the name of your json file: 
-- `critical_search.json` with `DATABASE: app` will upload all of its contents to `app.critical_search` collection. 
+You can pre-populate the generated local atlas deployment before running the `run.sh` script by providing json files in the `database` directory of your created subdirectory. The `.evergreen/scaffold_atlas.py` file will search for every json file within this database directory and upload the documents to the database provided by the `DATABASE` expansion provided in your `config.yml` setup. The collection the script uploads to will be based on the name of your json file:
+- `critical_search.json` with `DATABASE: app` will upload all of its contents to `app.critical_search` collection.
 
 To create a search index, please provide the search index configuration in the `indexConfig.json` file. The evergreen script will create the search index on your behalf before the `run.sh` script is run so long as this file is found.
 

@@ -30,7 +30,7 @@ $PYTHON_BINARY -m venv .
 # Test server is up
 $PYTHON_BINARY -m pip install pymongo
 CONN_STRING=$CONN_STRING \
-    $PYTHON_BINARY -c "from pymongo import MongoClient; MongoClient(os.environ['CONN_STRING']).db.command('ping')"
+    $PYTHON_BINARY -c "from pymongo import MongoClient; import os; MongoClient(os.environ['CONN_STRING']).db.command('ping')"
 
 # Add database configuration
 DATABASE=$DATABASE \
