@@ -6,9 +6,12 @@ import os
 from pathlib import Path
 from typing import Any, Union
 
-from pymongo import MongoClient
+from pymongo import MongoClient, database
+from pymongo.results import InsertManyResult
 
-logger: logging.Logger
+logging.basicConfig()
+logger = logging.getLogger(__file__)
+logger.setLevel(logging.DEBUG if os.environ.get("DEBUG") else logging.INFO)
 
 DATABASE_NAME = os.environ.get("DATABASE")
 CONN_STRING = os.environ.get("CONN_STRING")
@@ -18,7 +21,7 @@ TARGET_DIR = os.environ.get("TARGET_DIR")
 DB_PATH = "database"
 
 
-def scaffold(database: MongoClient, filename: Path) -> None:
+def scaffold(database: database, filename: Path) -> None:
     """Take the supplied file contents and upload the data collection
 
     :param database: The database linking to the Mongo Atlas client
@@ -32,10 +35,10 @@ def scaffold(database: MongoClient, filename: Path) -> None:
         loaded_collection = json.load(f)
 
     logger.info("Loading %s to atlas deployment", filename.name)
-    if isinstance(loaded_collection, list):
-        database[collection_name].insert_many(loaded_collection)
-    else:
-        database[collection_name].insert(loaded_collection)
+    if not isinstance(loaded_collection, list):
+        loaded_collection = [loaded_collection]
+    result: InsertManyResult = database[collection_name].insert_many(loaded_collection)
+    logger.debug("Uploaded results for %s: %s", filename.name, result.inserted_ids)
 
 
 def walk_collection_directory() -> list[str]:
@@ -55,13 +58,14 @@ def walk_collection_directory() -> list[str]:
 def main() -> None:
     database = MongoClient(CONN_STRING)[DATABASE_NAME]
     collection_jsons = walk_collection_directory()
+    logger.debug("%s files found: %s", len(collection_jsons), collection_jsons)
     if not collection_jsons:
-        return logger.warning("No collection defined for %s", TARGET_DIR)
+        return logger.warning(
+            "No collections found in %s check if database folder exists", TARGET_DIR
+        )
     for collection_json in collection_jsons:
         scaffold(database, collection_json)
 
 
 if __name__ == "__main__":
-    logger = logging.getLogger(__file__)
-    logger.setLevel(logging.INFO)
     main()
