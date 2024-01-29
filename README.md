@@ -63,7 +63,7 @@ The governing flow for how tests are executed stem from the `.evergreen/config.y
 
 -   `name` -- This should be in the format test-{pipeline}-{language}-{os}
 -   `display_name` -- This can be named however you see fit. Ensure it is easy to understand. See `.evergreen/config.yml` for examples
--   [`expansions`](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Configuration-Files/#expansions) -- These are how we store buildvariant specific variables. Additionally, for expansions that need to be maintained as secrets, please update those in t[he evergreen project settings](https://spruce.mongodb.com/project/ai-ml-pipeline-testing/settings/variables) using [variables](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-and-Distro-Settings#variables). Some common expansions needed are:
+-   [`expansions`](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Configuration-Files/#expansions) -- These are how we store buildvariant specific variables. Additionally, for expansions that need to be maintained as secrets, please update those in [the evergreen project settings](https://spruce.mongodb.com/project/ai-ml-pipeline-testing/settings/variables) using [variables](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-and-Distro-Settings#variables). Some common expansions needed are:
     -   `DIR` -- The subdirectory where the tasks will run
     -   `REPO_NAME` -- The name of the repository that will get cloned
     -   `CLONE_URL` -- The github url to clone into the specified DIR
