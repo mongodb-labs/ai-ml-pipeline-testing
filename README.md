@@ -18,7 +18,7 @@ Each AI/ML pipeline is sorted by the composite of the name of the library, and t
 
 Within each subdirectory you should expect to have:
 - `run.sh`  --  This run script will handle any additional library installation, or steps to get the test suite running. Note, it does not need to include steps to scaffold the atlas database.
-- `database/` -- Optional directory where the `.evergreen/scaffold_atlas.py` will read and use to population a mongo database with collection Information. Only provide this If your tests assume a pre-populated database
+- `database/` -- Optional directory where the `.evergreen/scaffold_atlas.py` will read and use to population a mongo database with collection information. Only provide this if your tests assume a pre-populated database
 - `database/{collection}.json` -- JSON file with the mongo documents that will be upload to `$DATABASE.{collection}`
 - `indexConfig.json` -- File with Atlas Search Index configuration.
 - Additionally, you can add useful environment files such as a `.env` file.
