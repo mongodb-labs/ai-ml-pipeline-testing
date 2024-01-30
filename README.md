@@ -37,7 +37,12 @@ The general layout of this repo will looks like this:
 │   │   └── furthestSearch.json					# Populates $DATABASE.furthestSearch
 │   ├── indexConfig.json						# Creates Search Index on $DATABASE
 │   └── run.sh									# script that executes test
-```
+├── semantic-kernel-python						# Folder scoped for one Integration
+│   ├── database								# Optional database definition
+│   │   └── nearestSearch.json					# Populates $DATABASE.nearestSearch
+│   │   └── furthestSearch.json					# Populates $DATABASE.furthestSearch
+│   ├── indexConfig.json						# Creates Search Index on $DATABASE
+│   └── run.sh									# script that executes test
 
 ### Configuring a Atlas CLI for testing
 Each test subdirectory will automatically have its own local Atlas deployment. As a result, database and collection names will not conflict between different AI/ML integrations. To connect to your local Atlas using a connection string, call `$atlas` from the `run.sh` script within your subdirectory. This exposes the Atlas CLI binary. For example:
