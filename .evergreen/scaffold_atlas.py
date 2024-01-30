@@ -21,13 +21,11 @@ TARGET_DIR = os.environ.get("TARGET_DIR")
 DB_PATH = "database"
 
 
-def scaffold(database: database, filename: Path) -> None:
+def upload_data(client: database, filename: Path) -> None:
     """Take the supplied file contents and upload the data collection
 
     :param database: The database linking to the Mongo Atlas client
-    :type database: MongoClient
     :param filename: Collection with json contents
-    :type filename: Path
     """
     loaded_collection: Union[list[dict[str, Any]], dict[str, Any]]
     collection_name: str = filename.name.removesuffix(".json")
@@ -37,16 +35,12 @@ def scaffold(database: database, filename: Path) -> None:
     logger.info("Loading %s to atlas deployment", filename.name)
     if not isinstance(loaded_collection, list):
         loaded_collection = [loaded_collection]
-    result: InsertManyResult = database[collection_name].insert_many(loaded_collection)
+    result: InsertManyResult = client[collection_name].insert_many(loaded_collection)
     logger.debug("Uploaded results for %s: %s", filename.name, result.inserted_ids)
 
 
 def walk_collection_directory() -> list[str]:
-    """Return all *.json filenames in the database directory
-
-    :return: List of json filenames
-    :rtype: list[str]
-    """
+    """Return all *.json filenames in the database directory"""
     database_dir = Path(TARGET_DIR).joinpath(DB_PATH)
     return (
         [file for file in database_dir.iterdir() if file.suffix == ".json"]
@@ -64,7 +58,7 @@ def main() -> None:
             "No collections found in %s check if database folder exists", TARGET_DIR
         )
     for collection_json in collection_jsons:
-        scaffold(database, collection_json)
+        upload_data(database, collection_json)
 
 
 if __name__ == "__main__":
