@@ -24,7 +24,7 @@ OPENAI_ORG_ID="" \
 AZURE_OPENAI_DEPLOYMENT_NAME="" \
 AZURE_OPENAI_ENDPOINT="" \
 AZURE_OPENAI_API_KEY="" \
-MONGODB_ATLAS_CONNECTION_STRING=$($atlas deployments connect $DIR --connectWith connectionString) \
+MONGODB_ATLAS_CONNECTION_STRING=$CONN_STRING \
 Python_Integration_Tests=1 \
 poetry run pytest tests/integration/connectors/memory/test_mongodb_atlas.py -k test_collection_knn
 

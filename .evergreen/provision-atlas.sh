@@ -26,6 +26,7 @@ CONN_STRING=$($atlas deployments connect $DIR --connectWith connectionString)
 cd atlas
 
 $PYTHON_BINARY -m venv .
+source ./bin/activate
 
 # Test server is up
 $PYTHON_BINARY -m pip install pymongo
@@ -40,7 +41,7 @@ DATABASE=$DATABASE \
     TARGET_DIR=$TARGET_DIR \
     $PYTHON_BINARY $SCAFFOLD_SCRIPT
 
-# If an search index configuration can be found, set it
+# If a search index configuration can be found, create the index
 if [ -f "$TARGET_DIR/indexConfig.json" ]; then
     $atlas deployments search indexes create --file $TARGET_DIR/indexConfig.json --deploymentName $DIR
 fi
