@@ -69,7 +69,7 @@ Test execution flow is defined in `.evergreen/config.yml`. The test pipeline's c
     -   `CLONE_URL` -- The Github URL to clone into the specified `DIR`
     -   `DATABASE` -- The optional database where the Atlas CLI will load your index configs 
 
--   `run_on` -- Specified platform to run on. `rhel87-small` is a fine default. Any other distro may fail atlas cli setup.
+-   `run_on` -- Specified platform to run on. `rhel87-small` should be used by default. Any other distro may fail Atlas CLI setup.
 -   `tasks` -- Tasks to run. See below for more details
 -   `cron` -- The tests are run via a cron job on a nightly cadence. This can be modified by setting a different cadence. Cron jobs can be scheduled using [cron syntax](https://crontab.guru/#0_0_*_*_*)
 
