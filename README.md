@@ -10,7 +10,7 @@ With the public release of `$vectorSearch`, we have needed to integrate into the
 ([LangChain](https://github.com/langchain-ai/langchainjs), [LlamaIndex](https://github.com/run-llama/llama_index), [Semantic Kernel](https://github.com/microsoft/semantic-kernel)... etc) This repository runs continuous testing against each of these repos.
 
 ## How to add a test
-> **NOTE** All tests run against this repo are now required to work against a local atlas deployment. See details below to ensure proper set-up
+> **NOTE** All tests run against this repo are now required to work against a local Atlas deployment. See details below to ensure proper setup.
 
 ### Test Layout
 
