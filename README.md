@@ -30,19 +30,19 @@ The general layout of this repo will looks like this:
 ├── LICENSE                                     # License Agreeement
 ├── README.md                                   # This Document
 ├── langchain-python                            # Folder scoped for one Integration
-│   └── run.sh                                  # script that executes test
+│   └── run.sh                                  # Script that executes test
 ├── semantic-kernel-csharp                      # Folder scoped for one Integration
 │   ├── database                                # Optional database definition
 │   │   └── nearestSearch.json                  # Populates $DATABASE.nearestSearch
 │   │   └── furthestSearch.json                 # Populates $DATABASE.furthestSearch
 │   ├── indexConfig.json                        # Creates Search Index on $DATABASE
-│   └── run.sh                                  # script that executes test
+│   └── run.sh                                  # Script that executes test
 ├── semantic-kernel-python                      # Folder scoped for one Integration
 │   ├── database                                # Optional database definition
 │   │   └── nearestSearch.json                  # Populates $DATABASE.nearestSearch
 │   │   └── furthestSearch.json                 # Populates $DATABASE.furthestSearch
 │   ├── indexConfig.json                        # Creates Search Index on $DATABASE
-│   └── run.sh                                  # script that executes test
+│   └── run.sh                                  # Script that executes test
 ```
 
 ### Configuring a Atlas CLI for testing
@@ -51,13 +51,13 @@ Each test subdirectory will automatically have its own local Atlas deployment. A
 ```bash
 CONN_STRING=$($atlas deployments connect $DIR --connectWith connectionString)
 ```
-Stores the local Atlas URI within the `CONN_STRING` var. It can then pass `CONN_STRING` as an environment variable to the test suite.
+Stores the local Atlas URI within the `CONN_STRING` var. The script can then pass `CONN_STRING` as an environment variable to the test suite.
 
 #### Pre-populating the Local Atlas Deployment
-You can pre-populate a test's local Atlas deployment before running the `run.sh` script by providing JSON files in the optional `database` directory of the created subdirectory. The `.evergreen/scaffold_atlas.py` file will search for every JSON file within this database directory and upload the documents to the database provided by the `DATABASE` expansion provided in the buildvariant of the `.evergreen/config.yml` setup. The collection the script uploads to is based on the name of your JSON file:
+You can pre-populate a test's local Atlas deployment before running the `run.sh` script by providing JSON files in the optional `database` directory of the created subdirectory. The `.evergreen/scaffold_atlas.py` file will search for every JSON file within this database directory and upload the documents to the database provided by the `DATABASE` expansion provided in the build variant of the `.evergreen/config.yml` setup. The collection the script uploads to is based on the name of your JSON file:
 - `critical_search.json` with `DATABASE: app` will upload all of its contents to `app.critical_search` collection.
 
-To create a search index, provide the search index configuration in the `indexConfig.json` file. The evergreen script will then create the search index before the `run.sh` script is executed. Adding multiple search indexes in the setup stage is not supported, but more indexes can be included in the `run.sh` by using the referenced `$atlas` binary.
+To create a search index, provide the search index configuration in the `indexConfig.json` file. The evergreen script will then create the search index before the `run.sh` script is executed. Adding multiple search indexes in the setup stage is not supported, but more indexes can be included in the `run.sh` by using the referenced `$atlas` binary. See the ["Create an Atlas Search Index and Run a Query"](https://www.mongodb.com/docs/atlas/cli/stable/atlas-cli-deploy-fts/#create-an-atlas-search-index-and-run-a-query) documentation instructions on how to create a search index using Atlas CLI.
 
 If you need more customized behavior when populating your database or configuring your local Atlas deployment, include that behavior in your `run.sh` script. The path to the `$atlas` binary is provided to that script. You can view more ways to configure local Atlas by visiting the [Atlas CLI local deployments documentation](https://www.mongodb.com/docs/atlas/cli/stable/atlas-cli-local-cloud/).
 
@@ -65,7 +65,7 @@ If you need more customized behavior when populating your database or configurin
 
 Test execution flow is defined in `.evergreen/config.yml`. The test pipeline's config is structured as follows:
 
-**[Buildvariants](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Configuration-Files#build-variants)** -- This is the highest granularity we will use to define how and when a test pipeline will run. A build variant defined should only ever be scoped to service one test pipeline. There can be multiple tasks run within the specified build variant, but they should all only scope themselves to a singular test pipeline in order to maintain an ease of traceability for testing.
+**[Build variants](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Configuration-Files#build-variants)** -- This is the highest granularity we will use to define how and when a test pipeline will run. A build variant defined should only ever be scoped to service one test pipeline. There can be multiple tasks run within the specified build variant, but they should all only scope themselves to a singular test pipeline in order to maintain an ease of traceability for testing.
 
 -   `name` -- This should be in the format `test-{pipeline}-{language}-{os}`
 -   `display_name` -- This can be named however you see fit. Ensure it is easy to understand. See `.evergreen/config.yml` for examples
@@ -84,7 +84,7 @@ Test execution flow is defined in `.evergreen/config.yml`. The test pipeline's c
 -   `name` -- This should be in the format `test-{pipeline}-{language}`
 -   `commands` -- See below.
 
-**[Functions](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Configuration-Files#functions)** -- We've defined some common functions that will be used. See the `.evergreen/config.yml` for example cases. The standard procedure is to fetch the repository, provision atlas however needed, and then execute the tests specified in the `run.sh` script you create. Ensure that the expansions are provided for these functions, otherwise the tests will run improperly and most likely fail.
+**[Functions](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Configuration-Files#functions)** -- We've defined some common functions that will be used. See the `.evergreen/config.yml` for example cases. The standard procedure is to fetch the repository, provision Atlas as needed, and then execute the tests specified in the `run.sh` script you create. Ensure that the expansions are provided for these functions, otherwise the tests will run improperly and most likely fail.
 
 -   [`fetch repo`](https://github.com/mongodb-labs/ai-ml-pipeline-testing/blob/main/.evergreen/config.yml#L30) -- Clones the library's git repository; make sure to provide the expansion CLONE_URL
 -   [`execute tests`](https://github.com/mongodb-labs/ai-ml-pipeline-testing/blob/main/.evergreen/config.yml#L51) -- Uses [subprocess.exec](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Commands#subprocessexec) to run the provided `run.sh` file. `run.sh` must be within the specified `DIR` path.

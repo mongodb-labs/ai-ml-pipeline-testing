@@ -22,7 +22,7 @@ DB_PATH = "database"
 
 
 def upload_data(client: database, filename: Path) -> None:
-    """Take the supplied file contents and upload the data collection
+    """Upload the contents of the provided file to an Atlas database.
 
     :param database: The database linking to the Mongo Atlas client
     :param filename: Collection with json contents
@@ -40,7 +40,7 @@ def upload_data(client: database, filename: Path) -> None:
 
 
 def walk_collection_directory() -> list[str]:
-    """Return all *.json filenames in the database directory"""
+    """Return all *.json filenames in the DB_PATH directory"""
     database_dir = Path(TARGET_DIR).joinpath(DB_PATH)
     return (
         [file for file in database_dir.iterdir() if file.suffix == ".json"]
