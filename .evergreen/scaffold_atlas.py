@@ -21,10 +21,10 @@ TARGET_DIR = os.environ.get("TARGET_DIR")
 DB_PATH = "database"
 
 
-def upload_data(client: database, filename: Path) -> None:
+def upload_data(db: database, filename: Path) -> None:
     """Upload the contents of the provided file to an Atlas database.
 
-    :param database: The database linking to the Mongo Atlas client
+    :param db: The database linking to the Mongo Atlas client
     :param filename: Collection with json contents
     """
     loaded_collection: Union[list[dict[str, Any]], dict[str, Any]]
@@ -35,7 +35,7 @@ def upload_data(client: database, filename: Path) -> None:
     logger.info("Loading %s to atlas deployment", filename.name)
     if not isinstance(loaded_collection, list):
         loaded_collection = [loaded_collection]
-    result: InsertManyResult = client[collection_name].insert_many(loaded_collection)
+    result: InsertManyResult = db[collection_name].insert_many(loaded_collection)
     logger.debug("Uploaded results for %s: %s", filename.name, result.inserted_ids)
 
 

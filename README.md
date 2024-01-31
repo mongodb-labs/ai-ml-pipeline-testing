@@ -16,14 +16,14 @@ With the public release of `$vectorSearch`, we have needed to integrate into the
 
 Each AI/ML pipeline is sorted by the composite of the name of the library, and the driver language the library is implemented in. This comes out in the format `{pipeline}-{language}` --> `semantic-kernel-python`. All tests should be scoped within the bounds of these subdirectories.
 
+Each subdirectory is scoped to run only one AI/ML Integration's suite of tests for one language within that cloned repository. For example, if an AI/ML Integration has both a Python and C# implementation of Atlas Vector Search, two subdirectories need to be made: one for Python, titled `{repo}-python`, and one for C#, titled `{repo}-csharp`. See `semantic-kernel-*` subdirectories in the layout example below.
+
 Within each subdirectory you should expect to have:
 - `run.sh`  --  A script that should handle any additional library installations and steps for executing the test suite. This script should not populate the Atlas database with any required test data.
 - `database/` -- An optional directory used by `.evergreen/scaffold_atlas.py` to populate a MongoDB database with test data. Only provide this if your tests require pre-populated data.
 - `database/{collection}.json` -- An optional JSON file containing one or more MongoDB documents that will be uploaded to `$DATABASE.{collection}` in the local Atlas instance. Only provide this if your tests require pre-populated data.
 - `indexConfig.json` -- An optional file containing configuration for a specified Atlas Search Index.
 - Additionally, you can add other useful files, including `.env` files, if required by your tests.
-
-Each subdirectory holds the space for one repository, and within each subdirectory is where evergreen will clone the specified third-party library.
 
 The general layout of this repo will looks like this:
 ```bash
