@@ -16,7 +16,7 @@ With the public release of `$vectorSearch`, we have needed to integrate into the
 
 Each AI/ML pipeline is sorted by the composite of the name of the library, and the driver language the library is implemented in. This comes out in the format `{pipeline}-{language}` --> `semantic-kernel-python`. All tests should be scoped within the bounds of these subdirectories.
 
-Each subdirectory is scoped to run only one AI/ML Integration's suite of tests for one language within that cloned repository. For example, if an AI/ML Integration has both a Python and C# implementation of Atlas Vector Search, two subdirectories need to be made: one for Python, titled `{repo}-python`, and one for C#, titled `{repo}-csharp`. See `semantic-kernel-*` subdirectories in the layout example below.
+Each subdirectory is scoped to run only one AI/ML integration's suite of tests for one language within that cloned repository. For example, if an AI/ML integration has both a Python and C# implementation of Atlas Vector Search, two subdirectories need to be made: one for Python, titled `{repo}-python`, and one for C#, titled `{repo}-csharp`. See `semantic-kernel-*` subdirectories in the layout example below.
 
 Within each subdirectory you should expect to have:
 - `run.sh`  --  A script that should handle any additional library installations and steps for executing the test suite. This script should not populate the Atlas database with any required test data.
@@ -65,7 +65,7 @@ If you need more customized behavior when populating your database or configurin
 
 Test execution flow is defined in `.evergreen/config.yml`. The test pipeline's config is structured as follows:
 
-**[Build variants](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Configuration-Files#build-variants)** -- This is the highest granularity we will use to define how and when a test pipeline will run. A build variant defined should only ever be scoped to service one test pipeline. There can be multiple tasks run within the specified build variant, but they should all only scope themselves to a singular test pipeline in order to maintain an ease of traceability for testing.
+**[Build variants](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Configuration-Files#build-variants)** -- This is the highest granularity we will use to define how and when a test pipeline will run. A build variant should only ever be scoped to service one test pipeline. There can be multiple tasks run within a build variant, but they should all only scope themselves to a singular test pipeline in order to maintain an ease of traceability for testing.
 
 -   `name` -- This should be in the format `test-{pipeline}-{language}-{os}`
 -   `display_name` -- This can be named however you see fit. Ensure it is easy to understand. See `.evergreen/config.yml` for examples
