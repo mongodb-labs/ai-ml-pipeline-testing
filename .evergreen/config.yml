@@ -44,14 +44,29 @@ functions:
       type: test
       params:
         add_expansions_to_env: true
-        add_to_path: ["/home/ubuntu/.local/bin"]
         working_dir: "src/${DIR}/${REPO_NAME}"
         binary: bash
+        env:
+          atlas: ${workdir}/src/atlas/bin/atlas
         args:
           - ../run.sh
 
+  "setup atlas cli":
+    - command: subprocess.exec
+      type: setup
+      params:
+        add_expansions_to_env: true
+        continue_on_err: true
+        working_dir: "src"
+        binary: bash
+        env:
+          atlas: ${workdir}/src/atlas/bin/atlas
+        args:
+          - .evergreen/provision-atlas.sh
+
 pre:
   - func: "fetch source"
+  - func: "setup atlas cli"
 
 tasks:
   - name: test-semantic-kernel-python
@@ -70,35 +85,37 @@ tasks:
       - func: "execute tests"
 
 buildvariants:
-  - name: test-semantic-kernel-python-ubuntu
-    display_name: Semantic-Kernel Ubuntu Python
+  - name: test-semantic-kernel-python-rhel
+    display_name: Semantic-Kernel RHEL Python
     expansions:
       DIR: semantic-kernel-python
       REPO_NAME: semantic-kernel
       CLONE_URL: https://github.com/microsoft/semantic-kernel.git
+      DATABASE: pyMSKTest
     run_on:
-      - ubuntu2204-small
+      - rhel87-small
     tasks:
       - name: test-semantic-kernel-python
 
-  - name: test-semantic-kernel-csharp-ubuntu
-    display_name: Semantic-Kernel Ubuntu CSharp
+  - name: test-semantic-kernel-csharp-rhel
+    display_name: Semantic-Kernel RHEL CSharp
     expansions:
       DIR: semantic-kernel-csharp
       REPO_NAME: semantic-kernel
       CLONE_URL: https://github.com/microsoft/semantic-kernel.git
+      DATABASE: dotnetMSKNearestTest
     run_on:
-      - ubuntu2204-small
+      - rhel87-small
     tasks:
       - name: test-semantic-kernel-csharp
 
-  - name: test-langchain-python-ubuntu
-    display_name: Langchain Ubuntu Python
+  - name: test-langchain-python-rhel
+    display_name: Langchain RHEL Python
     expansions:
       DIR: langchain-python
       REPO_NAME: langchain
       CLONE_URL: https://github.com/langchain-ai/langchain.git
     run_on:
-      - ubuntu2204-small
+      - rhel87-small
     tasks:
       - name: test-langchain-python
