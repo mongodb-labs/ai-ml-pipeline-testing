@@ -6,7 +6,8 @@ import os
 from pathlib import Path
 from typing import Any, Union
 
-from pymongo import MongoClient, database
+from pymongo import MongoClient
+from pymongo.database import Database
 from pymongo.results import InsertManyResult
 
 logging.basicConfig()
@@ -21,7 +22,7 @@ TARGET_DIR = os.environ.get("TARGET_DIR")
 DB_PATH = "database"
 
 
-def upload_data(db: database, filename: Path) -> None:
+def upload_data(db: Database, filename: Path) -> None:
     """Upload the contents of the provided file to an Atlas database.
 
     :param db: The database linking to the Mongo Atlas client
@@ -32,7 +33,12 @@ def upload_data(db: database, filename: Path) -> None:
     with filename.open() as f:
         loaded_collection = json.load(f)
 
-    logger.info("Loading %s to atlas deployment", filename.name)
+    logger.info(
+        "Loading %s to Atlas database %s in colleciton %s",
+        filename.name,
+        db.name,
+        collection_name,
+    )
     if not isinstance(loaded_collection, list):
         loaded_collection = [loaded_collection]
     result: InsertManyResult = db[collection_name].insert_many(loaded_collection)
