@@ -115,6 +115,7 @@ buildvariants:
       DIR: langchain-python
       REPO_NAME: langchain
       CLONE_URL: https://github.com/langchain-ai/langchain.git
+      DATABASE: langchain_test_db
     run_on:
       - rhel87-small
     tasks:
