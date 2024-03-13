@@ -84,6 +84,11 @@ tasks:
       - func: "fetch repo"
       - func: "execute tests"
 
+  - name: test-chatgpt-retrieval-plugin
+    commands:
+      - func: "fetch repo"
+      - func: "execute tests"
+
 buildvariants:
   - name: test-semantic-kernel-python-rhel
     display_name: Semantic-Kernel RHEL Python
@@ -119,3 +124,14 @@ buildvariants:
       - rhel87-small
     tasks:
       - name: test-langchain-python
+
+  - name: test-chatgpt-retrieval-plugin-rhel
+    display_name: ChatGPT Retrieval Plugin
+    expansions:
+      DIR: chatgpt-retrieval-plugin
+      REPO_NAME: chatgpt-retrieval-plugin
+      CLONE_URL: https://github.com/caseyclements/chatgpt-retrieval-plugin.git
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-chatgpt-retrieval-plugin
