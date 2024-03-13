@@ -19,6 +19,6 @@ $PYTHON_BINARY -m poetry env use $PYTHON_BINARY
 source $($PYTHON_BINARY -m poetry env info --path)/bin/activate
 # python3 is now that of the project-specific env
 # Install requirements, including those for dev/test
-poetry install --with dev
+$PYTHON_BINARY -m poetry install --with dev
 # Run Tests
-poetry run pytest tests/datastore/providers/mongodb_atlas/
+$PYTHON_BINARY -m poetry run pytest tests/datastore/providers/mongodb_atlas/
