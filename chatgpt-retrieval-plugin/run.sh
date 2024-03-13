@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# In this usage of poetry, we install into a venv.
+# Poetry recognizes that it is in a virtual environment so it's happy
+
 set -x
 
 . $workdir/src/.evergreen/utils.sh
@@ -7,13 +10,15 @@ set -x
 PYTHON_BINARY=$(find_python3) # in utils.sh
 $PYTHON_BINARY -c "import sys; print(f'Python version found: {sys.version_info}')"
 
-# Install Poetry into base python
-$PYTHON_BINARY -m pip install poetry
-# Create a package specific poetry environment
-$PYTHON_BINARY -m poetry env use python3.10
-# Activate the poetry env
-source $($PYTHON_BINARY -m poetry env info --path)/bin/activate
+# Create and activate venv
+$PYTHON_BINARY -m venv venv
+source venv/bin/activate
+
+# Install Poetry into venv.
 # python3 is now that of the project-specific env
+which python3
+python3 -m pip install poetry
+
 # Install requirements, including those for dev/test
 python3 -m poetry install --with dev
 # Run Tests
