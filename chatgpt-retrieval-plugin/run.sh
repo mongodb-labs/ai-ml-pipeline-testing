@@ -4,7 +4,7 @@ echo ">>>>>>>>>> run.sh <<<<<<<<<<<<<<<"
 
 # In this usage of poetry, we create a poetry env explicitly using python binary.
 
-set -x
+#set -x
 
 . $workdir/src/.evergreen/utils.sh
 
@@ -33,4 +33,4 @@ MONGODB_COLLECTION="chatgpt_retrieval_plugin_test_vectorstore" \
 MONGODB_INDEX="vector_index" \
 EMBEDDING_MODEL="text-embedding-3-small" \
 EMBEDDING_DIMENSION="1536" \
-$PYTHON_BINARY -m poetry run pytest tests/datastore/providers/mongodb_atlas/
+$PYTHON_BINARY -m poetry run pytest -v tests/datastore/providers/mongodb_atlas/
