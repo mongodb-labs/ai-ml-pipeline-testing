@@ -130,7 +130,7 @@ buildvariants:
     expansions:
       DIR: chatgpt-retrieval-plugin
       REPO_NAME: chatgpt-retrieval-plugin
-      CLONE_URL: --b PYTHON-4251 --single-branch https://github.com/caseyclements/chatgpt-retrieval-plugin.git
+      CLONE_URL: -b PYTHON-4251 --single-branch https://github.com/caseyclements/chatgpt-retrieval-plugin.git
       DATABASE: chatgpt_retrieval_plugin_test_db
     run_on:
       - rhel87-small
