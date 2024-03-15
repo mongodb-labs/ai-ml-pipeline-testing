@@ -12,7 +12,7 @@ PYTHON_BINARY=$(find_python3) # in utils.sh
 $PYTHON_BINARY -c "import sys; print(f'Python version found: {sys.version_info}')"
 
 # Install Poetry into base python
-$PYTHON_BINARY -m pip install poetry
+$PYTHON_BINARY -m pip install -U pip poetry
 # Create a package specific poetry environment
 $PYTHON_BINARY -m poetry env use $PYTHON_BINARY
 # Activate the poetry env
