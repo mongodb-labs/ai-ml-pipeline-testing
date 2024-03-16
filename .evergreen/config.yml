@@ -38,6 +38,11 @@ functions:
           fi
           cd ${DIR}
           git clone ${CLONE_URL}
+          if [ -d "patches" ]; then
+            cd ${REPO_NAME}
+            echo "Applying patches."
+            git apply  ../patches/*
+          fi
 
   "execute tests":
     - command: subprocess.exec
@@ -130,7 +135,7 @@ buildvariants:
     expansions:
       DIR: chatgpt-retrieval-plugin
       REPO_NAME: chatgpt-retrieval-plugin
-      CLONE_URL: -b PYTHON-4251 --single-branch https://github.com/caseyclements/chatgpt-retrieval-plugin.git
+      CLONE_URL: -b feature/mongodb-datastore --single-branch https://github.com/caseyclements/chatgpt-retrieval-plugin.git
       DATABASE: chatgpt_retrieval_plugin_test_db
     run_on:
       - rhel87-small

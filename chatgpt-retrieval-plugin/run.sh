@@ -1,29 +1,26 @@
 #!/bin/sh
 
-echo ">>>>>>>>>> run.sh <<<<<<<<<<<<<<<"
+# chat-gpt-retrieval-plugin is a poetry run project
 
-# In this usage of poetry, we create a poetry env explicitly using python binary.
-
-#set -x
+set -x
 
 . $workdir/src/.evergreen/utils.sh
 
-PYTHON_BINARY=$(find_python3) # in utils.sh
+PYTHON_BINARY=$(find_python3)
 $PYTHON_BINARY -c "import sys; print(f'Python version found: {sys.version_info}')"
 
 # Install Poetry into base python
 $PYTHON_BINARY -m pip install -U pip poetry
 # Create a package specific poetry environment
 $PYTHON_BINARY -m poetry env use $PYTHON_BINARY
-# Activate the poetry env
+# Activate the poetry env, which itself does not include poetry
 source $($PYTHON_BINARY -m poetry env info --path)/bin/activate
-# python3 is now that of the project-specific env
-# Install requirements, including those for dev/test
-$PYTHON_BINARY -m poetry lock
+# Recreate the poetry lock file
+#$PYTHON_BINARY -m poetry lock
+# Install from pyproject.toml into package specific environment
 $PYTHON_BINARY -m poetry install --with dev
 
-
-# Run tests, setting sensitive variables in Evergreen
+# Run tests. Sensitive variables in Evergreen come from Evergeen project: ai-ml-pipeline-testing/
 OPENAI_API_KEY=$openai_api_key \
 DATASTORE="mongodb" \
 BEARER_TOKEN="staylowandkeepmoving" \
