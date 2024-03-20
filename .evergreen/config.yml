@@ -7,7 +7,7 @@
 # Actual testing tasks are marked with `type: test`
 command_type: system
 
-# Protect ourself against rogue test case, or curl gone wild, that runs forever
+# Protect yourself against rogue test case, or curl gone wild, that runs forever
 # Good rule of thumb: the averageish length a task takes, times 5
 # That roughly accounts for variable system performance for various buildvariants
 exec_timeout_secs:
@@ -38,6 +38,11 @@ functions:
           fi
           cd ${DIR}
           git clone ${CLONE_URL}
+          if [ -d "patches" ]; then
+            cd ${REPO_NAME}
+            echo "Applying patches."
+            git apply  ../patches/*
+          fi
 
   "execute tests":
     - command: subprocess.exec
@@ -84,6 +89,11 @@ tasks:
       - func: "fetch repo"
       - func: "execute tests"
 
+  - name: test-chatgpt-retrieval-plugin
+    commands:
+      - func: "fetch repo"
+      - func: "execute tests"
+
 buildvariants:
   - name: test-semantic-kernel-python-rhel
     display_name: Semantic-Kernel RHEL Python
@@ -119,3 +129,16 @@ buildvariants:
       - rhel87-small
     tasks:
       - name: test-langchain-python
+
+  - name: test-chatgpt-retrieval-plugin-rhel
+    display_name: ChatGPT Retrieval Plugin
+    expansions:
+      DIR: chatgpt-retrieval-plugin
+      REPO_NAME: chatgpt-retrieval-plugin
+      # TODO - Update CLONE_URL: [PYTHON-4291] [PYTHON-4129]
+      CLONE_URL: -b feature/mongodb-datastore --single-branch https://github.com/caseyclements/chatgpt-retrieval-plugin.git
+      DATABASE: chatgpt_retrieval_plugin_test_db
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-chatgpt-retrieval-plugin

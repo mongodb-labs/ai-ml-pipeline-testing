@@ -1,0 +1,14 @@
+{
+  "fields": [
+    {
+      "numDimensions": 1536,
+      "path": "embedding",
+      "similarity": "cosine",
+      "type": "vector"
+    }
+  ],
+  "name": "vector_index",
+  "type": "vectorSearch",
+  "database": "chatgpt_retrieval_plugin_test_db",
+  "collectionName": "chatgpt_retrieval_plugin_test_vectorstore"
+}
