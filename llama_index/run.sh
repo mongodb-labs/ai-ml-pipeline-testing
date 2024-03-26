@@ -22,4 +22,9 @@ $PYTHON_BINARY -m poetry lock --no-update
 $PYTHON_BINARY -m poetry install --with dev
 
 # Run tests. Sensitive variables in Evergreen come from Evergeen project: ai-ml-pipeline-testing/
+OPENAI_API_KEY=$openai_api_key \
+MONGODB_URI=$llama_index_mongodb_uri \
+MONGODB_DATABASE="llama_index_test_db" \
+MONGODB_COLLECTION="llama_index_test_vectorstore" \
+MONGODB_INDEX="vector_index" \
 $PYTHON_BINARY -m poetry run pytest -v tests
