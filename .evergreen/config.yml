@@ -149,7 +149,7 @@ buildvariants:
       - name: test-chatgpt-retrieval-plugin
 
   - name: test-llama-index-rhel
-    display_name: LlamaIndex Plugin
+    display_name: LlamaIndex RHEL
     expansions:
       DIR: llama_index
       REPO_NAME: llama_index
