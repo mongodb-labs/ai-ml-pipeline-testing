@@ -94,6 +94,11 @@ tasks:
       - func: "fetch repo"
       - func: "execute tests"
 
+  - name: test-llama-index
+    commands:
+      - func: "fetch repo"
+      - func: "execute tests"
+
 buildvariants:
   - name: test-semantic-kernel-python-rhel
     display_name: Semantic-Kernel RHEL Python
@@ -142,3 +147,16 @@ buildvariants:
       - rhel87-small
     tasks:
       - name: test-chatgpt-retrieval-plugin
+
+  - name: test-llama-index-rhel
+    display_name: LlamaIndex RHEL
+    expansions:
+      DIR: llama_index
+      REPO_NAME: llama_index
+      # TODO - Update CLONE_URL once pull-request is merged
+      CLONE_URL: -b feature/mongodb-datastore --single-branch https://github.com/caseyclements/llama_index.git
+      DATABASE: llama_index_test_db
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-llama-index
