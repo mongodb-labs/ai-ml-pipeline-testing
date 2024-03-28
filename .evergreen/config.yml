@@ -36,6 +36,7 @@ functions:
             echo '${REPO_NAME} could not be found' 1>&2
             exit 1
           fi
+          # Apply patches to upstream repo if desired.
           cd ${DIR}
           git clone ${CLONE_URL}
           if [ -d "patches" ]; then
