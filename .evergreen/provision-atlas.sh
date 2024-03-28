@@ -13,7 +13,7 @@ DEPLOYMENT_NAME=$DIR
 
 # Download the mongodb tar and extract the binary into the atlas directory
 set -ex
-curl https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_1.18.0_linux_x86_64.tar.gz -o atlas.tgz
+curl https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_1.16.0_linux_x86_64.tar.gz -o atlas.tgz
 tar zxf atlas.tgz
 mv mongodb-atlas-cli_1.18.0* atlas
 
