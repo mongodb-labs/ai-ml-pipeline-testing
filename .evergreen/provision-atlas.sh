@@ -13,12 +13,12 @@ DEPLOYMENT_NAME=$DIR
 
 # Download the mongodb tar and extract the binary into the atlas directory
 set -ex
-curl https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_1.14.0_linux_x86_64.tar.gz -o atlas.tgz
+curl https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_1.18.0_linux_x86_64.tar.gz -o atlas.tgz
 tar zxf atlas.tgz
-mv mongodb-atlas-cli_1.14.0* atlas
+mv mongodb-atlas-cli_1.18.0* atlas
 
 # Create a local atlas deployment and store the connection string as an env var
-$atlas deployments setup $DIR --type local --force
+$atlas deployments setup $DIR --type local --force --debug
 $atlas deployments start $DIR
 CONN_STRING=$($atlas deployments connect $DIR --connectWith connectionString)
 
@@ -42,6 +42,8 @@ DATABASE=$DATABASE \
     $PYTHON_BINARY $SCAFFOLD_SCRIPT
 
 # If a search index configuration can be found, create the index
-if [ -f "$TARGET_DIR/indexConfig.json" ]; then
-    $atlas deployments search indexes create --file $TARGET_DIR/indexConfig.json --deploymentName $DIR
+if [ -f "$TARGET_DIR/indexes" ]; then
+    for file in "$TARGET_DIR/indexes/*.json"; do
+        $atlas deployments search indexes create --file $file --deploymentName $DIR
+    done
 fi
