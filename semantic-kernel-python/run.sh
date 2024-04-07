@@ -35,7 +35,7 @@ AZURE_OPENAI_ENDPOINT="" \
 AZURE_OPENAI_API_KEY="" \
 MONGODB_ATLAS_CONNECTION_STRING=$CONN_STRING \
 Python_Integration_Tests=1 \
-poetry run pytest tests/integration/connectors/memory/test_mongodb_atlas.py -k test_collection_knn
+$PYTHON_BINARY -m poetry run pytest tests/integration/connectors/memory/test_mongodb_atlas.py -k test_collection_knn
 
 # Stored in evergreen VARIABLES
 OPENAI_API_KEY=$openai_api_key \
@@ -45,4 +45,4 @@ AZURE_OPENAI_ENDPOINT="" \
 AZURE_OPENAI_API_KEY="" \
 MONGODB_ATLAS_CONNECTION_STRING=$CONN_STRING \
 Python_Integration_Tests=1 \
-poetry run pytest tests/integration/connectors/memory/test_mongodb_atlas.py
+$PYTHON_BINARY -m poetry run pytest tests/integration/connectors/memory/test_mongodb_atlas.py
