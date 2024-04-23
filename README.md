@@ -2,7 +2,7 @@
 
 ## What is it?
 
-This repository exists to test our integrations in Third-Party AI/ML testing libraries.
+This repository exists to test our integrations in Third-Party AI/ML libraries.
 
 ## Motivation
 
@@ -95,7 +95,55 @@ Test execution flow is defined in `.evergreen/config.yml`. The test pipeline's c
 
 **[Functions](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Configuration-Files#functions)** -- We've defined some common functions that will be used. See the `.evergreen/config.yml` for example cases. The standard procedure is to fetch the repository, provision Atlas as needed, and then execute the tests specified in the `run.sh` script you create. Ensure that the expansions are provided for these functions, otherwise the tests will run improperly and most likely fail.
 
-- [`fetch repo`](https://github.com/mongodb-labs/ai-ml-pipeline-testing/blob/main/.evergreen/config.yml#L30) -- Clones the library's git repository; make sure to provide the expansion CLONE_URL
-- [`execute tests`](https://github.com/mongodb-labs/ai-ml-pipeline-testing/blob/main/.evergreen/config.yml#L51) -- Uses [subprocess.exec](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Commands#subprocessexec) to run the provided `run.sh` file. `run.sh` must be within the specified `DIR` path.
-- `fetch source` -- Retrieves the current (`ai-ml-pipeline-testing`) repo
-- `setup atlas cli` -- Sets up the local Atlas deployment
+-   [`fetch repo`](https://github.com/mongodb-labs/ai-ml-pipeline-testing/blob/main/.evergreen/config.yml#L30) -- Clones the library's git repository; make sure to provide the expansion CLONE_URL
+-   [`execute tests`](https://github.com/mongodb-labs/ai-ml-pipeline-testing/blob/main/.evergreen/config.yml#L51) -- Uses [subprocess.exec](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Commands#subprocessexec) to run the provided `run.sh` file. `run.sh` must be within the specified `DIR` path.
+-   `fetch source` -- Retrieves the current (`ai-ml-pipeline-testing`) repo
+-   `setup atlas cli` -- Sets up the local Atlas deployment
+
+## Upstream Repo Considerations
+
+For better or worse, we do not maintain AI/ML libraries with which we integrate.
+We provide workarounds for a few common issues that we encounter.
+
+### Third-Party AI/ML library Maintainers have not merged our changes
+
+As we develop a testing infrastructure, we commonly make changes to our integrations with the third-party library.
+This is the case, in particular, when we add a new integration.
+Over time, we may make bug fixes, add new features, and update the API.
+At the start, we will hopefully add the integration tests themselves.
+
+The bad news is that the maintainers of the AI/ML packages may take considerable
+time to review and merge our changes. The good news is that we can begin testing
+without pointing to the main branch of the upstream repo.
+The parameter value of the `CLONE_URL` is very flexible.
+We literally just call `git clone $CLONE_URL`.
+As such, we can point to an arbitrary branch on an arbitrary repo.
+While developing, we encourage developers to point to a feature branch
+on their own fork, and add a TODO with the JIRA ticket to update the url
+once the pull-request has been merged.
+
+### Patching upstream repos
+
+We provide a simple mechanism to make changes to the third-party packages
+without requiring a pull-request (and acceptance by the upstream maintainers).
+This is done via Git Patch files.
+
+Patch files are created very simply: `git diff > mypatch.patch`.
+If you can believe it, this was the primary mechanism to share code with another maintainer
+before pull-requests existed!
+To apply patches, add them to a `patches` directory within the `$DIR` of your build variant.
+As of this writing, the `chatgpt-retrieval-plugin` contains an example that you may use as a reference.
+You can create a number of different patch files, which will be applied recursively.
+This is useful to describe rationale, or to separate out ones that will be removed
+upon a merged pull-request to the upstream repo.
+
+During ChatGPT Retrieval Plugin integration, we ran into build issues on Evergreen hosts.
+In this case, the package failed to build from source.
+It required a library that wasn't available on the host and had no wheel on PyPI.
+As it turned out, the package was actually an optional requirement,
+and so a one-line change to `pyproject.toml` solved our problem.
+
+We realized that we could easily get this working without changing the upstream
+simply by applying a git patch file.
+This is a standard practice used by `conda package` maintainers,
+as they often have to build for a more broad set of scenarios than the original authors intended.
