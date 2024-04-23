@@ -15,9 +15,6 @@ source ./bin/activate
 pip install poetry
 
 poetry install --with test
-# Workaround provided in https://github.com/langchain-ai/langchain/issues/12237
-# pip install build pyproject-hooks requests-toolbelt
-# pip install --upgrade rapidfuzz filelock msgpack
 
 make test
 
