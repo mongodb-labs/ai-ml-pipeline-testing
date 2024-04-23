@@ -42,6 +42,6 @@ DATABASE=$DATABASE \
     $PYTHON_BINARY $SCAFFOLD_SCRIPT
 
 # If a search index configuration can be found, create the index
-if [ -d "$TARGET_DIR/indexConfig.json" ]; then
+if [ -f "$TARGET_DIR/indexConfig.json" ]; then
     $atlas deployments search indexes create --file $TARGET_DIR/indexConfig.json --deploymentName $DIR
 fi
