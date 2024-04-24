@@ -10,7 +10,7 @@
     }
   },
   "name": "text_index",
-//  "type": "TextSearch",
+  "type": "search",
   "database": "docarray_test_db",
   "collectionName": "simpleschema"
 }
