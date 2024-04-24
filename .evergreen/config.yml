@@ -177,3 +177,5 @@ buildvariants:
       DATABASE: docarray_test_db
     run_on:
       - rhel87-small
+    tasks:
+      - name: test-docarray
