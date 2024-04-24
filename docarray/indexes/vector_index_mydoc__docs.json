@@ -1,0 +1,14 @@
+{
+  "fields": [
+    {
+      "numDimensions": 10,
+      "path": "simple_tens",
+      "similarity": "euclidean",
+      "type": "vector"
+    }
+  ],
+  "name": "vector_index",
+  "type": "vectorSearch",
+  "database": "docarray_test_db",
+  "collectionName": "mydoc__docs"
+}

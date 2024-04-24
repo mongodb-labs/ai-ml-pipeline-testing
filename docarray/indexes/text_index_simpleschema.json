@@ -1,0 +1,16 @@
+{
+  "mappings": {
+    "dynamic": false,
+    "fields": {
+      "text": [
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "name": "text_index",
+//  "type": "TextSearch",
+  "database": "docarray_test_db",
+  "collectionName": "simpleschema"
+}
