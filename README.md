@@ -27,7 +27,7 @@ Within each subdirectory you should expect to have:
 - `indexConfig.json` -- An optional file containing configuration for a specified Atlas Search Index.
 - Additionally, you can add other useful files, including `.env` files, if required by your tests.
 
-The general layout of this repo will looks like this:
+The general layout of this repo looks like this:
 
 ```bash
 ├── LICENSE                                     # License Agreeement
