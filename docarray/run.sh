@@ -13,14 +13,14 @@ $PYTHON_BINARY -c "import sys; print(f'Python version found: {sys.version_info}'
 $PYTHON_BINARY -m venv venv
 source venv/bin/activate
 # Install Poetry
-python -m pip install -U pip poetry
+pip install -U pip poetry
 # Recreate the poetry lock file
-python -m poetry lock --no-update
+poetry lock --no-update
 # Install from pyproject.toml into package specific environment
-python -m poetry install --with dev --extras mongo
+poetry install --with dev --extras mongo
 
 
 # Run tests. Sensitive variables in Evergreen come from Evergeen project: ai-ml-pipeline-testing/
 MONGODB_URI=$docarray_mongodb_uri \
 MONGODB_DATABASE="docarray_test_db" \
-python -m poetry run pytest -v tests/index/mongo_atlas
+pytest -v tests/index/mongo_atlas
