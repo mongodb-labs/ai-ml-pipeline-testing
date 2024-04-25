@@ -1,0 +1,14 @@
+{
+  "fields": [
+    {
+      "numDimensions": 10,
+      "path": "d__embedding",
+      "similarity": "cosine",
+      "type": "vector"
+    }
+  ],
+  "name": "vector_index_1",
+  "type": "vectorSearch",
+  "database": "docarray_test_db",
+  "collectionName": "nesteddoc"
+}

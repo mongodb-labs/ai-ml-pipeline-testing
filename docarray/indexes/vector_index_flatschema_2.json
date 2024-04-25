@@ -1,0 +1,14 @@
+{
+  "fields": [
+    {
+      "numDimensions": 50,
+      "path": "embedding2",
+      "similarity": "cosine",
+      "type": "vector"
+    }
+  ],
+  "name": "vector_index_2",
+  "type": "vectorSearch",
+  "database": "docarray_test_db",
+  "collectionName": "flatschema"
+}
