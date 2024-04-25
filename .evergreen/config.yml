@@ -173,7 +173,7 @@ buildvariants:
       DIR: docarray
       REPO_NAME: docarray
       # TODO - Update CLONE_URL once pull-request is merged
-      CLONE_URL: -b mongodb_backend --single-branch https://github.com/caseyclements/docarray.git
+      CLONE_URL: -b mongodb-atlas-backend --single-branch https://github.com/caseyclements/docarray.git
       DATABASE: docarray_test_db
     run_on:
       - rhel87-small
