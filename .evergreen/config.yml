@@ -147,7 +147,7 @@ buildvariants:
       DIR: chatgpt-retrieval-plugin
       REPO_NAME: chatgpt-retrieval-plugin
       # TODO - Update CLONE_URL: [PYTHON-4291] [PYTHON-4129]
-      CLONE_URL: -b feature/mongodb-datastore --single-branch https://github.com/caseyclements/chatgpt-retrieval-plugin.git
+      CLONE_URL: -b bugfix/broken-link-in-readme --single-branch https://github.com/caseyclements/chatgpt-retrieval-plugin.git
       DATABASE: chatgpt_retrieval_plugin_test_db
     run_on:
       - rhel87-small
