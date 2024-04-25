@@ -22,7 +22,7 @@ $PYTHON_BINARY -m poetry install --with dev
 
 # Run tests. Sensitive variables in Evergreen come from Evergeen project: ai-ml-pipeline-testing/
 OPENAI_API_KEY=$openai_api_key \
-DATASTORE="mongodb" \
+DATASTORE="mongodb-atlas" \
 BEARER_TOKEN="staylowandkeepmoving" \
 MONGODB_URI=$chatgpt_retrieval_plugin_mongodb_uri \
 MONGODB_DATABASE="chatgpt_retrieval_plugin_test_db" \
