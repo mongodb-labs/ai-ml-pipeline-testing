@@ -43,7 +43,7 @@ DATABASE=$DATABASE \
 
 # If a search index configuration can be found, create the index
 if [ -d "$TARGET_DIR/indexes" ]; then
-    for file in "$TARGET_DIR/indexes/*.json"; do
+    for file in $TARGET_DIR/indexes/*.json; do
         $atlas deployments search indexes create --file $file --deploymentName $DIR
     done
 fi
