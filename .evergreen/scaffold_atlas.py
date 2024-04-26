@@ -41,8 +41,12 @@ def upload_data(db: Database, filename: Path) -> None:
     )
     if not isinstance(loaded_collection, list):
         loaded_collection = [loaded_collection]
-    result: InsertManyResult = db[collection_name].insert_many(loaded_collection)
-    logger.debug("Uploaded results for %s: %s", filename.name, result.inserted_ids)
+    if loaded_collection:
+        result: InsertManyResult = db[collection_name].insert_many(loaded_collection)
+        logger.debug("Uploaded results for %s: %s", filename.name, result.inserted_ids)
+    else:
+        logger.debug("Empty collection named %s created", collection_name)
+        db.create_collection(collection_name)
 
 
 def walk_collection_directory() -> list[str]:
