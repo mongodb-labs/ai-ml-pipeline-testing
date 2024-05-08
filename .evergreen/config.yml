@@ -60,9 +60,9 @@ functions:
   "setup atlas cli":
     - command: subprocess.exec
       type: setup
+      retry_on_failure: true
       params:
         add_expansions_to_env: true
-        continue_on_err: true
         working_dir: "src"
         binary: bash
         env:
