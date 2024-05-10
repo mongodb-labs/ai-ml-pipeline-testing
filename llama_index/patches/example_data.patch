@@ -1,0 +1,33 @@
+diff --git a/llama-index-integrations/vector_stores/llama-index-vector-stores-mongodb/tests/conftest.py b/llama-index-integrations/vector_stores/llama-index-vector-stores-mongodb/tests/conftest.py
+index 887e807e3..d821797be 100644
+--- a/llama-index-integrations/vector_stores/llama-index-vector-stores-mongodb/tests/conftest.py
++++ b/llama-index-integrations/vector_stores/llama-index-vector-stores-mongodb/tests/conftest.py
+@@ -1,6 +1,7 @@
+ import os
+ from typing import List
+ import pytest
++from llama_index.core import SimpleDirectoryReader
+ from llama_index.core.ingestion import IngestionPipeline
+ from llama_index.core.node_parser import SentenceSplitter
+ from llama_index.core.schema import Document, TextNode
+@@ -11,16 +12,18 @@ from pymongo import MongoClient
+ OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+ 
+ import threading
++from pathlib import Path
+ 
+ lock = threading.Lock()
+ 
+ 
+ @pytest.fixture(scope="session")
+-def documents() -> List[Document]:
++def documents(tmp_path_factory) -> List[Document]:
+     """List of documents represents data to be embedded in the datastore.
+     Minimum requirements for Documents in the /upsert endpoint's UpsertRequest.
+     """
+-    return [Document.example()]
++    data_dir = Path(__file__).parents[4] / "docs/docs/examples/data/paul_graham"
++    return SimpleDirectoryReader(data_dir).load_data()
+ 
+ 
+ @pytest.fixture(scope="session")
