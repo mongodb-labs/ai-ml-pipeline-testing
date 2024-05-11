@@ -160,8 +160,7 @@ buildvariants:
     expansions:
       DIR: llama_index
       REPO_NAME: llama_index
-      # TODO - Update CLONE_URL once pull-request is merged
-      CLONE_URL: -b feature/mongodb-datastore --single-branch https://github.com/caseyclements/llama_index.git
+      CLONE_URL: https://github.com/run-llama/llama_index.git
       DATABASE: llama_index_test_db
     run_on:
       - rhel87-small
