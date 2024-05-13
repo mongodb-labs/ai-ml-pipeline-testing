@@ -24,11 +24,13 @@ timeout:
 functions:
   "fetch source":
     - command: git.get_project
+      type: setup
       params:
         directory: "src"
 
   "fetch repo":
     - command: shell.exec
+      type: setup
       params:
         working_dir: "src"
         script: |
@@ -70,6 +72,7 @@ functions:
         args:
           - .evergreen/provision-atlas.sh
 
+pre_error_fails_task: true
 pre:
   - func: "fetch source"
   - func: "setup atlas cli"
