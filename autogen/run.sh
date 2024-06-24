@@ -20,4 +20,4 @@ $PYTHON_BINARY -m pip install .[test,"retrievechat-mongodb"]
 # Run tests. Sensitive variables in Evergreen come from Evergreen project: ai-ml-pipeline-testing/
 MONGODB_URI=$autogen_mongodb_uri \
 MONGODB_DATABASE="autogen_test_db" \
-py.test -v test/agentchat/contrib/vectordb/test_mongodb.py
+$PYTHON_BINARY -m pytest -v test/agentchat/contrib/vectordb/test_mongodb.py
