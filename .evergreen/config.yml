@@ -108,6 +108,11 @@ tasks:
       - func: "fetch repo"
       - func: "execute tests"
 
+  - name: test-autogen
+    commands:
+      - func: "fetch repo"
+      - func: "execute tests"
+
 buildvariants:
   - name: test-semantic-kernel-python-rhel
     display_name: Semantic-Kernel RHEL Python
@@ -181,3 +186,15 @@ buildvariants:
       - rhel87-small
     tasks:
       - name: test-docarray
+
+  - name: test-autogen-rhel
+    display_name: Autogen RHEL
+    expansions:
+      DIR: autogen
+      REPO_NAME: autogen  # TODO [PYTHON-4506] Switch to https://github.com/microsoft/autogen.git one merged
+      CLONE_URL: https://github.com/ranfysvalle02/autogen.git
+      DATABASE: autogen_test_db
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-autogen
