@@ -15,7 +15,7 @@ DEPLOYMENT_NAME=$DIR
 set -ex
 curl https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_1.25.0_linux_x86_64.tar.gz -o atlas.tgz
 tar zxf atlas.tgz
-mv mongodb-atlas-cli_1.18.0* atlas
+mv mongodb-atlas-cli_1.25.0* atlas
 
 # Create a local atlas deployment and store the connection string as an env var
 # $atlas deployments setup $DIR --type local --force --debug
