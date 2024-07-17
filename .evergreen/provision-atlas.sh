@@ -20,9 +20,8 @@ mv mongodb-atlas-cli_1.25.0* atlas
 # Create a local atlas deployment and store the connection string as an env var
 # $atlas deployments setup $DIR --type local --force --debug
 # $atlas deployments start $DIR
-docker pull mongodb/atlas:latest
-docker run -p 27777:27017 --privileged -it mongodb/atlas bash
-CONN_STRING=$(atlas deployments connect $DIR --connectWith connectionString)
+podman run -d -p 27017:27017 docker.io/mongodb/mongodb-atlas-local:latest
+CONN_STRING=$($atlas deployments connect $DIR --connectWith connectionString)
 
 # Make the atlas directory hold the virtualenv for provisioning
 cd atlas
@@ -46,6 +45,6 @@ DATABASE=$DATABASE \
 # If a search index configuration can be found, create the index
 if [ -d "$TARGET_DIR/indexes" ]; then
     for file in $TARGET_DIR/indexes/*.json; do
-        atlas deployments search indexes create --file $file --deploymentName $DIR
+        $atlas deployments search indexes create --file $file --deploymentName $DIR
     done
 fi
