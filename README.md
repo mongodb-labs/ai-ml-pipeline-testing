@@ -51,10 +51,10 @@ The general layout of this repo looks like this:
 
 ### Configuring a Atlas CLI for testing
 
-Each test subdirectory will automatically have its own local Atlas deployment. As a result, database and collection names will not conflict between different AI/ML integrations. To connect to your local Atlas using a connection string, call `$atlas` from the `run.sh` script within your subdirectory. This exposes the Atlas CLI binary. For example:
+Each test subdirectory will automatically have its own local Atlas deployment. As a result, database and collection names will not conflict between different AI/ML integrations. To connect to your local Atlas using a connection string, call `atlas` from the `run.sh` script within your subdirectory. This exposes the Atlas CLI binary. For example:
 
 ```bash
-CONN_STRING=$($atlas deployments connect $DIR --connectWith connectionString)
+CONN_STRING=$(atlas deployments connect $DIR --connectWith connectionString)
 ```
 
 Stores the local Atlas URI within the `CONN_STRING` var. The script can then pass `CONN_STRING` as an environment variable to the test suite.
