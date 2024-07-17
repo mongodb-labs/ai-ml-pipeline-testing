@@ -18,9 +18,8 @@ tar zxf atlas.tgz
 mv mongodb-atlas-cli_1.25.0* atlas
 
 # Create a local atlas deployment and store the connection string as an env var
-# $atlas deployments setup $DIR --type local --force --debug
-# $atlas deployments start $DIR
-podman run -d -p 27017:27017 docker.io/mongodb/mongodb-atlas-local:latest
+$atlas deployments setup $DIR --type local --force --debug
+$atlas deployments start $DIR
 CONN_STRING=$($atlas deployments connect $DIR --connectWith connectionString)
 
 # Make the atlas directory hold the virtualenv for provisioning
