@@ -56,7 +56,7 @@ def create_index(client: MongoClient, filename: Path) -> None:
 
     Args:
         client (MongoClient): MongoClient
-        filename (Path): Index configuration filepath 
+        filename (Path): Index configuration filepath
     """
     with filename.open() as f:
         loaded_index_configuration = json.load(f)
@@ -64,10 +64,13 @@ def create_index(client: MongoClient, filename: Path) -> None:
     collection_name = loaded_index_configuration.pop("collectionName")
     database_name = loaded_index_configuration.pop("database")
     index_name = loaded_index_configuration.pop("name")
+    index_type = loaded_index_configuration.pop("type", None)
 
     collection = client[database_name][collection_name]
 
-    search_index = SearchIndexModel(loaded_index_configuration, name=index_name)
+    search_index = SearchIndexModel(
+        loaded_index_configuration, name=index_name, type=index_type
+    )
     collection.create_search_index(search_index)
 
 
