@@ -8,6 +8,7 @@ from typing import Any, Union
 
 from pymongo import MongoClient
 from pymongo.database import Database
+from pymongo.operations import SearchIndexModel
 from pymongo.results import InsertManyResult
 
 logging.basicConfig()
@@ -20,6 +21,7 @@ REPO_NAME = os.environ.get("REPO_NAME")
 DIR = os.environ.get("DIR")
 TARGET_DIR = os.environ.get("TARGET_DIR")
 DB_PATH = "database"
+INDEX_PATH = "indexes"
 
 
 def upload_data(db: Database, filename: Path) -> None:
@@ -49,9 +51,29 @@ def upload_data(db: Database, filename: Path) -> None:
         db.create_collection(collection_name)
 
 
-def walk_collection_directory() -> list[str]:
+def create_index(client: MongoClient, filename: Path) -> None:
+    """Create indexes based on the JSONs provided from the index_json files
+
+    Args:
+        client (MongoClient): MongoClient
+        filename (Path): Index configuration filepath 
+    """
+    with filename.open() as f:
+        loaded_index_configuration = json.load(f)
+
+    collection_name = loaded_index_configuration.pop("collectionName")
+    database_name = loaded_index_configuration.pop("database")
+    index_name = loaded_index_configuration.pop("name")
+
+    collection = client[database_name][collection_name]
+
+    search_index = SearchIndexModel(loaded_index_configuration, name=index_name)
+    collection.create_search_index(search_index)
+
+
+def walk_directory(filepath) -> list[str]:
     """Return all *.json filenames in the DB_PATH directory"""
-    database_dir = Path(TARGET_DIR).joinpath(DB_PATH)
+    database_dir = Path(TARGET_DIR).joinpath(filepath)
     return (
         [file for file in database_dir.iterdir() if file.suffix == ".json"]
         if database_dir.exists()
@@ -59,16 +81,35 @@ def walk_collection_directory() -> list[str]:
     )
 
 
-def main() -> None:
-    database = MongoClient(CONN_STRING)[DATABASE_NAME]
-    collection_jsons = walk_collection_directory()
-    logger.debug("%s files found: %s", len(collection_jsons), collection_jsons)
+def generate_collections(database, collection_jsons) -> None:
+    logger.debug(
+        "%s collection files found: %s", len(collection_jsons), collection_jsons
+    )
     if not collection_jsons:
         return logger.warning(
             "No collections found in %s check if database folder exists", TARGET_DIR
         )
     for collection_json in collection_jsons:
         upload_data(database, collection_json)
+
+
+def generate_indexes(client, index_jsons) -> None:
+    logger.debug("%s index files found: %s", len(index_jsons), index_jsons)
+    if not index_jsons:
+        return logger.warning(
+            "No indexes found in %s check if indexes folder exists", TARGET_DIR
+        )
+    for index_json in index_jsons:
+        create_index(client, index_json)
+
+
+def main() -> None:
+    client = MongoClient(CONN_STRING)
+    database = client[DATABASE_NAME]
+    collection_jsons = walk_directory(DB_PATH)
+    index_jsons = walk_directory(INDEX_PATH)
+    generate_collections(database, collection_jsons)
+    generate_indexes(client, index_jsons)
 
 
 if __name__ == "__main__":
