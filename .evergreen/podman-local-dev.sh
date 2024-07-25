@@ -23,6 +23,7 @@ function wait() {
           exit 1
           ;;
         *)
+          echo "Unrecognized state $STATE"
         sleep 1
       esac      
   done
