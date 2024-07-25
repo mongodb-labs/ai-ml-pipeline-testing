@@ -8,6 +8,7 @@ echo "waiting for container to become healthy..."
 function wait() {
   CONTAINER_ID=$1
   echo "waiting for container to become healthy..."
+  podman healthcheck run "$CONTAINER_ID"
   for _ in $(seq 600); do
       STATE=$(podman inspect -f '{{ .State.Health.Status }}' "$CONTAINER_ID")
 
