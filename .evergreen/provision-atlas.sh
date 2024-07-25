@@ -18,7 +18,7 @@ DEPLOYMENT_NAME=$DIR
 # mv mongodb-atlas-cli_1.25.0* atlas
 
 # Create a local atlas deployment and store the connection string as an env var
-podman run -d -p 27017:27017 docker.io/mongodb/mongodb-atlas-local:latest
+podman run -d -p 27017:27017 --privileged -it docker.io/mongodb/mongodb-atlas-local:latest
 # $atlas deployments setup $DIR --type local --force --debug
 # $atlas deployments start $DIR
 CONN_STRING="mongodb://localhost:27017/?directConnection=true"
