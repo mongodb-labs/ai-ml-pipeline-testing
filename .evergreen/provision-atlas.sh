@@ -17,11 +17,13 @@ curl https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_1.25.0_linux_x86_64.t
 tar zxf atlas.tgz
 mv mongodb-atlas-cli_1.25.0* atlas
 
+. .evergreen/podman-local-dev.sh
+
 # Create a local atlas deployment and store the connection string as an env var
 # podman run -d -p 27017:27017 --privileged -it docker.io/mongodb/mongodb-atlas-local:latest
-$atlas deployments setup $DIR --type local --force --debug
-$atlas deployments start $DIR
-CONN_STRING=$($atlas deployments connect $DIR --connectWith connectionString)
+# $atlas deployments setup $DIR --type local --force --debug
+# $atlas deployments start $DIR
+# CONN_STRING=$($atlas deployments connect $DIR --connectWith connectionString)
 # CONN_STRING="mongodb://localhost:27017/?directConnection=true"
 
 # Make the atlas directory hold the virtualenv for provisioning
