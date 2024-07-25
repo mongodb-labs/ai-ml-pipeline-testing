@@ -17,7 +17,7 @@ curl https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_1.25.0_linux_x86_64.t
 tar zxf atlas.tgz
 mv mongodb-atlas-cli_1.25.0* atlas
 
-. .evergreen/podman-local-dev.sh
+setup_local_atlas
 
 # Create a local atlas deployment and store the connection string as an env var
 # podman run -d -p 27017:27017 --privileged -it docker.io/mongodb/mongodb-atlas-local:latest
