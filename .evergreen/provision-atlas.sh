@@ -11,22 +11,11 @@ PING_ATLAS=$EVERGREEN_PATH/ping_atlas.py
 SCAFFOLD_SCRIPT=$EVERGREEN_PATH/scaffold_atlas.py
 DEPLOYMENT_NAME=$DIR
 
-# # Download the mongodb tar and extract the binary into the atlas directory
 set -ex
-curl https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_1.25.0_linux_x86_64.tar.gz -o atlas.tgz
-tar zxf atlas.tgz
-mv mongodb-atlas-cli_1.25.0* atlas
+mkdir atlas
 
 setup_local_atlas
 
-# Create a local atlas deployment and store the connection string as an env var
-# podman run -d -p 27017:27017 --privileged -it docker.io/mongodb/mongodb-atlas-local:latest
-# $atlas deployments setup $DIR --type local --force --debug
-# $atlas deployments start $DIR
-# CONN_STRING=$($atlas deployments connect $DIR --connectWith connectionString)
-# CONN_STRING="mongodb://localhost:27017/?directConnection=true"
-
-# Make the atlas directory hold the virtualenv for provisioning
 cd atlas
 
 $PYTHON_BINARY -m venv .
@@ -37,17 +26,10 @@ $PYTHON_BINARY -m pip install pymongo
 CONN_STRING=$CONN_STRING \
     $PYTHON_BINARY -c "from pymongo import MongoClient; import os; MongoClient(os.environ['CONN_STRING']).db.command('ping')"
 
-# Add database configuration
+# Add database and index configurations
 DATABASE=$DATABASE \
     CONN_STRING=$CONN_STRING \
     REPO_NAME=$REPO_NAME \
     DIR=$DIR \
     TARGET_DIR=$TARGET_DIR \
     $PYTHON_BINARY $SCAFFOLD_SCRIPT
-
-# If a search index configuration can be found, create the index
-# if [ -d "$TARGET_DIR/indexes" ]; then
-#     for file in $TARGET_DIR/indexes/*.json; do
-#         $atlas deployments search indexes create --file $file --deploymentName $DIR
-#     done
-# fi

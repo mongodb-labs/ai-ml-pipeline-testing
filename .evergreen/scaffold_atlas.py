@@ -84,7 +84,13 @@ def walk_directory(filepath) -> list[str]:
     )
 
 
-def generate_collections(database, collection_jsons) -> None:
+def generate_collections(database: Database, collection_jsons: list[Path]) -> None:
+    """Generate collections based on the collection_json filepaths
+
+    Args:
+        database (Database): Mongo Database
+        collection_jsons (list[Path]): List of collection filepaths
+    """
     logger.debug(
         "%s collection files found: %s", len(collection_jsons), collection_jsons
     )
@@ -96,7 +102,13 @@ def generate_collections(database, collection_jsons) -> None:
         upload_data(database, collection_json)
 
 
-def generate_indexes(client, index_jsons) -> None:
+def generate_indexes(client: MongoClient, index_jsons: list[Path]) -> None:
+    """_summary_
+
+    Args:
+        client (MongoClient): MongoClient
+        index_jsons (list[Path]): List of index configuration filepaths
+    """
     logger.debug("%s index files found: %s", len(index_jsons), index_jsons)
     if not index_jsons:
         return logger.warning(
