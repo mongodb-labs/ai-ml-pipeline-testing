@@ -99,7 +99,7 @@ fetch_local_atlas_uri() {
     . $workdir/src/.evergreen/.local_atlas_uri
 
     export CONN_STRING=$CONN_STRING
-    return $CONN_STRING
+    echo "$CONN_STRING"
 }
 
 
