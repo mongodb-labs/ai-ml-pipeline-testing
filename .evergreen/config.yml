@@ -55,7 +55,7 @@ functions:
         working_dir: "src/${DIR}/${REPO_NAME}"
         binary: bash
         env:
-          atlas: ${workdir}/src/atlas/bin/atlas
+          atlas: ${workdir}/src/atlas/bin/atlas 
         args:
           - ../run.sh
 

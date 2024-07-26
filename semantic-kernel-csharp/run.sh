@@ -2,6 +2,7 @@
 
 set -x
 
+. $workdir/src/.evergreen/utils.sh
 # WORKING_DIR = src/semantic-kernel-csharp/semantic-kernel
 
 # Install .NET
@@ -18,5 +19,5 @@ sed -i -e 's/"MongoDB Atlas cluster is required"/null/g' dotnet/src/IntegrationT
 
 # Run tests
 echo "Running MongoDBMemoryStoreTests"
-MongoDB__ConnectionString=$($atlas deployments connect $DIR --connectWith connectionString) \
+MongoDB__ConnectionString=$(fetch_local_atlas_uri)
 $DOTNET_SDK_PATH/dotnet test dotnet/src/IntegrationTests/IntegrationTests.csproj --filter SemanticKernel.IntegrationTests.Connectors.MongoDB.MongoDBMemoryStoreTests

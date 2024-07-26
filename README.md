@@ -51,10 +51,12 @@ The general layout of this repo looks like this:
 
 ### Configuring a Atlas CLI for testing
 
-Each test subdirectory will automatically have its own local Atlas deployment. As a result, database and collection names will not conflict between different AI/ML integrations. To connect to your local Atlas using a connection string, call `$atlas` from the `run.sh` script within your subdirectory. This exposes the Atlas CLI binary. For example:
+Each test subdirectory will automatically have its own local Atlas deployment. As a result, database and collection names will not conflict between different AI/ML integrations. To connect to your local Atlas using a connection string, `utils.sh` has a `fetch_local_atlas_uri` that you can call from the `run.sh` script within your subdirectory. For example:
 
 ```bash
-CONN_STRING=$($atlas deployments connect $DIR --connectWith connectionString)
+. $workdir/src/.evergreen/utils.sh
+
+CONN_STRING=$(fetch_local_atlas_uri)
 ```
 
 Stores the local Atlas URI within the `CONN_STRING` var. The script can then pass `CONN_STRING` as an environment variable to the test suite.
@@ -67,7 +69,7 @@ You can pre-populate a test's local Atlas deployment before running the `run.sh`
 
 To create a search index, provide the search index configuration in the `indexes` dir; the file needs to be a json and for each individual index you wish to create, you must make a separate json file; for easier readability, please name each index configuration after the collection the index will be defined on or the name of the index itself. If multiple indexes will define one collection or multiples collections within a database share the name index name, append a name "purpose" (test_collection_vectorsearch_index) to favor readability. The evergreen script will then create the search index before the `run.sh` script is executed. See the ["Create an Atlas Search Index and Run a Query"](https://www.mongodb.com/docs/atlas/cli/stable/atlas-cli-deploy-fts/#create-an-atlas-search-index-and-run-a-query) documentation instructions on how to create a search index using Atlas CLI.
 
-If you need more customized behavior when populating your database or configuring your local Atlas deployment, include that behavior in your `run.sh` script. The path to the `$atlas` binary is provided to that script. You can view more ways to configure local Atlas by visiting the [Atlas CLI local deployments documentation](https://www.mongodb.com/docs/atlas/cli/stable/atlas-cli-local-cloud/).
+If you need more customized behavior when populating your database or configuring your local Atlas deployment, include that behavior in your `run.sh` script.
 
 ### Unpacking the Evergreen config file
 
