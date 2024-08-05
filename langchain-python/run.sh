@@ -18,4 +18,4 @@ export MONGODB_ATLAS_URI=$($atlas deployments connect $DIR --connectWith connect
 
 make test
 
-make integration_test
+OPENAI_API_KEY=$openai_api_key make integration_test
