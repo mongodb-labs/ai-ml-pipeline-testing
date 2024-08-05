@@ -16,7 +16,7 @@ source venv/bin/activate
 python -m pip install -U pip poetry
 
 # Recreate the poetry lock file
-python -m poetry lock --no-update
+#python -m poetry lock --no-update
 # Install from pyproject.toml into package specific environment
 python -m poetry install --with dev
 
