@@ -9,10 +9,10 @@ PYTHON_BINARY=$(find_python3)
 
 cd libs/partners/mongodb
 
-$PYTHON_BINARY -m venv .
-source ./bin/activate
+$PYTHON_BINARY -m venv venv
+source venv/bin/activate
 
-poetry install --with lint --with typing --with codespell --with dev --with test --with test_integration
+python -m poetry install --with lint --with typing --with codespell --with dev --with test --with test_integration
 
 export MONGODB_ATLAS_URI=$($atlas deployments connect $DIR --connectWith connectionString)
 
