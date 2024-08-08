@@ -164,10 +164,23 @@ buildvariants:
     tasks:
       - name: test-chatgpt-retrieval-plugin
 
-  - name: test-llama-index-rhel
-    display_name: LlamaIndex RHEL
+  - name: test-llama-index-kvstore-rhel
+    display_name: LlamaIndex RHEL KV Store
     expansions:
-      DIR: llama-index
+      DIR: llama-index-python-kvstore
+      REPO_NAME: llama_index
+      # TODO - Update CLONE_URL: [PYTHON-4522]
+      CLONE_URL: -b PYTHON-4522 --single-branch https://github.com/shruti-sridhar/llama_index.git
+      DATABASE: llama_index_test_db
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-llama-index
+
+  - name: test-llama-index-vectorstore-rhel
+    display_name: LlamaIndex RHEL Vector Store
+    expansions:
+      DIR: llama-index-python-vectorstore
       REPO_NAME: llama_index
       CLONE_URL: https://github.com/run-llama/llama_index.git
       DATABASE: llama_index_test_db
@@ -175,7 +188,7 @@ buildvariants:
       - rhel87-small
     tasks:
       - name: test-llama-index
-
+  
   - name: test-docarray-rhel
     display_name: DocArray RHEL
     expansions:
