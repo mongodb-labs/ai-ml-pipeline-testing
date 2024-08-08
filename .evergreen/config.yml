@@ -164,7 +164,7 @@ buildvariants:
     tasks:
       - name: test-chatgpt-retrieval-plugin
 
-  - name: test-llama-index-rhel-kvstore
+  - name: test-llama-index-kvstore-rhel
     display_name: LlamaIndex RHEL KV Store
     expansions:
       DIR: llama-index-python-kvstore
@@ -177,7 +177,7 @@ buildvariants:
     tasks:
       - name: test-llama-index
 
-  - name: test-llama-index-rhel-vectorstore
+  - name: test-llama-index-vectorstore-rhel
     display_name: LlamaIndex RHEL Vector Store
     expansions:
       DIR: llama-index-python-vectorstore
