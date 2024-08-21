@@ -205,8 +205,8 @@ buildvariants:
     display_name: Autogen RHEL
     expansions:
       DIR: autogen
-      REPO_NAME: autogen  # TODO [PYTHON-4506] Switch to https://github.com/microsoft/autogen.git one merged
-      CLONE_URL: https://github.com/ranfysvalle02/autogen.git
+      REPO_NAME: autogen
+      CLONE_URL: https://github.com/microsoft/autogen.git
       DATABASE: autogen_test_db
     run_on:
       - rhel87-small
