@@ -19,5 +19,5 @@ sed -i -e 's/"MongoDB Atlas cluster is required"/null/g' dotnet/src/IntegrationT
 
 # Run tests
 echo "Running MongoDBMemoryStoreTests"
-MongoDB__ConnectionString=$(fetch_local_atlas_uri)
+MongoDB__ConnectionString=$(fetch_local_atlas_uri) \
 $DOTNET_SDK_PATH/dotnet test dotnet/src/IntegrationTests/IntegrationTests.csproj --filter SemanticKernel.IntegrationTests.Connectors.MongoDB.MongoDBMemoryStoreTests
