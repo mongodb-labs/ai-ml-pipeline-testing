@@ -8,7 +8,6 @@ PYTHON_BINARY=$(find_python3)
 EVERGREEN_PATH=$(pwd)/.evergreen
 TARGET_DIR=$(pwd)/$DIR
 PING_ATLAS=$EVERGREEN_PATH/ping_atlas.py
-SCAFFOLD_SCRIPT=$EVERGREEN_PATH/scaffold_atlas.py
 DEPLOYMENT_NAME=$DIR
 
 set -ex
