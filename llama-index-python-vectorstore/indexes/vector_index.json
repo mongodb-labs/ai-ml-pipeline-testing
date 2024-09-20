@@ -5,6 +5,10 @@
       "path": "embedding",
       "similarity": "cosine",
       "type": "vector"
+    },
+    {
+      "path": "metadata.text",
+      "type": "filter"
     }
   ],
   "name": "vector_index",

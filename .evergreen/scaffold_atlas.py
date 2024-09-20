@@ -103,7 +103,8 @@ def generate_collections(database: Database, collection_jsons: list[Path]) -> No
 
 
 def generate_indexes(client: MongoClient, index_jsons: list[Path]) -> None:
-    """_summary_
+    """Generate Search or VectorSearch indexes based on the index_json provided
+    TODO: **Improve Documentation to include Local Atlas JSON configuration requirements*
 
     Args:
         client (MongoClient): MongoClient
