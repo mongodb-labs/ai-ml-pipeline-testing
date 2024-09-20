@@ -21,7 +21,7 @@ source $($PYTHON_BINARY -m poetry env info --path)/bin/activate
 # Recreate the poetry lock file
 $PYTHON_BINARY -m poetry lock --no-update
 # Install from pyproject.toml into package specific environment
-$PYTHON_BINARY -m poetry install --with dev
+$PYTHON_BINARY -m poetry install ".[mongodb]" --with dev
 
 # Create .env file
 python -c "from dotenv import set_key; set_key('.env', 'OPENAI_API_KEY', '$openai_api_key')"
