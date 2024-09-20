@@ -16,7 +16,7 @@ pip install poetry
 
 poetry install --with test
 
-export MONGODB_ATLAS_URI=$($atlas deployments connect $DIR --connectWith connectionString)
+export MONGODB_ATLAS_URI=$(fetch_local_atlas_uri)
 
 make test
 
