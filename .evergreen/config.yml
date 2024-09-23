@@ -143,8 +143,7 @@ buildvariants:
     expansions:
       DIR: langchain-python
       REPO_NAME: langchain
-      # TODO - Replace with upstream when closing PYTHON-4435
-      CLONE_URL: -b PYTHON-4435-explicit-ids --single-branch https://github.com/caseyclements/langchain.git
+      CLONE_URL: https://github.com/langchain-ai/langchain.git
       DATABASE: langchain_test_db
     run_on:
       - rhel87-small
