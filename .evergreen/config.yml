@@ -211,15 +211,5 @@ buildvariants:
       - rhel87-small
     tasks:
       - name: test-autogen
+     - name: test-langchain-python
 
-  - name: test-langchain-python-greenerbuild
-    display_name: Langchain Green
-    expansions:
-      DIR: langchain-python
-      REPO_NAME: langchain
-      CLONE_URL: -b ci-on-local-atlas --single-branch https://github.com/caseyclements/langchain.git
-      DATABASE: langchain_test_db
-    run_on:
-      - rhel87-small
-    tasks:
-      - name: test-langchain-python
