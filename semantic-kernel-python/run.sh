@@ -13,16 +13,8 @@ cd python
 $PYTHON_BINARY -m venv .
 source ./bin/activate
 
-# Install Poetry into base python
-pip install -U pip poetry
-# Create a package specific poetry environment
-poetry env use $PYTHON_BINARY
-# Recreate the poetry lock file
-poetry lock --no-update
-# Install from pyproject.toml into package specific environment
-poetry install ".[mongodb]" --with dev
+make install
 
-# Workaround to test vector search first
 OPENAI_API_KEY=$openai_api_key \
     OPENAI_ORG_ID="" \
     AZURE_OPENAI_DEPLOYMENT_NAME="" \
@@ -30,9 +22,8 @@ OPENAI_API_KEY=$openai_api_key \
     AZURE_OPENAI_API_KEY="" \
     MONGODB_ATLAS_CONNECTION_STRING=$CONN_STRING \
     Python_Integration_Tests=1 \
-    $PYTHON_BINARY -m poetry run pytest tests/integration/connectors/memory/test_mongodb_atlas.py -k test_collection_knn
+    uv run pytest tests/integration/connectors/memory/test_mongodb_atlas.py -k test_collection_knn
 
-# Stored in evergreen VARIABLES
 OPENAI_API_KEY=$openai_api_key \
     OPENAI_ORG_ID="" \
     AZURE_OPENAI_DEPLOYMENT_NAME="" \
@@ -40,4 +31,4 @@ OPENAI_API_KEY=$openai_api_key \
     AZURE_OPENAI_API_KEY="" \
     MONGODB_ATLAS_CONNECTION_STRING=$CONN_STRING \
     Python_Integration_Tests=1 \
-    $PYTHON_BINARY -m poetry run pytest tests/integration/connectors/memory/test_mongodb_atlas.py
+    uv run pytest tests/integration/connectors/memory/test_mongodb_atlas.py
