@@ -17,6 +17,8 @@ $PYTHON_BINARY -m pip install -U pip poetry
 $PYTHON_BINARY -m poetry env use $PYTHON_BINARY
 # Activate the poetry env, which itself does not include poetry
 source $($PYTHON_BINARY -m poetry env info --path)/bin/activate
+# Fix requirement in llama-index repo
+$PYTHON_BINARY -m poetry add motor
 # Recreate the poetry lock file
 $PYTHON_BINARY -m poetry lock --no-update
 # Install from pyproject.toml into package specific environment
