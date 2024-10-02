@@ -4,7 +4,7 @@ set -x
 
 . $workdir/src/.evergreen/utils.sh
 
-CONN_STRING=$($atlas deployments connect $DIR --connectWith connectionString)
+CONN_STRING=$(fetch_local_atlas_uri)
 PYTHON_BINARY=$(find_python3)
 $PYTHON_BINARY -c "import sys; print(f'Python version found: {sys.version_info}')"
 

@@ -9,14 +9,17 @@ PYTHON_BINARY=$(find_python3)
 
 cd libs/partners/mongodb
 
-$PYTHON_BINARY -m venv .
-source ./bin/activate
+ $PYTHON_BINARY -m venv venv_pipeline
+ source venv_pipeline/bin/activate
 
 pip install poetry
 
-poetry install --with test
+poetry lock --no-update
+
+poetry install --with test --with test_integration
 
 export MONGODB_ATLAS_URI=$(fetch_local_atlas_uri)
+export OPENAI_API_KEY=$openai_api_key
 
 make test
 
