@@ -1,0 +1,18 @@
+{
+  "fields": [
+    {
+      "numDimensions": 5,
+      "path": "embedding",
+      "similarity": "dotProduct",
+      "type": "vector"
+    },
+    {
+      "path": "c",
+      "type": "filter"
+    }
+  ],
+  "name": "langchain-test-index-from-texts",
+  "type": "vectorSearch",
+  "database": "langchain_test_db",
+  "collectionName": "langchain_test_from_texts"
+}
