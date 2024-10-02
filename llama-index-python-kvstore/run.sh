@@ -10,7 +10,7 @@ $PYTHON_BINARY -c "import sys; print(f'Python version found: {sys.version_info}'
 
 # cd to the MongoDB integration. It has its own project
 cd llama-index-integrations/storage/kvstore/llama-index-storage-kvstore-mongodb
- 
+
 # Install Poetry into base python
 $PYTHON_BINARY -m pip install -U pip poetry
 # Create a package specific poetry environment

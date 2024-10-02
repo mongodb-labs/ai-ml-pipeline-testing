@@ -80,7 +80,7 @@ setup_local_atlas() {
             *)
             echo "Unrecognized state $STATE"
             sleep 1
-        esac      
+        esac
     done
 
     echo "container did not get healthy within 120 seconds, quitting"
@@ -101,5 +101,3 @@ fetch_local_atlas_uri() {
     export CONN_STRING=$CONN_STRING
     echo "$CONN_STRING"
 }
-
-
