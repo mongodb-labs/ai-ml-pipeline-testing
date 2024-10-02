@@ -1,18 +1,14 @@
 {
     "fields": [
         {
-            "numDimensions": 5,
+            "numDimensions": 1536,
             "path": "embedding",
             "similarity": "cosine",
             "type": "vector"
-        },
-        {
-            "path": "c",
-            "type": "filter"
         }
     ],
-    "name": "langchain-test-index-vectorstores",
+    "name": "langchain-test-chain-example-vector-index",
     "type": "vectorSearch",
     "database": "langchain_test_db",
-    "collectionName": "langchain_test_vectorstores"
+    "collectionName": "langchain_test_chain_example"
 }
