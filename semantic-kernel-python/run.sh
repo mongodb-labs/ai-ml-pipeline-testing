@@ -10,9 +10,6 @@ PYTHON_BINARY=$(find_python3)
 # WORKING_DIR = src/semantic-kernel-python/semantic-kernel
 cd python
 
-$PYTHON_BINARY -m venv .
-source ./bin/activate
-
 make install
 
 OPENAI_API_KEY=$openai_api_key \
