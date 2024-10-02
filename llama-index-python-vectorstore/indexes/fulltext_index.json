@@ -1,0 +1,16 @@
+{
+    "mappings": {
+        "dynamic": false,
+        "fields": {
+            "text": [
+                {
+                    "type": "string"
+                }
+            ]
+        }
+    },
+    "name": "fulltext_index",
+    "type": "search",
+    "database": "llama_index_test_db",
+    "collectionName": "llama_index_test_vectorstore"
+}
