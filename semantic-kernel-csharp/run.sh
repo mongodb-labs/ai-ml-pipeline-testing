@@ -2,6 +2,7 @@
 
 set -x
 
+# shellcheck disable=SC2154
 . $workdir/src/.evergreen/utils.sh
 # WORKING_DIR = src/semantic-kernel-csharp/semantic-kernel
 
