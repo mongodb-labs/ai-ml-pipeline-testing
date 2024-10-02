@@ -1,4 +1,4 @@
-name: Python Tests
+name: Pipeline Lint
 
 on:
   pull_request:
@@ -8,6 +8,9 @@ concurrency:
   group: tests-${{ github.ref }}
   cancel-in-progress: true
 
+defaults:
+  run:
+    shell: bash -eux {0}
 
 jobs:
 
