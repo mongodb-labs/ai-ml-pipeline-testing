@@ -1,9 +1,9 @@
 {
     "fields": [
         {
-            "numDimensions": 5,
+            "numDimensions": 1536,
             "path": "embedding",
-            "similarity": "cosine",
+            "similarity": "dotProduct",
             "type": "vector"
         },
         {
@@ -11,8 +11,8 @@
             "type": "filter"
         }
     ],
-    "name": "langchain-test-index-vectorstores",
+    "name": "vector_index",
     "type": "vectorSearch",
     "database": "langchain_test_db",
-    "collectionName": "langchain_test_vectorstores"
+    "collectionName": "langchain_test_retrievers"
 }

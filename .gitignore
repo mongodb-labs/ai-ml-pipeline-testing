@@ -46,3 +46,7 @@ mongo-c-driver-*
 # Benchmark and test output files
 results/*
 xunit-results/
+
+# Miscellaneous
+.DS_Store
+
