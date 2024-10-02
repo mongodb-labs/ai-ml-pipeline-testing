@@ -10,7 +10,14 @@ PYTHON_BINARY=$(find_python3)
 # WORKING_DIR = src/semantic-kernel-python/semantic-kernel
 cd python
 
-make install
+# Temporary solution until https://github.com/microsoft/semantic-kernel/issues/9067 resolves
+$PYTHON_BINARY -m venv venv_wrapper
+source venv_wrapper/bin/activate
+pip install --upgrade uv
+
+make install-python
+make install-sk
+make install-pre-commit
 
 OPENAI_API_KEY=$openai_api_key \
     OPENAI_ORG_ID="" \
