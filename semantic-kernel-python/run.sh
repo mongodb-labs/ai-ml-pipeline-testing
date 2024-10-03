@@ -2,12 +2,14 @@
 
 set -x
 
+# shellcheck disable=SC2154
 . $workdir/src/.evergreen/utils.sh
 
 CONN_STRING=$(fetch_local_atlas_uri)
 PYTHON_BINARY=$(find_python3)
 
 # WORKING_DIR = src/semantic-kernel-python/semantic-kernel
+# shellcheck disable=SC2164
 cd python
 
 # Temporary solution until https://github.com/microsoft/semantic-kernel/issues/9067 resolves
@@ -19,6 +21,7 @@ make install-python
 make install-sk
 make install-pre-commit
 
+# shellcheck disable=SC2154
 OPENAI_API_KEY=$openai_api_key \
     OPENAI_ORG_ID="" \
     AZURE_OPENAI_DEPLOYMENT_NAME="" \
@@ -28,6 +31,7 @@ OPENAI_API_KEY=$openai_api_key \
     Python_Integration_Tests=1 \
     uv run pytest tests/integration/connectors/memory/test_mongodb_atlas.py -k test_collection_knn
 
+# shellcheck disable=SC2154
 OPENAI_API_KEY=$openai_api_key \
     OPENAI_ORG_ID="" \
     AZURE_OPENAI_DEPLOYMENT_NAME="" \

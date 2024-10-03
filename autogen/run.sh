@@ -6,18 +6,20 @@
 
 set -x
 
+# shellcheck disable=SC2154
 . $workdir/src/.evergreen/utils.sh
 PYTHON_BINARY=$(find_python3)
 $PYTHON_BINARY -c "import sys; print(f'Python version found: {sys.version_info}')"
 
 # Create and activate an isolated python venv environment
 $PYTHON_BINARY -m venv venv
-source venv/bin/activate
+. venv/bin/activate
 #  Install autogen with extras
 $PYTHON_BINARY -m pip install .[test,"retrievechat-mongodb"]
 
 
 # Run tests. Sensitive variables in Evergreen come from Evergreen project: ai-ml-pipeline-testing/
+# shellcheck disable=SC2154
 MONGODB_URI=$autogen_mongodb_uri \
 MONGODB_DATABASE="autogen_test_db" \
 $PYTHON_BINARY -m pytest -v test/agentchat/contrib/vectordb/test_mongodb.py

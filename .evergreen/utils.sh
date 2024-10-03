@@ -80,7 +80,7 @@ setup_local_atlas() {
             *)
             echo "Unrecognized state $STATE"
             sleep 1
-        esac      
+        esac
     done
 
     echo "container did not get healthy within 120 seconds, quitting"
@@ -92,14 +92,14 @@ setup_local_atlas() {
     wait "$CONTAINER_ID"
     EXPOSED_PORT=$(podman inspect --format='{{ (index (index .NetworkSettings.Ports "27017/tcp") 0).HostPort }}' "$CONTAINER_ID")
     export CONN_STRING="mongodb://127.0.0.1:$EXPOSED_PORT/?directConnection=true"
+    # shellcheck disable=SC2154
     echo "CONN_STRING=mongodb://127.0.0.1:$EXPOSED_PORT/?directConnection=true" > $workdir/src/.evergreen/.local_atlas_uri
 }
 
 fetch_local_atlas_uri() {
+    # shellcheck disable=SC2154
     . $workdir/src/.evergreen/.local_atlas_uri
 
     export CONN_STRING=$CONN_STRING
     echo "$CONN_STRING"
 }
-
-

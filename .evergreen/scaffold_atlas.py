@@ -36,7 +36,7 @@ def upload_data(db: Database, filename: Path) -> None:
         loaded_collection = json.load(f)
 
     logger.info(
-        "Loading %s to Atlas database %s in colleciton %s",
+        "Loading %s to Atlas database %s in collection %s",
         filename.name,
         db.name,
         collection_name,

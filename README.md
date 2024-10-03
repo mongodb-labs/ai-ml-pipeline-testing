@@ -30,7 +30,7 @@ Within each subdirectory you should expect to have:
 The general layout of this repo looks like this:
 
 ```bash
-├── LICENSE                                     # License Agreeement
+├── LICENSE                                     # License Agreement
 ├── README.md                                   # This Document
 ├── langchain-python                            # Folder scoped for one Integration
 │   └── run.sh                                  # Script that executes test

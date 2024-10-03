@@ -5,13 +5,14 @@
 
 set -x
 
+# shellcheck disable=SC2154
 . $workdir/src/.evergreen/utils.sh
 PYTHON_BINARY=$(find_python3)
 $PYTHON_BINARY -c "import sys; print(f'Python version found: {sys.version_info}')"
 
 # Create and activate an isolated python venv environment
 $PYTHON_BINARY -m venv venv
-source venv/bin/activate
+. venv/bin/activate
 # Install Poetry
 pip install -U pip poetry
 # Recreate the poetry lock file
@@ -21,6 +22,7 @@ poetry install --with dev --extras mongo
 
 
 # Run tests. Sensitive variables in Evergreen come from Evergeen project: ai-ml-pipeline-testing/
+# shellcheck disable=SC2154
 MONGODB_URI=$docarray_mongodb_uri \
 MONGODB_DATABASE="docarray_test_db" \
 pytest -v tests/index/mongo_atlas
