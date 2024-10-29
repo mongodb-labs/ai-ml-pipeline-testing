@@ -137,8 +137,8 @@ buildvariants:
     display_name: Langchain RHEL Python
     expansions:
       DIR: langchain-python
-      REPO_NAME: langchain  # TODO [PYTHON-4679] Merge change in this branch
-      CLONE_URL: -b ci-on-local-atlas --single-branch https://github.com/caseyclements/langchain.git
+      REPO_NAME: langchain
+      CLONE_URL: -b ci-on-local-atlas --single-branch https://github.com/langchain-ai/langchain-mongodb.git
       DATABASE: langchain_test_db
     run_on:
       - rhel87-small
