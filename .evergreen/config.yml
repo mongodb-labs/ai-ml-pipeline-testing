@@ -137,7 +137,7 @@ buildvariants:
     display_name: Langchain RHEL Python
     expansions:
       DIR: langchain-python
-      REPO_NAME: langchain
+      REPO_NAME: langchain-mongodb
       CLONE_URL: https://github.com/langchain-ai/langchain-mongodb.git
       DATABASE: langchain_test_db
     run_on:
