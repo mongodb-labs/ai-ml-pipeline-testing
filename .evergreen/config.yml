@@ -109,6 +109,19 @@ tasks:
       - func: "execute tests"
 
 buildvariants:
+  - name: test-llama-index-kvstore-rhel
+    # TODO - Maintainer has pushed back on this.
+    display_name: LlamaIndex RHEL KV Store
+    expansions:
+      DIR: llama-index-python-kvstore
+      REPO_NAME: llama_index
+      # TODO - Update CLONE_URL: [PYTHON-4522] [INTPYTHON-326]
+      CLONE_URL: -b PYTHON-4522 --single-branch https://github.com/shruti-sridhar/llama_index.git
+      DATABASE: llama_index_test_db
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-llama-index
   - name: test-semantic-kernel-python-rhel
     display_name: Semantic-Kernel RHEL Python
     expansions:
@@ -156,19 +169,6 @@ buildvariants:
       - rhel87-small
     tasks:
       - name: test-chatgpt-retrieval-plugin
-
-  - name: test-llama-index-kvstore-rhel
-    display_name: LlamaIndex RHEL KV Store
-    expansions:
-      DIR: llama-index-python-kvstore
-      REPO_NAME: llama_index
-      # TODO - Update CLONE_URL: [PYTHON-4522]
-      CLONE_URL: -b PYTHON-4522 --single-branch https://github.com/shruti-sridhar/llama_index.git
-      DATABASE: llama_index_test_db
-    run_on:
-      - rhel87-small
-    tasks:
-      - name: test-llama-index
 
   - name: test-llama-index-vectorstore-rhel
     display_name: LlamaIndex RHEL Vector Store
