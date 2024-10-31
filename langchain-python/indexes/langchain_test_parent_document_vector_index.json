@@ -1,0 +1,14 @@
+{
+    "fields": [
+        {
+            "numDimensions": 1536,
+            "path": "embedding",
+            "similarity": "cosine",
+            "type": "vector"
+        }
+    ],
+    "name": "langchain-test-parent-document-vector-index",
+    "type": "vectorSearch",
+    "database": "langchain_test_db",
+    "collectionName": "langchain_test_parent_document_combined"
+}
