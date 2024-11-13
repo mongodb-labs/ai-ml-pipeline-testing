@@ -14,6 +14,7 @@ $PYTHON_BINARY -c "import sys; print(f'Python version found: {sys.version_info}'
 $PYTHON_BINARY -m venv .venv
 . .venv/bin/activate
 PYTHON_BINARY=$(which python)
+$PYTHON_BINARY -m pip install -U pip poetry
 # Create a package specific poetry environment
 $PYTHON_BINARY -m poetry env use $PYTHON_BINARY
 # Activate the poetry env, which itself does not include poetry
