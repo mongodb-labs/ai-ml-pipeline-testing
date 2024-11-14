@@ -26,7 +26,7 @@ $PYTHON_BINARY -m poetry install --with dev
 OPENAI_API_KEY=$openai_api_key \
 DATASTORE="mongodb" \
 BEARER_TOKEN="staylowandkeepmoving" \
-MONGODB_URI=$chatgpt_retrieval_plugin_mongodb_uri \
+MONGODB_URI=$(fetch_local_atlas_uri) \
 MONGODB_DATABASE="chatgpt_retrieval_plugin_test_db" \
 MONGODB_COLLECTION="chatgpt_retrieval_plugin_test_vectorstore" \
 MONGODB_INDEX="vector_index" \
