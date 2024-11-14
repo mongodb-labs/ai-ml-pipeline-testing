@@ -13,7 +13,10 @@ $PYTHON_BINARY -c "import sys; print(f'Python version found: {sys.version_info}'
 # shellcheck disable=SC2164
 cd llama-index-integrations/storage/kvstore/llama-index-storage-kvstore-mongodb
 
-# Install Poetry into base python
+# Install Poetry
+$PYTHON_BINARY -m venv .venv
+. .venv/bin/activate
+PYTHON_BINARY=$(which python)
 $PYTHON_BINARY -m pip install -U pip poetry
 # Create a package specific poetry environment
 $PYTHON_BINARY -m poetry env use $PYTHON_BINARY
