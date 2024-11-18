@@ -65,7 +65,7 @@ retry() {
 setup_local_atlas() {
     echo "Starting the container"
 
-    IMAGE=mongodb/mongodb-atlas-local:latest
+    IMAGE=artifactory.corp.mongodb.com/dockerhub/mongodb/mongodb-atlas-local:latest
     retry podman pull $IMAGE
 
     CONTAINER_ID=$(podman run --rm -d -e DO_NOT_TRACK=1 -P --health-cmd "/usr/local/bin/runner healthcheck" mongodb/mongodb-atlas-local:latest)
