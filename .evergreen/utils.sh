@@ -52,10 +52,22 @@ is_python_310() {
 }
 
 
+retry() {
+    for i in 1 2 4 8 16; do
+        { "$@" && return 0; } || sleep $i
+    done
+    return 1
+}
+
+
 # start mongodb-atlas-local container, because of a bug in podman we have to define the healtcheck ourselves (is the same as in the image)
 # stores the connection string in .local_atlas_uri file
 setup_local_atlas() {
     echo "Starting the container"
+
+    IMAGE=artifactory.corp.mongodb.com/dockerhub/mongodb/mongodb-atlas-local:latest
+    retry podman pull $IMAGE
+
     CONTAINER_ID=$(podman run --rm -d -e DO_NOT_TRACK=1 -P --health-cmd "/usr/local/bin/runner healthcheck" mongodb/mongodb-atlas-local:latest)
 
     echo "waiting for container to become healthy..."
