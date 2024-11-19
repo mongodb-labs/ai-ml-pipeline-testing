@@ -34,6 +34,7 @@ functions:
       params:
         working_dir: "src"
         binary: bash
+        include_expansions_in_env: [DIR]
         args: [.evergreen/fetch-secrets.sh]
 
   "fetch repo":
