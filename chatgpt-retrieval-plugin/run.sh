@@ -2,11 +2,13 @@
 
 # chat-gpt-retrieval-plugin is a poetry run project
 
-set -x
+set -eux
 
 # Get the MONGODB_URI and OPENAI_API_KEY.
 # shellcheck disable=SC2154
 source $workdir/src/secrets-export.sh
+
+echo ${MONGODB_URI:0:10}
 
 # shellcheck disable=SC2154
 . $workdir/src/.evergreen/utils.sh

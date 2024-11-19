@@ -44,3 +44,5 @@ esac
 
 # Export the URI
 echo "MONGODB_URI=$MONGODB_URI" >> secrets-export.sh
+
+echo ${MONGODB_URI:0:10}
