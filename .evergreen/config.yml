@@ -31,9 +31,10 @@ functions:
   "fetch secrets":
     - command: subprocess.exec
       type: setup
-      working_dir: "src"
-      binary: bash
-      args: [.evergreen/fetch-secrets.sh]
+      params:
+        working_dir: "src"
+        binary: bash
+        args: [.evergreen/fetch-secrets.sh]
 
   "fetch repo":
     - command: shell.exec
