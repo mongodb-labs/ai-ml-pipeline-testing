@@ -34,4 +34,3 @@ DATABASE=$DATABASE \
 
 # Export the URI
 echo "MONGODB_URI=$CONN_STRING" >> secrets-export.sh
-echo ${CONN_STRING:0:10}
