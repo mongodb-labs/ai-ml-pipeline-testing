@@ -31,3 +31,6 @@ DATABASE=$DATABASE \
     DIR=$DIR \
     TARGET_DIR=$TARGET_DIR \
     $PYTHON_BINARY $SCAFFOLD_SCRIPT
+
+# Export the URI
+echo "MONGODB_URI=$CONN_STRING" >> secrets-export.sh

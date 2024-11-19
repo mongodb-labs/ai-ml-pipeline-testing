@@ -2,6 +2,10 @@
 
 set -x
 
+# Get the MONGODB_URI and OPENAI_API_KEY.
+# shellcheck disable=SC2154
+source $workdir/src/secrets-export.sh
+
 # shellcheck disable=SC2154
 . $workdir/src/.evergreen/utils.sh
 
@@ -26,10 +30,7 @@ $PYTHON_BINARY -m poetry lock --no-update
 # Install from pyproject.toml into package specific environment
 $PYTHON_BINARY -m poetry install --with dev
 
-# Run tests. Sensitive variables in Evergreen come from Evergreen project: ai-ml-pipeline-testing/
-# shellcheck disable=SC2154
-MONGODB_URI=$(fetch_local_atlas_uri) \
-OPENAI_API_KEY=$openai_api_key \
+# Run tests.
 MONGODB_DATABASE="llama_index_test_db" \
 MONGODB_COLLECTION="llama_index_test_vectorstore" \
 MONGODB_INDEX="vector_index" \
