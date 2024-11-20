@@ -62,7 +62,7 @@ popd
 
 # Test server is up
 $PYTHON_BINARY -m pip install pymongo
-CONN_STRING=$CONN_STRING \
+CONN_STRING=$MONGODB_URI \
     $PYTHON_BINARY -c "from pymongo import MongoClient; import os; MongoClient(os.environ['MONGODB_URI']).db.command('ping')"
 
 # Add database and index configurations
