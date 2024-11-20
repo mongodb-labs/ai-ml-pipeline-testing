@@ -2,7 +2,7 @@
 
 # chat-gpt-retrieval-plugin is a poetry run project
 
-set -eux
+set -eu
 
 # Get the MONGODB_URI and OPENAI_API_KEY.
 # shellcheck disable=SC2154
@@ -29,6 +29,8 @@ $PYTHON_BINARY -m poetry lock --no-update
 $PYTHON_BINARY -m poetry install --with dev
 
 # Run tests.
+MONGODB_URI="$MONGODB_URI" \
+OPENAI_API_KEY="$OPENAI_API_KEY" \
 DATASTORE="mongodb" \
 BEARER_TOKEN="staylowandkeepmoving" \
 MONGODB_DATABASE="chatgpt_retrieval_plugin_test_db" \
