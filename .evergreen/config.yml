@@ -228,8 +228,7 @@ buildvariants:
     expansions:
       DIR: llama-index-python-vectorstore
       REPO_NAME: llama_index
-      # TODO: Update INTPYTHON-414
-      CLONE_URL: -b INTPYTHON-414 --single-branch https://github.com/blink1073/llama_index.git
+      CLONE_URL: https://github.com/blink1073/llama_index.git
       DATABASE: llama_index_test_db
     run_on:
       - rhel87-small

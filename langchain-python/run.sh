@@ -24,7 +24,7 @@ poetry lock --no-update
 
 poetry install --with test --with test_integration
 
-export MONGODB_ATLAS_URI=$MONGODB_ATLAS_URI
+export MONGODB_ATLAS_URI=$MONGODB_URI
 export OPENAI_API_KEY=$OPENAI_API_KEY
 
 make test
