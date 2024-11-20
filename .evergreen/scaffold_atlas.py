@@ -72,7 +72,11 @@ def create_index(client: MongoClient, filename: Path) -> None:
     search_index = SearchIndexModel(
         loaded_index_configuration, name=index_name, type=index_type
     )
-    collection.create_search_index(search_index)
+    indexes = [index["name"] for index in collection.list_search_indexes()]
+    if index_name in indexes:
+        collection.update_search_index(index_name, loaded_index_configuration)
+    else:
+        collection.create_search_index(search_index)
 
 
 def walk_directory(filepath) -> list[str]:
