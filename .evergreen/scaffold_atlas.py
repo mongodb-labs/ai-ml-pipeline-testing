@@ -41,6 +41,7 @@ def upload_data(db: Database, filename: Path) -> None:
         db.name,
         collection_name,
     )
+    db.drop_collection(collection_name)
     if not isinstance(loaded_collection, list):
         loaded_collection = [loaded_collection]
     if loaded_collection:
@@ -122,7 +123,6 @@ def generate_indexes(client: MongoClient, index_jsons: list[Path]) -> None:
 def main() -> None:
     client = MongoClient(CONN_STRING)
     database = client[DATABASE_NAME]
-    client.drop_database(DATABASE_NAME)
     collection_jsons = walk_directory(DB_PATH)
     index_jsons = walk_directory(INDEX_PATH)
     generate_collections(database, collection_jsons)
