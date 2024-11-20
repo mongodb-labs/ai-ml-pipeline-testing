@@ -43,4 +43,4 @@ case $DIR in
 esac
 
 # Export the URI
-echo "MONGODB_URI=$MONGODB_URI" >> secrets-export.sh
+echo "export MONGODB_URI=$MONGODB_URI" >> secrets-export.sh
