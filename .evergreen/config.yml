@@ -80,7 +80,8 @@ functions:
     - command: subprocess.exec
       type: setup
       params:
-        include_expansions_in_env: [DIR]
+        #include_expansions_in_env: [DIR]
+        add_expansions_to_env: true
         working_dir: "src"
         binary: bash
         args: [.evergreen/setup-remote.sh]
