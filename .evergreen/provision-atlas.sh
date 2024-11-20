@@ -14,10 +14,11 @@ mkdir atlas
 
 setup_local_atlas
 
-cd atlas
+pushd atlas
 
 $PYTHON_BINARY -m venv .
 source ./bin/activate
+popd
 
 # Test server is up
 $PYTHON_BINARY -m pip install pymongo
@@ -32,7 +33,7 @@ DATABASE=$DATABASE \
     TARGET_DIR=$TARGET_DIR \
     $PYTHON_BINARY $SCAFFOLD_SCRIPT
 
-# Export the URI and OPEN
+# Get the secrets.
 source secrets-export.sh
 
 # Create the env file
