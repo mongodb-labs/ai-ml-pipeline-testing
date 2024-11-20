@@ -122,6 +122,7 @@ def generate_indexes(client: MongoClient, index_jsons: list[Path]) -> None:
 def main() -> None:
     client = MongoClient(CONN_STRING)
     database = client[DATABASE_NAME]
+    client.drop_database(DATABASE_NAME)
     collection_jsons = walk_directory(DB_PATH)
     index_jsons = walk_directory(INDEX_PATH)
     generate_collections(database, collection_jsons)
