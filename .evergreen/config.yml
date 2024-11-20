@@ -34,7 +34,6 @@ functions:
       params:
         working_dir: "src"
         binary: bash
-        include_expansions_in_env: [DIR]
         args: [.evergreen/fetch-secrets.sh]
 
   "fetch repo":
@@ -77,6 +76,15 @@ functions:
         args:
           - .evergreen/provision-atlas.sh
 
+  "setup remote atlas":
+    - command: subprocess.exec
+      type: setup
+      params:
+        include_expansions_in_env: [DIR]
+        working_dir: "src"
+        binary: bash
+        args: [.evergreen/setup-remote.sh]
+
 pre_error_fails_task: true
 pre:
   - func: "fetch source"
@@ -92,6 +100,7 @@ tasks:
   - name: test-semantic-kernel-python-remote
     commands:
       - func: "fetch repo"
+      - func: "setup remote atlas"
       - func: "execute tests"
 
   - name: test-semantic-kernel-csharp-local
@@ -103,6 +112,7 @@ tasks:
   - name: test-semantic-kernel-csharp-remote
     commands:
       - func: "fetch repo"
+      - func: "setup remote atlas"
       - func: "execute tests"
 
   - name: test-langchain-python-local
@@ -114,6 +124,7 @@ tasks:
   - name: test-langchain-python-remote
     commands:
       - func: "fetch repo"
+      - func: "setup remote atlas"
       - func: "execute tests"
 
   - name: test-chatgpt-retrieval-plugin-local
@@ -125,6 +136,7 @@ tasks:
   - name: test-chatgpt-retrieval-plugin-remote
     commands:
       - func: "fetch repo"
+      - func: "setup remote atlas"
       - func: "execute tests"
 
   - name: test-llama-index-local
@@ -136,6 +148,7 @@ tasks:
   - name: test-llama-index-remote
     commands:
       - func: "fetch repo"
+      - func: "setup remote atlas"
       - func: "execute tests"
 
   # TODO: INTPYTHON-313
@@ -148,6 +161,7 @@ tasks:
   - name: test-docarray-remote
     commands:
       - func: "fetch repo"
+      - func: "setup remote atlas"
       - func: "execute tests"
 
 buildvariants:

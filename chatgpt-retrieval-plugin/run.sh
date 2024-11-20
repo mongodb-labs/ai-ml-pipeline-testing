@@ -6,7 +6,7 @@ set -eu
 
 # Get the MONGODB_URI and OPENAI_API_KEY.
 # shellcheck disable=SC2154
-. $workdir/src/secrets-export.sh
+. $workdir/src/env.sh
 
 # shellcheck disable=SC2154
 . $workdir/src/.evergreen/utils.sh

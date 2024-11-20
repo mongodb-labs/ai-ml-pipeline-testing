@@ -32,5 +32,9 @@ DATABASE=$DATABASE \
     TARGET_DIR=$TARGET_DIR \
     $PYTHON_BINARY $SCAFFOLD_SCRIPT
 
-# Export the URI
-echo "export MONGODB_URI=$CONN_STRING" >> secrets-export.sh
+# Export the URI and OPEN
+source secrets-export.sh
+
+# Create the env file
+echo "export OPENAI_API_KEY=$OPENAI_API_KEY" >> env.sh
+echo "export MONGODB_URI=$CONN_STRING" >> env.sh
