@@ -1,10 +1,10 @@
 #!/bin/sh
 
-set -x
+set -eu
 
 # Get the MONGODB_URI and OPENAI_API_KEY.
 # shellcheck disable=SC2154
-source $workdir/src/secrets-export.sh
+. $workdir/src/secrets-export.sh
 
 # shellcheck disable=SC2154
 . $workdir/src/.evergreen/utils.sh
@@ -31,6 +31,8 @@ $PYTHON_BINARY -m poetry lock --no-update
 $PYTHON_BINARY -m poetry install --with dev
 
 # Run tests.
+MONGODB_URI="$MONGODB_URI" \
+OPENAI_API_KEY="$OPENAI_API_KEY" \
 MONGODB_DATABASE="llama_index_test_db" \
 MONGODB_COLLECTION="llama_index_test_vectorstore" \
 MONGODB_INDEX="vector_index" \

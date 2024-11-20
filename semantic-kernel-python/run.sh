@@ -1,10 +1,10 @@
 #!/bin/bash
 
-set -x
+set -eu
 
 # Get the MONGODB_URI and OPENAI_API_KEY.
 # shellcheck disable=SC2154
-source $workdir/src/secrets-export.sh
+. $workdir/src/secrets-export.sh
 
 # shellcheck disable=SC2154
 . $workdir/src/.evergreen/utils.sh
@@ -25,7 +25,8 @@ make install-sk
 make install-pre-commit
 
 # shellcheck disable=SC2154
-OPENAI_ORG_ID="" \
+OPENAI_API_KEY="$OPENAI_API_KEY" \
+    OPENAI_ORG_ID="" \
     AZURE_OPENAI_DEPLOYMENT_NAME="" \
     AZURE_OPENAI_ENDPOINT="" \
     AZURE_OPENAI_API_KEY="" \
@@ -34,7 +35,8 @@ OPENAI_ORG_ID="" \
     uv run pytest tests/integration/memory/memory_stores/test_mongodb_atlas_memory_store.py -k test_collection_knn
 
 # shellcheck disable=SC2154
-OPENAI_ORG_ID="" \
+OPENAI_API_KEY="$OPENAI_API_KEY" \
+    OPENAI_ORG_ID="" \
     AZURE_OPENAI_DEPLOYMENT_NAME="" \
     AZURE_OPENAI_ENDPOINT="" \
     AZURE_OPENAI_API_KEY="" \

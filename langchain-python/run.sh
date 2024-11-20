@@ -1,7 +1,11 @@
 #!/bin/bash
 
 # WORKING_DIR = src/langchain-python/langchain
-set -x
+set -eu
+
+# Get the MONGODB_URI and OPENAI_API_KEY.
+# shellcheck disable=SC2154
+. $workdir/src/secrets-export.sh
 
 # shellcheck disable=SC2154
 . $workdir/src/.evergreen/utils.sh
@@ -20,11 +24,8 @@ poetry lock --no-update
 
 poetry install --with test --with test_integration
 
-MONGODB_ATLAS_URI=$(fetch_local_atlas_uri)
-
-export MONGODB_ATLAS_URI
-# shellcheck disable=SC2154
-export OPENAI_API_KEY=$openai_api_key
+export MONGODB_ATLAS_URI=$MONGODB_ATLAS_URI
+export OPENAI_API_KEY=$OPENAI_API_KEY
 
 make test
 

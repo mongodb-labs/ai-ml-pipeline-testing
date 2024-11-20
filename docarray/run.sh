@@ -3,7 +3,11 @@
 #  Sets up a virtual environment (poetry)
 #  Runs the mongodb tests of the upstream repo
 
-set -x
+set -eu
+
+# Get the MONGODB_URI.
+# shellcheck disable=SC2154
+. $workdir/src/secrets-export.sh
 
 # shellcheck disable=SC2154
 . $workdir/src/.evergreen/utils.sh
@@ -23,6 +27,6 @@ poetry install --with dev --extras mongo
 
 # Run tests. Sensitive variables in Evergreen come from Evergeen project: ai-ml-pipeline-testing/
 # shellcheck disable=SC2154
-MONGODB_URI=$docarray_mongodb_uri \
+MONGODB_URI="$MONGODB_URI" \
 MONGODB_DATABASE="docarray_test_db" \
 pytest -v tests/index/mongo_atlas

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eu
 
 . .evergreen/utils.sh
 
@@ -9,7 +10,6 @@ EVERGREEN_PATH=$(pwd)/.evergreen
 TARGET_DIR=$(pwd)/$DIR
 SCAFFOLD_SCRIPT=$EVERGREEN_PATH/scaffold_atlas.py
 
-set -ex
 mkdir atlas
 
 setup_local_atlas

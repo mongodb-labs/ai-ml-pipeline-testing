@@ -1,10 +1,10 @@
 #!/bin/bash
 
-set -x
+set -eu
 
 # Get the MONGODB_URI.
 # shellcheck disable=SC2154
-source $workdir/src/secrets-export.sh
+. $workdir/src/secrets-export.sh
 
 # shellcheck disable=SC2154
 . $workdir/src/.evergreen/utils.sh
