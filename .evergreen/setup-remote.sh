@@ -11,25 +11,25 @@ fi
 # Get the correct remote URI.
 case $DIR in
     llama-index-python-kvstore)
-        MONGODB_URI=$llama_index_mongodb_uri
+        MONGODB_URI=$DOCARRAY_MONGODB_URI
     ;;
     semantic-kernel-python)
-        MONGODB_URI=$semantic_kernel_mongodb_uri
+        MONGODB_URI=$DOCARRAY_MONGODB_URI
     ;;
     semantic-kernel-csharp)
-        MONGODB_URI=$semantic_kernel_mongodb_uri
+        MONGODB_URI=$DOCARRAY_MONGODB_URI
     ;;
     langchain-python)
-        MONGODB_URI=$semantic_kernel_mongodb_uri
+        MONGODB_URI=$DOCARRAY_MONGODB_URI
     ;;
     chatgpt-retrieval-plugin)
-        MONGODB_URI=$semantic_kernel_mongodb_uri
+        MONGODB_URI=$DOCARRAY_MONGODB_URI
     ;;
     llama-index-python-vectorstore)
-        MONGODB_URI=$llama_index_mongodb_uri
+        MONGODB_URI=$DOCARRAY_MONGODB_URI
     ;;
     docarray)
-        MONGODB_URI=$semantic_kernel_mongodb_uri
+        MONGODB_URI=$DOCARRAY_MONGODB_URI
     ;;
     *)
         echo "Missing config in fetch-secrets.sh for DIR: $DIR"
