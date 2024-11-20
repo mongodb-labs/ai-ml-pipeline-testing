@@ -40,3 +40,6 @@ esac
 # Create the env file
 echo "export OPENAI_API_KEY=$openai_api_key" >> env.sh
 echo "export MONGODB_URI=$MONGODB_URI" >> env.sh
+
+echo "set MONGODB_URI=$MONGODB_URI"
+exit 1
