@@ -80,10 +80,11 @@ def create_index(client: MongoClient, filename: Path) -> None:
     else:
         collection.create_search_index(search_index)
 
+    timeout = 20
     _wait_for_predicate(
         predicate=lambda: _is_index_ready(collection, index_name),
-        err=f"{index_name=} did not complete in {10}!",
-        timeout=10,
+        err=f"{index_name=} did not complete in {timeout}!",
+        timeout=timeout,
     )
 
 
