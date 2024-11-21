@@ -84,7 +84,7 @@ def create_index(client: MongoClient, filename: Path) -> None:
     if index_name not in indexes:
         collection.create_search_index(search_index)
         logger.debug("waiting for search index to be queryable...")
-        wait_until_complete = 10
+        wait_until_complete = 60
         _wait_for_predicate(
             predicate=lambda: _is_index_ready(collection, index_name),
             err=f"Index {index_name} update did not complete in {wait_until_complete}!",
@@ -99,7 +99,7 @@ def create_index(client: MongoClient, filename: Path) -> None:
             database_name,
         )
     logger.debug(
-        "creating search: %s on %s.%s... done",
+        "creating search index: %s on %s.%s... done",
         index_name,
         collection_name,
         database_name,
