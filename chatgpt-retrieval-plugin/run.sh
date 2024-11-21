@@ -4,6 +4,8 @@
 
 set -eu
 
+exit 1
+
 # Get the MONGODB_URI and OPENAI_API_KEY.
 # shellcheck disable=SC2154
 . $workdir/src/env.sh

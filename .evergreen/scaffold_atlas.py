@@ -71,8 +71,8 @@ def create_index(client: MongoClient, filename: Path) -> None:
     logger.debug(
         "creating search index: %s on %s.%s...",
         index_name,
-        collection_name,
         database_name,
+        collection_name,
     )
 
     collection = client[database_name][collection_name]
@@ -95,14 +95,14 @@ def create_index(client: MongoClient, filename: Path) -> None:
         logger.debug(
             "search index already exists!: %s on %s.%s",
             index_name,
-            collection_name,
             database_name,
+            collection_name,
         )
     logger.debug(
         "creating search index: %s on %s.%s... done",
         index_name,
-        collection_name,
         database_name,
+        collection_name,
     )
 
 
