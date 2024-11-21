@@ -80,7 +80,6 @@ functions:
     - command: subprocess.exec
       type: setup
       params:
-        #include_expansions_in_env: [DIR]
         add_expansions_to_env: true
         working_dir: "src"
         binary: bash
@@ -152,12 +151,11 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
-  # TODO: INTPYTHON-313
-  # - name: test-docarray-local
-  #   commands:
-  #     - func: "fetch repo"
-  #     - func: "setup local atlas"
-  #     - func: "execute tests"
+  - name: test-docarray-local
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
 
   - name: test-docarray-remote
     commands:

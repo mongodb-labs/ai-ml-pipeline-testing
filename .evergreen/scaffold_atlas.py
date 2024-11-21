@@ -4,9 +4,11 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Any, Union
+from time import sleep, monotonic
+from typing import Any, Callable, Union
 
 from pymongo import MongoClient
+from pymongo.collection import Collection
 from pymongo.database import Database
 from pymongo.operations import SearchIndexModel
 from pymongo.results import InsertManyResult
@@ -77,6 +79,53 @@ def create_index(client: MongoClient, filename: Path) -> None:
         collection.update_search_index(index_name, loaded_index_configuration)
     else:
         collection.create_search_index(search_index)
+
+    _wait_for_predicate(
+        predicate=lambda: _is_index_ready(collection, index_name),
+        err=f"{index_name=} did not complete in {10}!",
+        timeout=10,
+    )
+
+
+def _is_index_ready(collection: Collection, index_name: str) -> bool:
+    """Check for the index name in the list of available search indexes.
+
+     This confirms that the specified index is of status READY.
+
+    Args:
+        collection (Collection): MongoDB Collection to for the search indexes
+        index_name (str): Vector Search Index name
+
+    Returns:
+        bool : True if the index is present and READY false otherwise
+    """
+    search_indexes = collection.list_search_indexes(index_name)
+
+    for index in search_indexes:
+        if index["status"] == "READY":
+            return True
+    return False
+
+
+def _wait_for_predicate(
+    predicate: Callable, err: str, timeout: float = 120, interval: float = 0.5
+) -> None:
+    """Generic to block until the predicate returns true.
+
+    Args:
+        predicate (Callable[, bool]): A function that returns a boolean value
+        err (str): Error message to raise if nothing occurs
+        timeout (float, optional): Wait time for predicate. Defaults to TIMEOUT.
+        interval (float, optional): Interval to check predicate. Defaults to DELAY.
+
+    Raises:
+        TimeoutError: _description_
+    """
+    start = monotonic()
+    while not predicate():
+        if monotonic() - start > timeout:
+            raise TimeoutError(err)
+        sleep(interval)
 
 
 def walk_directory(filepath) -> list[str]:
