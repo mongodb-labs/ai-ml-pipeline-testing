@@ -193,8 +193,8 @@ buildvariants:
       - rhel87-small
     tasks:
       - name: test-semantic-kernel-python-local
-      - name: test-semantic-kernel-python-remote
-        batchtime: 10080  # 1 week
+      # - name: test-semantic-kernel-python-remote
+      #   batchtime: 10080  # 1 week
 
   - name: test-semantic-kernel-csharp-rhel
     display_name: Semantic-Kernel RHEL CSharp
@@ -207,8 +207,8 @@ buildvariants:
       - rhel87-small
     tasks:
       - name: test-semantic-kernel-csharp-local
-      - name: test-semantic-kernel-csharp-remote
-        batchtime: 10080  # 1 week
+      # - name: test-semantic-kernel-csharp-remote
+      #   batchtime: 10080  # 1 week
 
   - name: test-langchain-python-rhel
     display_name: Langchain RHEL Python
