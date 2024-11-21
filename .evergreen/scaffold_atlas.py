@@ -14,7 +14,7 @@ from pymongo.results import InsertManyResult
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)
-logger.setLevel(logging.DEBUG if os.environ.get("DEBUG") else logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 DATABASE_NAME = os.environ.get("DATABASE")
 CONN_STRING = os.environ.get("CONN_STRING")
