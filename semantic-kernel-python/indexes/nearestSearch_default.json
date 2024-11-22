@@ -10,5 +10,5 @@
     "name": "default",
     "type": "vectorSearch",
     "collectionName": "nearestSearch",
-    "database": "pyMSKTest",
+    "database": "pyMSKTest"
 }
