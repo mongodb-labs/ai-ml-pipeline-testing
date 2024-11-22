@@ -191,8 +191,9 @@ buildvariants:
       - rhel87-small
     tasks:
       - name: test-semantic-kernel-python-local
-      - name: test-semantic-kernel-python-remote
-        batchtime: 10080  # 1 week
+      # TODO: INTPYTHON-430
+      # - name: test-semantic-kernel-python-remote
+      #   batchtime: 10080  # 1 week
 
   - name: test-semantic-kernel-csharp-rhel
     display_name: Semantic-Kernel RHEL CSharp
