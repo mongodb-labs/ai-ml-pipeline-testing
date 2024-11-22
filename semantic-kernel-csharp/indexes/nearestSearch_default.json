@@ -1,6 +1,7 @@
 {
     "collectionName": "nearestSearch",
     "database": "dotnetMSKNearestTest",
+    "type": "vectorSearch",
     "fields": [{
                 "path": "embedding",
                 "numDimensions": 3,
