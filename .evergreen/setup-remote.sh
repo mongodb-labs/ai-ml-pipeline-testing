@@ -39,10 +39,11 @@ esac
 export MONGODB_URI
 
 # Create the env file
-echo "export OPENAI_API_KEY=$openai_api_key" >> env.sh
+echo "export OPENAI_API_KEY=$OPENAI_API_KEY" >> env.sh
 echo "export MONGODB_URI=$MONGODB_URI" >> env.sh
 
 
+# Ensure the remote database is populated.
 . .evergreen/utils.sh
 
 PYTHON_BINARY=$(find_python3)
