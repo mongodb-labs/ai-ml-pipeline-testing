@@ -1,0 +1,23 @@
+{
+    "fields": [
+        {
+        "numDimensions": 10,
+        "path": "embedding",
+        "similarity": "cosine",
+        "type": "vector"
+        },
+        {
+        "path": "number",
+        "type": "filter"
+        },
+        {
+        "path": "text",
+        "type": "filter"
+        }
+    ],
+    "name": "vector_index",
+    "type": "vectorSearch",
+    "database": "docarray_test_db",
+    "collectionName": "bespoke_name"
+  }
+  
