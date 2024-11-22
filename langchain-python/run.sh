@@ -22,7 +22,7 @@ pip install poetry
 
 poetry lock --no-update
 
-poetry install --with test --with test_integration
+poetry install --with dev
 
 export MONGODB_ATLAS_URI=$MONGODB_URI
 export OPENAI_API_KEY=$OPENAI_API_KEY
