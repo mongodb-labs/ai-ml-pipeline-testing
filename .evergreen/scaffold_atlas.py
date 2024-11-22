@@ -42,13 +42,17 @@ def upload_data(db: Database, filename: Path) -> None:
         db.name,
         collection_name,
     )
-    db[collection_name].delete_many({})
+    collections = [c["name"] for c in db.list_collections()]
+    if collection_name in collections:
+        logger.debug("Clearing existing collection", collection_name)
+        db[collection_name].delete_many({})
+
     if not isinstance(loaded_collection, list):
         loaded_collection = [loaded_collection]
     if loaded_collection:
         result: InsertManyResult = db[collection_name].insert_many(loaded_collection)
         logger.debug("Uploaded results for %s: %s", filename.name, result.inserted_ids)
-    else:
+    elif collection_name not in collections:
         logger.debug("Empty collection named %s created", collection_name)
         db.create_collection(collection_name)
 
