@@ -94,7 +94,7 @@ def create_index(client: MongoClient, filename: Path) -> None:
         collection.update_search_index(index_name, loaded_index_configuration)
 
     logger.debug("waiting for search index to be ready...")
-    wait_until_complete = 60
+    wait_until_complete = 120
     _wait_for_predicate(
         predicate=lambda: _is_index_ready(collection, index_name),
         err=f"Index {index_name} update did not complete in {wait_until_complete}!",
