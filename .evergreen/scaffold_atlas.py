@@ -42,7 +42,7 @@ def upload_data(db: Database, filename: Path) -> None:
         db.name,
         collection_name,
     )
-    db.drop_collection(collection_name)
+    db[collection_name].delete_many({})
     if not isinstance(loaded_collection, list):
         loaded_collection = [loaded_collection]
     if loaded_collection:
