@@ -18,7 +18,7 @@ pip install poetry
 
 poetry lock --no-update
 
-poetry install --with test --with test_integration
+poetry install --with dev
 
 MONGODB_ATLAS_URI=$(fetch_local_atlas_uri)
 
