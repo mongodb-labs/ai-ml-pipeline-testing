@@ -83,14 +83,14 @@ def create_index(client: MongoClient, filename: Path) -> None:
     indexes = [index["name"] for index in collection.list_search_indexes()]
     if index_name not in indexes:
         collection.create_search_index(search_index)
-        logger.debug("waiting for search index to be queryable...")
+        logger.debug("waiting for search index to be ready...")
         wait_until_complete = 60
         _wait_for_predicate(
             predicate=lambda: _is_index_ready(collection, index_name),
             err=f"Index {index_name} update did not complete in {wait_until_complete}!",
             timeout=wait_until_complete,
         )
-        logger.debug("waiting for search index to be queryable... done.")
+        logger.debug("waiting for search index to be ready... done.")
     else:
         logger.debug(
             "search index already exists!: %s on %s.%s",

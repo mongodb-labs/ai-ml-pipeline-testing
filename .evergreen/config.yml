@@ -260,7 +260,5 @@ buildvariants:
     run_on:
       - rhel87-small
     tasks:
-      # TODO: INTPYTHON-313
-      # - name: test-docarray-local
+      - name: test-docarray-local
       - name: test-docarray-remote
-        # batchtime: 10080  # 1 week
