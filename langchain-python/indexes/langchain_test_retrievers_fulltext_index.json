@@ -1,13 +1,13 @@
 {
     "mappings": {
-    "dynamic": false,
-    "fields": {
-      "text": [
-        {
-          "type": "string"
-        }
-      ]
-    }
+      "dynamic": false,
+      "fields": {
+        "text": [
+          {
+            "type": "string"
+          }
+        ]
+      }
     },
     "name": "text_index",
     "type": "search",
