@@ -1,15 +1,14 @@
 {
+    "fields": [
+        {
+            "numDimensions": 3,
+            "path": "embedding",
+            "similarity": "cosine",
+            "type": "vector"
+        }
+    ],
+    "name": "default",
+    "type": "vectorSearch",
     "collectionName": "nearestSearch",
     "database": "pyMSKTest",
-    "mappings": {
-        "dynamic": true,
-        "fields": {
-            "embedding": {
-                "dimensions": 3,
-                "similarity": "cosine",
-                "type": "knnVector"
-            }
-        }
-    },
-    "name": "default"
 }
