@@ -45,4 +45,4 @@ echo "export MONGODB_URI=$MONGODB_URI" >> env.sh
 # Ensure the remote database is populated.
 . .evergreen/utils.sh
 
-CONN_STRING=MONGODB_URI provision_atlas
+CONN_STRING=MONGODB_URI scaffold_atlas
