@@ -92,54 +92,63 @@ pre:
 
 tasks:
   - name: test-semantic-kernel-python-local
+    tags: [local]
     commands:
       - func: "fetch repo"
       - func: "setup local atlas"
       - func: "execute tests"
 
   - name: test-semantic-kernel-python-remote
+    tags: [remote]
     commands:
       - func: "fetch repo"
       - func: "setup remote atlas"
       - func: "execute tests"
 
   - name: test-semantic-kernel-csharp-local
+    tags: [local]
     commands:
       - func: "fetch repo"
       - func: "setup local atlas"
       - func: "execute tests"
 
   - name: test-semantic-kernel-csharp-remote
+    tags: [remote]
     commands:
       - func: "fetch repo"
       - func: "setup remote atlas"
       - func: "execute tests"
 
   - name: test-langchain-python-local
+    tags: [local]
     commands:
       - func: "fetch repo"
       - func: "setup local atlas"
       - func: "execute tests"
 
   - name: test-langchain-python-remote
+    tags: [remote]
     commands:
       - func: "fetch repo"
       - func: "setup remote atlas"
       - func: "execute tests"
 
   - name: test-chatgpt-retrieval-plugin-local
+    tags: [local]
     commands:
       - func: "fetch repo"
       - func: "setup local atlas"
       - func: "execute tests"
 
   - name: test-chatgpt-retrieval-plugin-remote
+    tags: [remote]
     commands:
       - func: "fetch repo"
       - func: "setup remote atlas"
       - func: "execute tests"
 
   - name: test-llama-index-local
+    tags: [local]
     commands:
       - func: "fetch repo"
       - func: "setup local atlas"
@@ -152,12 +161,14 @@ tasks:
       - func: "execute tests"
 
   - name: test-docarray-local
+    tags: [local]
     commands:
       - func: "fetch repo"
       - func: "setup local atlas"
       - func: "execute tests"
 
   - name: test-docarray-remote
+    tags: [remote]
     commands:
       - func: "fetch repo"
       - func: "setup remote atlas"

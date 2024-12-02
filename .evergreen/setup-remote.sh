@@ -42,34 +42,7 @@ export MONGODB_URI
 echo "export OPENAI_API_KEY=$OPENAI_API_KEY" >> env.sh
 echo "export MONGODB_URI=$MONGODB_URI" >> env.sh
 
-
 # Ensure the remote database is populated.
 . .evergreen/utils.sh
 
-PYTHON_BINARY=$(find_python3)
-
-# Should be called from src
-EVERGREEN_PATH=$(pwd)/.evergreen
-TARGET_DIR=$(pwd)/$DIR
-SCAFFOLD_SCRIPT=$EVERGREEN_PATH/scaffold_atlas.py
-
-mkdir atlas
-
-pushd atlas
-
-$PYTHON_BINARY -m venv .
-source ./bin/activate
-popd
-
-# Test server is up
-$PYTHON_BINARY -m pip install pymongo
-CONN_STRING=$MONGODB_URI \
-    $PYTHON_BINARY -c "from pymongo import MongoClient; import os; MongoClient(os.environ['MONGODB_URI']).db.command('ping')"
-
-# Add database and index configurations
-DATABASE=$DATABASE \
-    CONN_STRING=$MONGODB_URI \
-    REPO_NAME=$REPO_NAME \
-    DIR=$DIR \
-    TARGET_DIR=$TARGET_DIR \
-    $PYTHON_BINARY $SCAFFOLD_SCRIPT
+CONN_STRING=MONGODB_URI provision_atlas
