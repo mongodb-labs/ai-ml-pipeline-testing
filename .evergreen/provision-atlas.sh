@@ -3,8 +3,8 @@ set -eu
 
 . .evergreen/utils.sh
 
-CONN_STRING=$(setup_local_atlas)
-CONN_STRING=$CONN_STRING scaffold_atlas
+setup_local_atlas
+scaffold_atlas
 
 # Get the secrets.
 source secrets-export.sh
