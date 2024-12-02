@@ -1,0 +1,16 @@
+{
+    "mappings": {
+        "dynamic": false,
+        "fields": {
+        "metadata.year": [
+            {
+            "type": "number"
+            }
+        ]
+        }
+    },
+    "name": "metadata_year",
+    "type": "search",
+    "database": "llama_index_test_db",
+    "collectionName": "llama_index_test_filters"
+}

@@ -1,0 +1,18 @@
+{
+  "fields": [
+    {
+      "numDimensions": 10,
+      "path": "embedding",
+      "similarity": "cosine",
+      "type": "vector"
+    },
+    {
+      "path": "metadata.year",
+      "type": "filter"
+    }
+  ],
+  "name": "vector_index",
+  "type": "vectorSearch",
+  "database": "llama_index_test_db",
+  "collectionName": "llama_index_test_filters"
+}
