@@ -259,8 +259,9 @@ buildvariants:
       - rhel87-small
     tasks:
       - name: test-llama-index-local
-      - name: test-llama-index-remote
-        batchtime: 10080  # 1 week
+      # TODO: INTPYTHON-440
+      # - name: test-llama-index-remote
+      #   batchtime: 10080  # 1 week
 
   - name: test-docarray-rhel
     display_name: DocArray RHEL
