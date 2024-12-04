@@ -1,4 +1,4 @@
-{
+  {
     "mappings": {
       "dynamic": false,
       "fields": {
@@ -11,6 +11,6 @@
     },
     "name": "text_index",
     "type": "search",
-    "database": "langchain_test_db",
-    "collectionName": "langchain_test_retrievers"
-}
+    "database": "docarray_test_db",
+    "collectionName": "bespoke_name"
+  }

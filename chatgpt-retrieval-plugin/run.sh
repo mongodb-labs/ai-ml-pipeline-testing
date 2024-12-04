@@ -2,7 +2,11 @@
 
 # chat-gpt-retrieval-plugin is a poetry run project
 
-set -x
+set -eu
+
+# Get the MONGODB_URI and OPENAI_API_KEY.
+# shellcheck disable=SC2154
+. $workdir/src/env.sh
 
 # shellcheck disable=SC2154
 . $workdir/src/.evergreen/utils.sh
@@ -24,12 +28,11 @@ $PYTHON_BINARY -m poetry lock --no-update
 # Install from pyproject.toml into package specific environment
 $PYTHON_BINARY -m poetry install --with dev
 
-# Run tests. Sensitive variables in Evergreen come from Evergeen project: ai-ml-pipeline-testing/
-# shellcheck disable=SC2154
-OPENAI_API_KEY=$openai_api_key \
+# Run tests.
+MONGODB_URI="$MONGODB_URI" \
+OPENAI_API_KEY="$OPENAI_API_KEY" \
 DATASTORE="mongodb" \
 BEARER_TOKEN="staylowandkeepmoving" \
-MONGODB_URI=$(fetch_local_atlas_uri) \
 MONGODB_DATABASE="chatgpt_retrieval_plugin_test_db" \
 MONGODB_COLLECTION="chatgpt_retrieval_plugin_test_vectorstore" \
 MONGODB_INDEX="vector_index" \

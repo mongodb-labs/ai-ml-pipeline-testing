@@ -1,15 +1,12 @@
 {
     "collectionName": "nearestSearch",
     "database": "dotnetMSKNearestTest",
-    "mappings": {
-        "dynamic": true,
-        "fields": {
-            "embedding": {
-                "dimensions": 3,
+    "type": "vectorSearch",
+    "fields": [{
+                "path": "embedding",
+                "numDimensions": 3,
                 "similarity": "cosine",
-                "type": "knnVector"
-            }
-        }
-    },
+                "type": "vector"
+            }],
     "name": "default"
 }

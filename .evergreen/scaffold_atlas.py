@@ -4,7 +4,8 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Any, Union
+from time import sleep, monotonic
+from typing import Any, Callable, Union
 
 from pymongo import MongoClient
 from pymongo.database import Database
@@ -13,7 +14,7 @@ from pymongo.results import InsertManyResult
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)
-logger.setLevel(logging.DEBUG if os.environ.get("DEBUG") else logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 DATABASE_NAME = os.environ.get("DATABASE")
 CONN_STRING = os.environ.get("CONN_STRING")
@@ -41,12 +42,17 @@ def upload_data(db: Database, filename: Path) -> None:
         db.name,
         collection_name,
     )
+    collections = [c["name"] for c in db.list_collections()]
+    if collection_name in collections:
+        logger.debug("Clearing existing collection", collection_name)
+        db[collection_name].delete_many({})
+
     if not isinstance(loaded_collection, list):
         loaded_collection = [loaded_collection]
     if loaded_collection:
         result: InsertManyResult = db[collection_name].insert_many(loaded_collection)
         logger.debug("Uploaded results for %s: %s", filename.name, result.inserted_ids)
-    else:
+    elif collection_name not in collections:
         logger.debug("Empty collection named %s created", collection_name)
         db.create_collection(collection_name)
 
@@ -66,12 +72,87 @@ def create_index(client: MongoClient, filename: Path) -> None:
     index_name = loaded_index_configuration.pop("name")
     index_type = loaded_index_configuration.pop("type", None)
 
+    logger.debug(
+        "creating search index: %s on %s.%s...",
+        index_name,
+        database_name,
+        collection_name,
+    )
+
     collection = client[database_name][collection_name]
 
     search_index = SearchIndexModel(
         loaded_index_configuration, name=index_name, type=index_type
     )
-    collection.create_search_index(search_index)
+    indexes = [index["name"] for index in collection.list_search_indexes()]
+    if index_name not in indexes:
+        collection.create_search_index(search_index)
+
+    else:
+        logger.debug(
+            "search index already exists, updating: %s on %s.%s",
+            index_name,
+            database_name,
+            collection_name,
+        )
+        collection.update_search_index(index_name, loaded_index_configuration)
+
+    logger.debug("waiting for search index to be ready...")
+    wait_until_complete = 120
+    _wait_for_predicate(
+        predicate=lambda: _is_index_ready(collection, index_name),
+        err=f"Index {index_name} update did not complete in {wait_until_complete}!",
+        timeout=wait_until_complete,
+    )
+    logger.debug("waiting for search index to be ready... done.")
+
+    logger.debug(
+        "creating search index: %s on %s.%s... done",
+        index_name,
+        database_name,
+        collection_name,
+    )
+
+
+def _is_index_ready(collection: Any, index_name: str) -> bool:
+    """Check for the index name in the list of available search indexes.
+
+     This confirms that the specified index is of status READY.
+
+    Args:
+        collection (Collection): MongoDB Collection to for the search indexes
+        index_name (str): Vector Search Index name
+
+    Returns:
+        bool : True if the index is present and READY false otherwise
+    """
+    search_indexes = collection.list_search_indexes(index_name)
+
+    for index in search_indexes:
+        if index["status"] == "READY":
+            return True
+    return False
+
+
+def _wait_for_predicate(
+    predicate: Callable, err: str, timeout: float = 120, interval: float = 0.5
+) -> None:
+    """Generic to block until the predicate returns true.
+
+    Args:
+        predicate (Callable[, bool]): A function that returns a boolean value
+        err (str): Error message to raise if nothing occurs
+        timeout (float, optional): Wait time for predicate. Defaults to TIMEOUT.
+        interval (float, optional): Interval to check predicate. Defaults to DELAY.
+
+    Raises:
+        TimeoutError: _description_
+    """
+    start = monotonic()
+    while not predicate():
+        if monotonic() - start > timeout:
+            raise TimeoutError(err)
+        sleep(interval)
 
 
 def walk_directory(filepath) -> list[str]:

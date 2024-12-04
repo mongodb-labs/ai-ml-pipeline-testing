@@ -1,6 +1,6 @@
-#!/bin/bash -ex
+#!/bin/bash
 
-set -o xtrace
+set -eu
 
 find_python3() {
     PYTHON=""
@@ -17,7 +17,7 @@ find_python3() {
         elif [ -d "/Library/Frameworks/Python.Framework/Versions/3.7" ]; then
             PYTHON="/Library/Frameworks/Python.Framework/Versions/3.7/bin/python3"
         fi
-    elif [ "Windows_NT" = "$OS" ]; then # Magic variable in cygwin
+    elif [ "Windows_NT" = "${OS:-}" ]; then # Magic variable in cygwin
         PYTHON="C:/python/Python37/python.exe"
     else
         # Prefer our own toolchain, fall back to mongodb toolchain if it has Python 3.7+.
@@ -114,4 +114,35 @@ fetch_local_atlas_uri() {
 
     export CONN_STRING=$CONN_STRING
     echo "$CONN_STRING"
+}
+
+
+scaffold_atlas() {
+    PYTHON_BINARY=$(find_python3)
+
+    # Should be called from src
+    EVERGREEN_PATH=$(pwd)/.evergreen
+    TARGET_DIR=$(pwd)/$DIR
+    SCAFFOLD_SCRIPT=$EVERGREEN_PATH/scaffold_atlas.py
+
+    mkdir -p atlas
+    pushd atlas
+
+    $PYTHON_BINARY -m venv .
+    source ./bin/activate
+    popd
+
+    # Test server is up
+    $PYTHON_BINARY -m pip install pymongo
+    CONN_STRING=$CONN_STRING \
+        $PYTHON_BINARY -c "from pymongo import MongoClient; import os; MongoClient(os.environ['CONN_STRING']).db.command('ping')"
+
+    # Add database and index configurations
+    DATABASE=$DATABASE \
+        CONN_STRING=$CONN_STRING \
+        REPO_NAME=$REPO_NAME \
+        DIR=$DIR \
+        DEBUG="${DEBUG:-1}" \
+        TARGET_DIR=$TARGET_DIR \
+        $PYTHON_BINARY $SCAFFOLD_SCRIPT
 }

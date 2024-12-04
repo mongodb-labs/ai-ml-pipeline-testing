@@ -49,3 +49,8 @@ xunit-results/
 
 # Miscellaneous
 .DS_Store
+drivers-evergreen-tools
+
+# Secrets
+secrets-export.sh
+env.sh

@@ -28,6 +28,14 @@ functions:
       params:
         directory: "src"
 
+  "fetch secrets":
+    - command: subprocess.exec
+      type: setup
+      params:
+        working_dir: "src"
+        binary: bash
+        args: [.evergreen/fetch-secrets.sh]
+
   "fetch repo":
     - command: shell.exec
       type: setup
@@ -54,12 +62,10 @@ functions:
         add_expansions_to_env: true
         working_dir: "src/${DIR}/${REPO_NAME}"
         binary: bash
-        env:
-          atlas: ${workdir}/src/atlas/bin/atlas
         args:
           - ../run.sh
 
-  "setup atlas cli":
+  "setup local atlas":
     - command: subprocess.exec
       type: setup
       retry_on_failure: true
@@ -67,45 +73,105 @@ functions:
         add_expansions_to_env: true
         working_dir: "src"
         binary: bash
-        env:
-          atlas: ${workdir}/src/atlas/bin/atlas
         args:
           - .evergreen/provision-atlas.sh
+
+  "setup remote atlas":
+    - command: subprocess.exec
+      type: setup
+      params:
+        add_expansions_to_env: true
+        working_dir: "src"
+        binary: bash
+        args: [.evergreen/setup-remote.sh]
 
 pre_error_fails_task: true
 pre:
   - func: "fetch source"
-  - func: "setup atlas cli"
+  - func: "fetch secrets"
 
 tasks:
-  - name: test-semantic-kernel-python
+  - name: test-semantic-kernel-python-local
+    tags: [local]
     commands:
       - func: "fetch repo"
+      - func: "setup local atlas"
       - func: "execute tests"
 
-  - name: test-semantic-kernel-csharp
+  - name: test-semantic-kernel-python-remote
+    tags: [remote]
     commands:
       - func: "fetch repo"
+      - func: "setup remote atlas"
       - func: "execute tests"
 
-  - name: test-langchain-python
+  - name: test-semantic-kernel-csharp-local
+    tags: [local]
     commands:
       - func: "fetch repo"
+      - func: "setup local atlas"
       - func: "execute tests"
 
-  - name: test-chatgpt-retrieval-plugin
+  - name: test-semantic-kernel-csharp-remote
+    tags: [remote]
     commands:
       - func: "fetch repo"
+      - func: "setup remote atlas"
       - func: "execute tests"
 
-  - name: test-llama-index
+  - name: test-langchain-python-local
+    tags: [local]
     commands:
       - func: "fetch repo"
+      - func: "setup local atlas"
       - func: "execute tests"
 
-  - name: test-docarray
+  - name: test-langchain-python-remote
+    tags: [remote]
     commands:
       - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+
+  - name: test-chatgpt-retrieval-plugin-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-chatgpt-retrieval-plugin-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+
+  - name: test-llama-index-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-llama-index-remote
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+
+  - name: test-docarray-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-docarray-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
       - func: "execute tests"
 
 buildvariants:
@@ -121,7 +187,10 @@ buildvariants:
     run_on:
       - rhel87-small
     tasks:
-      - name: test-llama-index
+      - name: test-llama-index-local
+      - name: test-llama-index-remote
+        batchtime: 10080  # 1 week
+
   - name: test-semantic-kernel-python-rhel
     display_name: Semantic-Kernel RHEL Python
     expansions:
@@ -132,7 +201,10 @@ buildvariants:
     run_on:
       - rhel87-small
     tasks:
-      - name: test-semantic-kernel-python
+      - name: test-semantic-kernel-python-local
+      # TODO: INTPYTHON-430
+      # - name: test-semantic-kernel-python-remote
+      #   batchtime: 10080  # 1 week
 
   - name: test-semantic-kernel-csharp-rhel
     display_name: Semantic-Kernel RHEL CSharp
@@ -144,7 +216,9 @@ buildvariants:
     run_on:
       - rhel87-small
     tasks:
-      - name: test-semantic-kernel-csharp
+      - name: test-semantic-kernel-csharp-local
+      - name: test-semantic-kernel-csharp-remote
+        batchtime: 10080  # 1 week
 
   - name: test-langchain-python-rhel
     display_name: Langchain RHEL Python
@@ -156,7 +230,9 @@ buildvariants:
     run_on:
       - rhel87-small
     tasks:
-      - name: test-langchain-python
+      - name: test-langchain-python-local
+      - name: test-langchain-python-remote
+        batchtime: 10080  # 1 week
 
   - name: test-chatgpt-retrieval-plugin-rhel
     display_name: ChatGPT Retrieval Plugin
@@ -168,7 +244,9 @@ buildvariants:
     run_on:
       - rhel87-small
     tasks:
-      - name: test-chatgpt-retrieval-plugin
+      - name: test-chatgpt-retrieval-plugin-local
+      - name: test-chatgpt-retrieval-plugin-remote
+        batchtime: 10080  # 1 week
 
   - name: test-llama-index-vectorstore-rhel
     display_name: LlamaIndex RHEL Vector Store
@@ -180,7 +258,10 @@ buildvariants:
     run_on:
       - rhel87-small
     tasks:
-      - name: test-llama-index
+      - name: test-llama-index-local
+      # TODO: INTPYTHON-440
+      # - name: test-llama-index-remote
+      #   batchtime: 10080  # 1 week
 
   - name: test-docarray-rhel
     display_name: DocArray RHEL
@@ -192,4 +273,5 @@ buildvariants:
     run_on:
       - rhel87-small
     tasks:
-      - name: test-docarray
+      - name: test-docarray-local
+      - name: test-docarray-remote
