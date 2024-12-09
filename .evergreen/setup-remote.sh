@@ -19,7 +19,7 @@ case $DIR in
     semantic-kernel-csharp)
         MONGODB_URI=$SEMANTIC_KERNEL_MONGODB_URI
     ;;
-    langchain-python)
+    langchain-python | langgraph-python)
         MONGODB_URI=$LANGCHAIN_MONGODB_URI
     ;;
     chatgpt-retrieval-plugin)
