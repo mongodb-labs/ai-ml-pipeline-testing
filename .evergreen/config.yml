@@ -133,6 +133,20 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
+  - name: test-langgraph-python-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-langgraph-python-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+
   - name: test-chatgpt-retrieval-plugin-local
     tags: [local]
     commands:
@@ -225,13 +239,27 @@ buildvariants:
     expansions:
       DIR: langchain-python
       REPO_NAME: langchain-mongodb
-      CLONE_URL: https://github.com/langchain-ai/langchain-mongodb.git
+      CLONE_URL: --branch INTPYTHON-447-3 https://github.com/langchain-ai/langchain-mongodb.git
       DATABASE: langchain_test_db
     run_on:
       - rhel87-small
     tasks:
       - name: test-langchain-python-local
       - name: test-langchain-python-remote
+        batchtime: 10080  # 1 week
+
+  - name: test-langgraph-python-rhel
+    display_name: Langgraph RHEL Python
+    expansions:
+      DIR: langgraph-python
+      REPO_NAME: langchain-mongodb
+      CLONE_URL: --branch INTPYTHON-447-3 https://github.com/langchain-ai/langchain-mongodb.git
+      DATABASE: langgraph-test
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-langgraph-python-local
+      - name: test-langgraph-python-remote
         batchtime: 10080  # 1 week
 
   - name: test-chatgpt-retrieval-plugin-rhel
