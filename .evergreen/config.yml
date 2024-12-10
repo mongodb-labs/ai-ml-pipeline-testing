@@ -239,7 +239,7 @@ buildvariants:
     expansions:
       DIR: langchain-python
       REPO_NAME: langchain-mongodb
-      CLONE_URL: --branch INTPYTHON-447-3 https://github.com/langchain-ai/langchain-mongodb.git
+      CLONE_URL: https://github.com/langchain-ai/langchain-mongodb.git
       DATABASE: langchain_test_db
     run_on:
       - rhel87-small
@@ -253,7 +253,7 @@ buildvariants:
     expansions:
       DIR: langgraph-python
       REPO_NAME: langchain-mongodb
-      CLONE_URL: --branch INTPYTHON-447-3 https://github.com/langchain-ai/langchain-mongodb.git
+      CLONE_URL: https://github.com/langchain-ai/langchain-mongodb.git
       DATABASE: langgraph-test
     run_on:
       - rhel87-small
