@@ -13,7 +13,7 @@ set -eu
 PYTHON_BINARY=$(find_python3)
 
 # shellcheck disable=SC2164
-cd libs/mongodb
+cd libs/langgraph-checkpoint-mongodb
 
  $PYTHON_BINARY -m venv venv_pipeline
  source venv_pipeline/bin/activate
