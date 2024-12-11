@@ -40,6 +40,7 @@ functions:
     - command: subprocess.exec
       type: setup
       params:
+        include_expansions_in_env: [DIR]
         working_dir: "src"
         binary: bash
         args: [.evergreen/fetch-repo.sh]
@@ -48,7 +49,7 @@ functions:
     - command: subprocess.exec
       type: test
       params:
-        add_expansions_to_env: true
+        include_expansions_in_env: [DIR]
         working_dir: "src"
         binary: bash
         args: [.evergreen/execute-tests.sh]
@@ -58,7 +59,7 @@ functions:
       type: setup
       retry_on_failure: true
       params:
-        add_expansions_to_env: true
+        include_expansions_in_env: [DIR]
         working_dir: "src"
         binary: bash
         args:
@@ -68,7 +69,7 @@ functions:
     - command: subprocess.exec
       type: setup
       params:
-        add_expansions_to_env: true
+        include_expansions_in_env: [DIR]
         working_dir: "src"
         binary: bash
         args: [.evergreen/setup-remote.sh]
