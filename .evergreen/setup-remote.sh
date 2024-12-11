@@ -8,6 +8,13 @@ if [ -z "${DIR:-}" ]; then
     exit 1
 fi
 
+# Source the config
+pushd $DIR
+set -a
+. config.env
+set +x
+popd
+
 # Get the correct remote URI.
 case $DIR in
     llama-index-python-kvstore)
