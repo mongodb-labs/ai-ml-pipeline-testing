@@ -54,7 +54,7 @@ The general layout of this repo looks like this:
 Each test subdirectory will automatically have its own local Atlas deployment. As a result, database and collection names will not conflict between different AI/ML integrations. To connect to your local Atlas using a connection string, `utils.sh` has a `fetch_local_atlas_uri` that you can call from the `run.sh` script within your subdirectory. For example:
 
 ```bash
-. $workdir/src/.evergreen/utils.sh
+. .evergreen/utils.sh
 
 CONN_STRING=$(fetch_local_atlas_uri)
 ```

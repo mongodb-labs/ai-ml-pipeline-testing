@@ -6,11 +6,12 @@
 set -eu
 
 # Get the MONGODB_URI.
-# shellcheck disable=SC2154
-. $workdir/src/env.sh
+SCRIPT_DIR=$(realpath $(dirname ${BASH_SOURCE[0]}))
+ROOT_DIR=$(dirname $SCRIPT_DIR)
 
-# shellcheck disable=SC2154
-. $workdir/src/.evergreen/utils.sh
+. $ROOT_DIR/env.sh
+
+. $SCRIPT_DIR/utils.sh
 PYTHON_BINARY=$(find_python3)
 $PYTHON_BINARY -c "import sys; print(f'Python version found: {sys.version_info}')"
 

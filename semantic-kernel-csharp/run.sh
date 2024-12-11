@@ -3,12 +3,12 @@
 set -eu
 
 # Get the MONGODB_URI.
-# shellcheck disable=SC2154
-. $workdir/src/env.sh
+SCRIPT_DIR=$(realpath $(dirname ${BASH_SOURCE[0]}))
+ROOT_DIR=$(dirname $SCRIPT_DIR)
+. $ROOT_DIR/env.sh
 
-# shellcheck disable=SC2154
-. $workdir/src/.evergreen/utils.sh
-# WORKING_DIR = src/semantic-kernel-csharp/semantic-kernel
+. $SCRIPT_DIR/utils.sh
+# WORKING_DIR = $ROOT_DIR/semantic-kernel-csharp/semantic-kernel
 
 # Install .NET
 DOTNET_SDK_PATH=./.dotnet
