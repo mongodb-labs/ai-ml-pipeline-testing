@@ -2,7 +2,7 @@
 
 set -eu
 
-SCRIPT_DIR=$(realpath $(dirname ${BASH_SOURCE[0]}))
+SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
 ROOT_DIR=$(dirname $SCRIPT_DIR)
 
 

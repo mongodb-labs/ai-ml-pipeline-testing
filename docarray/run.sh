@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #  Sets up a virtual environment (poetry)
 #  Runs the mongodb tests of the upstream repo
@@ -6,7 +6,7 @@
 set -eu
 
 # Get the MONGODB_URI.
-SCRIPT_DIR=$(realpath $(dirname ${BASH_SOURCE[0]}))
+SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
 ROOT_DIR=$(dirname $SCRIPT_DIR)
 
 . $ROOT_DIR/env.sh

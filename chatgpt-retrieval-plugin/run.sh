@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 # chat-gpt-retrieval-plugin is a poetry run project
 
 set -eu
 
 # Get the MONGODB_URI and OPENAI_API_KEY.
-SCRIPT_DIR=$(realpath $(dirname ${BASH_SOURCE[0]}))
+SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
 ROOT_DIR=$(dirname $SCRIPT_DIR)
 . $ROOT_DIR/env.sh
 

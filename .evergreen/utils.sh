@@ -104,12 +104,12 @@ setup_local_atlas() {
     wait "$CONTAINER_ID"
     EXPOSED_PORT=$(podman inspect --format='{{ (index (index .NetworkSettings.Ports "27017/tcp") 0).HostPort }}' "$CONTAINER_ID")
     export CONN_STRING="mongodb://127.0.0.1:$EXPOSED_PORT/?directConnection=true"
-    SCRIPT_DIR=$(realpath $(dirname ${BASH_SOURCE[0]}))
+    SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
     echo "CONN_STRING=mongodb://127.0.0.1:$EXPOSED_PORT/?directConnection=true" > $SCRIPT_DIR/.local_atlas_uri
 }
 
 fetch_local_atlas_uri() {
-    SCRIPT_DIR=$(realpath $(dirname ${BASH_SOURCE[0]}))
+    SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
     . $SCRIPT_DIR/.local_atlas_uri
 
     export CONN_STRING=$CONN_STRING
@@ -120,7 +120,7 @@ fetch_local_atlas_uri() {
 scaffold_atlas() {
     PYTHON_BINARY=$(find_python3)
 
-    EVERGREEN_PATH=$(realpath $(dirname ${BASH_SOURCE[0]}))
+    EVERGREEN_PATH=$(realpath "$(dirname ${BASH_SOURCE[0]})")
     TARGET_DIR=$(pwd)/$DIR
     SCAFFOLD_SCRIPT=$EVERGREEN_PATH/scaffold_atlas.py
 
