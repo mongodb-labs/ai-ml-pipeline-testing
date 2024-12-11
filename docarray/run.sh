@@ -11,7 +11,8 @@ ROOT_DIR=$(dirname $SCRIPT_DIR)
 
 . $ROOT_DIR/env.sh
 
-. $SCRIPT_DIR/utils.sh
+. $ROOT_DIR/.evergreen/utils.sh
+
 PYTHON_BINARY=$(find_python3)
 $PYTHON_BINARY -c "import sys; print(f'Python version found: {sys.version_info}')"
 
