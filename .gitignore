@@ -50,6 +50,7 @@ xunit-results/
 # Miscellaneous
 .DS_Store
 drivers-evergreen-tools
+atlas
 
 # Secrets
 secrets-export.sh

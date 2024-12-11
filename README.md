@@ -61,6 +61,21 @@ CONN_STRING=$(fetch_local_atlas_uri)
 
 Stores the local Atlas URI within the `CONN_STRING` var. The script can then pass `CONN_STRING` as an environment variable to the test suite.
 
+#### Running tests locally.
+
+We can run the tests with a local checkout of the repo.
+
+For example, to run the `docarray` tests using local atlas:
+
+```bash
+export DIR=docarray
+bash .evergreen/fetch-repo.sh
+bash .evergreen/provision-atlas.sh
+bash .evergreen/execute-tests.sh
+```
+
+Use `.evergreen/setup-remote.sh` instead of `.evergreen/provision-atlas.sh` to test against the remote cluster.
+
 #### Pre-populating the Local Atlas Deployment
 
 You can pre-populate a test's local Atlas deployment before running the `run.sh` script by providing JSON files in the optional `database` directory of the created subdirectory. The `.evergreen/scaffold_atlas.py` file will search for every JSON file within this database directory and upload the documents to the database provided by the `DATABASE` expansion provided in the build variant of the `.evergreen/config.yml` setup. The collection the script uploads to is based on the name of your JSON file:

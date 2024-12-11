@@ -37,33 +37,21 @@ functions:
         args: [.evergreen/fetch-secrets.sh]
 
   "fetch repo":
-    - command: shell.exec
+    - command: subprocess.exec
       type: setup
       params:
         working_dir: "src"
-        script: |
-          if [ ! -d "${DIR}" ]; then
-            echo '${REPO_NAME} could not be found' 1>&2
-            exit 1
-          fi
-          # Apply patches to upstream repo if desired.
-          cd ${DIR}
-          git clone ${CLONE_URL}
-          if [ -d "patches" ]; then
-            cd ${REPO_NAME}
-            echo "Applying patches."
-            git apply  ../patches/*
-          fi
+        binary: bash
+        args: [.evergreen/fetch-repo.sh]
 
   "execute tests":
     - command: subprocess.exec
       type: test
       params:
         add_expansions_to_env: true
-        working_dir: "src/${DIR}/${REPO_NAME}"
+        working_dir: "src"
         binary: bash
-        args:
-          - ../run.sh
+        args: [.evergreen/execute-tests.sh]
 
   "setup local atlas":
     - command: subprocess.exec
@@ -194,10 +182,6 @@ buildvariants:
     display_name: LlamaIndex RHEL KV Store
     expansions:
       DIR: llama-index-python-kvstore
-      REPO_NAME: llama_index
-      # TODO - Update CLONE_URL: [PYTHON-4522] [INTPYTHON-326]
-      CLONE_URL: -b PYTHON-4522 --single-branch https://github.com/shruti-sridhar/llama_index.git
-      DATABASE: llama_index_test_db
     run_on:
       - rhel87-small
     tasks:
@@ -209,9 +193,6 @@ buildvariants:
     display_name: Semantic-Kernel RHEL Python
     expansions:
       DIR: semantic-kernel-python
-      REPO_NAME: semantic-kernel
-      CLONE_URL: https://github.com/microsoft/semantic-kernel.git
-      DATABASE: pyMSKTest
     run_on:
       - rhel87-small
     tasks:
@@ -224,9 +205,6 @@ buildvariants:
     display_name: Semantic-Kernel RHEL CSharp
     expansions:
       DIR: semantic-kernel-csharp
-      REPO_NAME: semantic-kernel
-      CLONE_URL: https://github.com/microsoft/semantic-kernel.git
-      DATABASE: dotnetMSKNearestTest
     run_on:
       - rhel87-small
     tasks:
@@ -238,9 +216,6 @@ buildvariants:
     display_name: Langchain RHEL Python
     expansions:
       DIR: langchain-python
-      REPO_NAME: langchain-mongodb
-      CLONE_URL: https://github.com/langchain-ai/langchain-mongodb.git
-      DATABASE: langchain_test_db
     run_on:
       - rhel87-small
     tasks:
@@ -252,9 +227,6 @@ buildvariants:
     display_name: Langgraph RHEL Python
     expansions:
       DIR: langgraph-python
-      REPO_NAME: langchain-mongodb
-      CLONE_URL: https://github.com/langchain-ai/langchain-mongodb.git
-      DATABASE: langgraph-test
     run_on:
       - rhel87-small
     tasks:
@@ -266,9 +238,6 @@ buildvariants:
     display_name: ChatGPT Retrieval Plugin
     expansions:
       DIR: chatgpt-retrieval-plugin
-      REPO_NAME: chatgpt-retrieval-plugin
-      CLONE_URL: https://github.com/openai/chatgpt-retrieval-plugin.git
-      DATABASE: chatgpt_retrieval_plugin_test_db
     run_on:
       - rhel87-small
     tasks:
@@ -280,9 +249,6 @@ buildvariants:
     display_name: LlamaIndex RHEL Vector Store
     expansions:
       DIR: llama-index-python-vectorstore
-      REPO_NAME: llama_index
-      CLONE_URL: https://github.com/run-llama/llama_index.git
-      DATABASE: llama_index_test_db
     run_on:
       - rhel87-small
     tasks:
@@ -295,9 +261,6 @@ buildvariants:
     display_name: DocArray RHEL
     expansions:
       DIR: docarray
-      REPO_NAME: docarray
-      CLONE_URL: https://github.com/docarray/docarray.git
-      DATABASE: docarray_test_db
     run_on:
       - rhel87-small
     tasks:
