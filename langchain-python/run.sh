@@ -4,11 +4,11 @@
 set -eu
 
 # Get the MONGODB_URI and OPENAI_API_KEY.
-# shellcheck disable=SC2154
-. $workdir/src/env.sh
+SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
+ROOT_DIR=$(dirname $SCRIPT_DIR)
+. $ROOT_DIR/env.sh
 
-# shellcheck disable=SC2154
-. $workdir/src/.evergreen/utils.sh
+. $ROOT_DIR/.evergreen/utils.sh
 
 PYTHON_BINARY=$(find_python3)
 
