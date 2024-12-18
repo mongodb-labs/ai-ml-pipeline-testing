@@ -13,7 +13,7 @@ ROOT_DIR=$(dirname $SCRIPT_DIR)
 PYTHON_BINARY=$(find_python3)
 
 # shellcheck disable=SC2164
-cd libs/langchain-mongodb
+cd libs/mongodb
 
  $PYTHON_BINARY -m venv venv_pipeline
  source venv_pipeline/bin/activate
