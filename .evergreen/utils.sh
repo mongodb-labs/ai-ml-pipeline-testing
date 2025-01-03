@@ -71,7 +71,7 @@ setup_local_atlas() {
     podman kill mongodb_atlas_local || true
 
     CONTAINER_ID=$(podman run --rm -d -e DO_NOT_TRACK=1 -P --health-cmd "/usr/local/bin/runner healthcheck" $IMAGE)
-    podman rename $CONTAINER_ID mongodb_atlas_local
+    podman rename $CONTAINER_ID mongodb_atlas_local || true
 
     echo "waiting for container to become healthy..."
     function wait() {
