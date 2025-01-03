@@ -38,6 +38,9 @@ case $DIR in
     docarray)
         MONGODB_URI=$DOCARRAY_MONGODB_URI
     ;;
+    haystack-embeddings | haystack-fulltext)
+        MONGODB_URI=$HAYSTACK_MONGODB_URI
+    ;;
     *)
         echo "Missing config in fetch-secrets.sh for DIR: $DIR"
         exit 1

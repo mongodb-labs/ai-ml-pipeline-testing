@@ -1,0 +1,26 @@
+{
+    "mappings": {
+        "dynamic": false,
+        "fields": {
+          "content": [
+            {
+              "type": "string",
+              "analyzer": "lucene.english"
+            }
+          ]
+        }
+      },
+    "synonyms": [
+    {
+      "analyzer": "lucene.english",
+      "name": "synonym_mapping",
+      "source": {
+        "collection": "synonym_mapping_collection"
+      }
+    }
+    ],
+    "name": "full_text_index",
+    "type": "search",
+    "database": "haystack_test",
+    "collectionName": "test_collection"
+}

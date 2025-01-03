@@ -65,14 +65,17 @@ retry() {
 setup_local_atlas() {
     echo "Starting the container"
 
-    IMAGE=artifactory.corp.mongodb.com/dockerhub/mongodb/mongodb-atlas-local:latest
+    IMAGE=mongodb/mongodb-atlas-local:latest
     retry podman pull $IMAGE
+
+    podman kill mongodb_atlas_local || true
 
     CONTAINER_ID=$(podman run --rm -d -e DO_NOT_TRACK=1 -P --health-cmd "/usr/local/bin/runner healthcheck" $IMAGE)
 
     echo "waiting for container to become healthy..."
     function wait() {
     CONTAINER_ID=$1
+    podman rename $1 mongodb_atlas_local
     echo "waiting for container to become healthy..."
     podman healthcheck run "$CONTAINER_ID"
     for _ in $(seq 600); do
