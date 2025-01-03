@@ -313,5 +313,5 @@ buildvariants:
     run_on:
       - rhel87-small
     tasks:
-      - name: test-haystack-fullstack-local
-      - name: test-haystack-fullstack-remote
+      - name: test-haystack-fulltext-local
+      - name: test-haystack-fulltext-remote
