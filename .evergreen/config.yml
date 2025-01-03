@@ -304,6 +304,7 @@ buildvariants:
       - rhel87-small
     tasks:
       - name: test-haystack-embeddings-local
+      # TODO: INTPYTHON-465
       # - name: test-haystack-embeddings-remote
 
   - name: test-haystack-fulltext-rhel
@@ -314,4 +315,5 @@ buildvariants:
       - rhel87-small
     tasks:
       - name: test-haystack-fulltext-local
+      # TODO: INTPYTHON-465
       # - name: test-haystack-fulltext-remote
