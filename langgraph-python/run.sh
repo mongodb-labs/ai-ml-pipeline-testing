@@ -20,7 +20,7 @@ cd libs/langgraph-checkpoint-mongodb
 
 pip install poetry
 
-poetry lock --no-update
+poetry lock
 
 poetry install --with dev
 

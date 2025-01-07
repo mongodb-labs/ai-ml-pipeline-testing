@@ -17,15 +17,16 @@ PYTHON_BINARY=$(find_python3)
 $PYTHON_BINARY -c "import sys; print(f'Python version found: {sys.version_info}')"
 
 # Create and activate an isolated python venv environment
+set -x
 $PYTHON_BINARY -m venv venv
 . venv/bin/activate
 # Install Poetry
 pip install -U pip poetry
 # Recreate the poetry lock file
-poetry lock --no-update
+# poetry lock
 # Install from pyproject.toml into package specific environment
 poetry install --with dev --extras mongo
-
+set +x
 
 # Run tests. Sensitive variables in Evergreen come from Evergeen project: ai-ml-pipeline-testing/
 # shellcheck disable=SC2154

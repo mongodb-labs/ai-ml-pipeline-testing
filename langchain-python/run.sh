@@ -20,7 +20,7 @@ cd libs/langchain-mongodb
 
 pip install poetry
 
-poetry lock --no-update
+poetry lock
 
 poetry install --with dev
 
