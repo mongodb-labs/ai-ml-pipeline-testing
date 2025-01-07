@@ -22,7 +22,7 @@ $PYTHON_BINARY -m venv venv
 # Install Poetry
 pip install -U pip poetry
 # Recreate the poetry lock file
-poetry lock --no-update
+poetry lock
 # Install from pyproject.toml into package specific environment
 poetry install --with dev --extras mongo
 

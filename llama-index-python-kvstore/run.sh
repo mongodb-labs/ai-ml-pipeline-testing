@@ -28,7 +28,7 @@ $PYTHON_BINARY -m poetry env use $PYTHON_BINARY
 # PYTHON-4522: Will fix requirement in llama-index repo
 $PYTHON_BINARY -m poetry add motor
 # Recreate the poetry lock file
-$PYTHON_BINARY -m poetry lock --no-update
+$PYTHON_BINARY -m poetry lock
 # Install from pyproject.toml into package specific environment
 $PYTHON_BINARY -m poetry install --with dev
 
