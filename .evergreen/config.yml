@@ -177,6 +177,34 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
+  - name: test-haystack-embeddings-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-haystack-embeddings-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+
+  - name: test-haystack-fulltext-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-haystack-fulltext-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+
 buildvariants:
   - name: test-llama-index-kvstore-rhel
     # TODO - Maintainer has pushed back on this.
@@ -267,3 +295,25 @@ buildvariants:
     tasks:
       - name: test-docarray-local
       - name: test-docarray-remote
+
+  - name: test-haystack-embeddings-rhel
+    display_name: Haystack Embeddings RHEL
+    expansions:
+      DIR: haystack-embeddings
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-haystack-embeddings-local
+      # TODO: INTPYTHON-465
+      # - name: test-haystack-embeddings-remote
+
+  - name: test-haystack-fulltext-rhel
+    display_name: Haystack FullText RHEL
+    expansions:
+      DIR: haystack-fulltext
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-haystack-fulltext-local
+      # TODO: INTPYTHON-465
+      # - name: test-haystack-fulltext-remote

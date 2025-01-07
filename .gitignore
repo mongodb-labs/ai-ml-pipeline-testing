@@ -56,3 +56,7 @@ atlas
 # Secrets
 secrets-export.sh
 env.sh
+
+# Repo checkouts
+haystack-fulltext/haystack-core-integrations
+haystack-embeddings/haystack-core-integrations

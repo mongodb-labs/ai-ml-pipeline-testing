@@ -1,0 +1,18 @@
+{
+    "fields": [
+        {
+            "numDimensions": 768,
+            "path": "embedding",
+            "similarity": "cosine",
+            "type": "vector"
+        },
+            {
+            "type": "filter",
+            "path": "content"
+            }
+    ],
+    "name": "cosine_index",
+    "type": "vectorSearch",
+    "database": "haystack_test",
+    "collectionName": "test_collection"
+}

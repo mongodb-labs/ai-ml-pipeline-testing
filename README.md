@@ -76,6 +76,7 @@ For example, to run the `docarray` tests using local atlas:
 
 ```bash
 export DIR=docarray
+bash .evergreen/fetch-secrets.sh
 bash .evergreen/fetch-repo.sh
 bash .evergreen/provision-atlas.sh
 bash .evergreen/execute-tests.sh

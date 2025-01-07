@@ -1,0 +1,16 @@
+{
+    "mappings": {
+        "dynamic": false,
+        "fields": {
+          "content": [
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+    "name": "full_text_index",
+    "type": "search",
+    "database": "haystack_integration_test",
+    "collectionName": "test_embeddings_collection"
+}
