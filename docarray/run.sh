@@ -20,7 +20,7 @@ $PYTHON_BINARY -c "import sys; print(f'Python version found: {sys.version_info}'
 $PYTHON_BINARY -m venv venv
 . venv/bin/activate
 # Install Poetry
-pip install -U pip poetry
+pip install -U pip "poetry<2"
 # Recreate the poetry lock file
 poetry lock
 # Install from pyproject.toml into package specific environment
