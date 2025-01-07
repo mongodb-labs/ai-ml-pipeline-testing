@@ -21,9 +21,9 @@ set -x
 $PYTHON_BINARY -m venv venv
 . venv/bin/activate
 # Install Poetry
-pip install -U pip "poetry<2"
+pip install -U pip poetry
 # Recreate the poetry lock file
-poetry lock
+# poetry lock
 # Install from pyproject.toml into package specific environment
 poetry install --with dev --extras mongo
 set +x
