@@ -18,7 +18,7 @@ cd libs/langchain-mongodb
  $PYTHON_BINARY -m venv venv_pipeline
  source venv_pipeline/bin/activate
 
-pip install poetry
+pip install "poetry<2"
 
 poetry lock --no-update
 
