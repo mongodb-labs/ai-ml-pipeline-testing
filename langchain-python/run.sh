@@ -15,18 +15,16 @@ PYTHON_BINARY=$(find_python3)
 # shellcheck disable=SC2164
 cd libs/langchain-mongodb
 
- $PYTHON_BINARY -m venv venv_pipeline
- source venv_pipeline/bin/activate
+$PYTHON_BINARY -m venv venv_pipeline
+source venv_pipeline/bin/activate
 
-pip install poetry
+pip install uv rust-just
 
-poetry lock
-
-poetry install --with dev
+just install
 
 export MONGODB_URI=$MONGODB_URI
 export OPENAI_API_KEY=$OPENAI_API_KEY
 
-make test
+just test
 
-make integration_test
+just integration_tests
