@@ -205,6 +205,13 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
+  - name: test-langchaingo-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
 buildvariants:
   - name: test-llama-index-kvstore-rhel
     # TODO - Maintainer has pushed back on this.
@@ -317,3 +324,12 @@ buildvariants:
       - name: test-haystack-fulltext-local
       # TODO: INTPYTHON-465
       # - name: test-haystack-fulltext-remote
+
+  - name: test-langchaingo-ubuntu
+    display_name: LangchainGo Ubuntu2204
+    expansions:
+      DIR: langchaingo
+    run_on:
+      - ubuntu2204-small
+    tasks:
+      - name: test-langchaingo-local
