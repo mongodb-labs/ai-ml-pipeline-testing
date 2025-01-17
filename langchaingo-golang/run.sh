@@ -2,6 +2,6 @@
 
 set -eu
 
-cd langchaingo-repo/vectorstores/mongovector
+cd langchaingo/vectorstores/mongovector
 
 go test -v -failfast
