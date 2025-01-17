@@ -327,7 +327,7 @@ buildvariants:
   - name: test-langchaingo-ubuntu
     display_name: LangchainGo Ubuntu2204
     expansions:
-      DIR: langchaingo
+      DIR: langchaingo-golang
     run_on:
       - ubuntu2204-small
     tasks:
