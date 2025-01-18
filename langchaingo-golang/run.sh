@@ -9,4 +9,4 @@ cd vectorstores/mongovector
 export PATH="$PATH:/opt/golang/$GO_VERSION/bin"
 export GOROOT="/opt/golang/$GO_VERSION"
 
-go test -v -failfast
+go test -v -failfast -race -shuffle=on
