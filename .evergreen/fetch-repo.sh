@@ -2,12 +2,6 @@
 
 set -eu
 
-# Check if a branch parameter is provided
-BRANCH=""
-if [ $# -gt 0 ]; then
-  BRANCH=$1
-fi
-
 if [ ! -d "${DIR}" ]; then
   echo '${REPO_NAME} could not be found' 1>&2
   exit 1
@@ -21,13 +15,7 @@ source config.env
 set +a
 
 rm -rf ${REPO_NAME}
-
-# Clone the repository, with an optional branch
-if [ -n "${BRANCH}" ]; then
-  git clone --branch "${BRANCH}" "${CLONE_URL}"
-else
-  git clone "${CLONE_URL}"
-fi
+git clone ${CLONE_URL}
 
 # Apply patches to upstream repo if desired.
 if [ -d "patches" ]; then
