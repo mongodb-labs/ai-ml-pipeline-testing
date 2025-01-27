@@ -21,5 +21,5 @@ git clone ${CLONE_URL}
 if [ -d "patches" ]; then
   cd ${REPO_NAME}
   echo "Applying patches."
-  git apply  ../patches/*
+  git apply ../patches/*
 fi
