@@ -17,9 +17,6 @@ popd
 
 # Get the correct remote URI.
 case $DIR in
-    llama-index-python-kvstore)
-        MONGODB_URI=$LLAMA_INDEX_MONGODB_URI
-    ;;
     semantic-kernel-python)
         MONGODB_URI=$SEMANTIC_KERNEL_MONGODB_URI
     ;;
