@@ -82,9 +82,10 @@ pre:
 post:
   - command: subprocess.exec
     type: setup
-    working_dir: "src"
-    binary: bash
-    args: [drivers-evergreen-tools/.evergreen/teardown.sh]
+    params:
+      working_dir: "src"
+      binary: bash
+      args: [drivers-evergreen-tools/.evergreen/teardown.sh]
 
 tasks:
   - name: test-semantic-kernel-python-local
