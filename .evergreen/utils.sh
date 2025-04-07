@@ -62,7 +62,8 @@ setup_local_atlas() {
     git clone https://github.com/mongodb-labs/drivers-evergreen-tools || true
     . drivers-evergreen-tools/.evergreen/run-orchestration.sh --local-atlas
     popd
-    echo "CONN_STRING=mongodb://127.0.0.1:27017/?directConnection=true" > $SCRIPT_DIR/.local_atlas_uri
+    export CONN_STRING"=mongodb://127.0.0.1:27017/?directConnection=true"
+    echo "CONN_STRING=$CONN_STRING" > $SCRIPT_DIR/.local_atlas_uri
 }
 
 fetch_local_atlas_uri() {
