@@ -59,7 +59,7 @@ setup_local_atlas() {
     SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
     # Ensure drivers-evergeen-tools checkout.
     pushd $SCRIPT_DIR/..
-    git clone https://github.com/mongodb-labs/drivers-evergreen-tools || true
+    git clone --branch fix-podman-setup https://github.com/blink1073/drivers-evergreen-tools || true
     . drivers-evergreen-tools/.evergreen/run-orchestration.sh --local-atlas
     popd
     export CONN_STRING"=mongodb://127.0.0.1:27017/?directConnection=true"
