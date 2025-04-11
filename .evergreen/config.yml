@@ -75,9 +75,17 @@ functions:
         args: [.evergreen/setup-remote.sh]
 
 pre_error_fails_task: true
+post_error_fails_task: true
 pre:
   - func: "fetch source"
   - func: "fetch secrets"
+post:
+  - command: subprocess.exec
+    type: setup
+    params:
+      working_dir: "src"
+      binary: bash
+      args: [drivers-evergreen-tools/.evergreen/teardown.sh]
 
 tasks:
   - name: test-semantic-kernel-python-local
