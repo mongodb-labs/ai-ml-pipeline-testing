@@ -38,11 +38,11 @@ case $DIR in
     haystack-embeddings | haystack-fulltext)
         MONGODB_URI=$HAYSTACK_MONGODB_URI
     ;;
-    voyageai-python)
+    pymongo-voyageai)
         MONGODB_URI=$VOYAGEAI_MONGODB_URI
     ;;
     *)
-        echo "Missing config in fetch-secrets.sh for DIR: $DIR"
+        echo "Missing config in setup-remote.sh for DIR: $DIR"
         exit 1
     ;;
 esac
