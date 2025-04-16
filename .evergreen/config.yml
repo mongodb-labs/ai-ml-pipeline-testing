@@ -185,6 +185,20 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
+  - name: test-pymongo-voyageai-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-pymongo-voyageai-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+
   - name: test-haystack-embeddings-local
     tags: [local]
     commands:
@@ -297,6 +311,16 @@ buildvariants:
     tasks:
       - name: test-docarray-local
       - name: test-docarray-remote
+
+  - name: test-pymongo-voyageai-rhel
+    display_name: PyMongo-VoyageAI RHEL
+    expansions:
+      DIR: pymongo_voyageai
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-pymongo-voyageai-local
+      - name: test-pymongo-voyageai-remote
 
   - name: test-haystack-embeddings-rhel
     display_name: Haystack Embeddings RHEL
