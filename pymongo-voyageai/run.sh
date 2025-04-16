@@ -21,4 +21,4 @@ just install
 export MONGODB_URI=$MONGODB_URI
 export VOYAGEAI_API_KEY=$VOYAGEAI_API_KEY
 
-just tests
+just test
