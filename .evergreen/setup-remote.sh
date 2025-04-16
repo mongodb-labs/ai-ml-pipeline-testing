@@ -38,6 +38,9 @@ case $DIR in
     haystack-embeddings | haystack-fulltext)
         MONGODB_URI=$HAYSTACK_MONGODB_URI
     ;;
+    voyageai-python)
+        MONGODB_URI=$VOYAGEAI_MONGODB_URI
+    ;;
     *)
         echo "Missing config in fetch-secrets.sh for DIR: $DIR"
         exit 1
@@ -46,6 +49,7 @@ esac
 export MONGODB_URI
 
 # Create the env file
+echo "export VOYAGEAI_API_KEY=$VOYAGEAI_API_KEY" >> env.sh
 echo "export OPENAI_API_KEY=$OPENAI_API_KEY" >> env.sh
 echo "export MONGODB_URI=$MONGODB_URI" >> env.sh
 
