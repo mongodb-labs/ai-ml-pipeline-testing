@@ -315,7 +315,7 @@ buildvariants:
   - name: test-pymongo-voyageai-rhel
     display_name: PyMongo-VoyageAI RHEL
     expansions:
-      DIR: pymongo_voyageai
+      DIR: pymongo-voyageai
     run_on:
       - rhel87-small
     tasks:
