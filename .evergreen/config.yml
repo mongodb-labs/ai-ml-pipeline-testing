@@ -45,11 +45,16 @@ functions:
         binary: bash
         args: [.evergreen/fetch-repo.sh]
 
+  "assume role":
+    - command: ec2.assume_role
+      params:
+        role_arn: ${assume_role_arn}
+
   "execute tests":
     - command: subprocess.exec
       type: test
       params:
-        include_expansions_in_env: [DIR]
+        include_expansions_in_env: [DIR, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN]
         working_dir: "src"
         binary: bash
         args: [.evergreen/execute-tests.sh]
@@ -189,6 +194,7 @@ tasks:
     tags: [local]
     commands:
       - func: "fetch repo"
+      - func: "assume role"
       - func: "setup local atlas"
       - func: "execute tests"
 
@@ -196,6 +202,7 @@ tasks:
     tags: [remote]
     commands:
       - func: "fetch repo"
+      - func: "assume role"
       - func: "setup remote atlas"
       - func: "execute tests"
 
