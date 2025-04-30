@@ -3,7 +3,7 @@
 set -eu
 
 if [ ! -d "${DIR}" ]; then
-  echo '${REPO_NAME} could not be found' 1>&2
+  echo "${REPO_NAME} could not be found" 1>&2
   exit 1
 fi
 

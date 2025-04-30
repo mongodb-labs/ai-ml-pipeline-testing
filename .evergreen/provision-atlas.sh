@@ -17,5 +17,7 @@ scaffold_atlas
 source secrets-export.sh
 
 # Create the env file
+echo "export VOYAGEAI_S3_BUCKET=$VOYAGEAI_S3_BUCKET" >> env.sh
 echo "export OPENAI_API_KEY=$OPENAI_API_KEY" >> env.sh
 echo "export MONGODB_URI=$CONN_STRING" >> env.sh
+echo "export VOYAGEAI_API_KEY=$VOYAGEAI_API_KEY" >> env.sh
