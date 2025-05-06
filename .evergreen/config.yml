@@ -38,7 +38,7 @@ functions:
 
   "fetch repo":
     - command: subprocess.exec
-      type: setup
+      type: test
       params:
         include_expansions_in_env: [DIR]
         working_dir: "src"
@@ -61,7 +61,7 @@ functions:
 
   "setup local atlas":
     - command: subprocess.exec
-      type: setup
+      type: test
       retry_on_failure: true
       params:
         include_expansions_in_env: [DIR]
@@ -72,7 +72,7 @@ functions:
 
   "setup remote atlas":
     - command: subprocess.exec
-      type: setup
+      type: test
       params:
         include_expansions_in_env: [DIR]
         working_dir: "src"
