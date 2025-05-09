@@ -9,9 +9,11 @@ if [[ -f "env.sh" ]]; then
 fi
 
 # setup node, npm and yarn
-export PATH=/opt/devtools/node22/bin:$PATH
-export npm_config_prefix=$(pwd)
-export PATH=$(pwd)/bin:$PATH
+PATH=/opt/devtools/node22/bin:$(pwd)/bin:$PATH
+npm_config_prefix=$(pwd)
+export PATH
+export npm_config_prefix
+
 npm install --global yarn
 
 bash ../../.evergreen/fetch-secrets.sh
