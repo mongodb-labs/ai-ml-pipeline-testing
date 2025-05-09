@@ -245,6 +245,18 @@ tasks:
     commands:
       - func: "fetch repo"
       - func: "execute tests"
+      - command: attach.xunit_results
+        params:
+          file: src/langchain-js/langchainjs/libs/langchain-mongodb/results.xml
+
+  - name: test-langchain-js-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "execute tests"
+      - command: attach.xunit_results
+        params:
+          file: src/langchain-js/langchainjs/libs/langchain-mongodb/results.xml
 
 buildvariants:
   - name: test-semantic-kernel-python-rhel
@@ -374,3 +386,4 @@ buildvariants:
       - ubuntu2204-small
     tasks:
       - name: test-langchain-js-local
+      - name: test-langchain-js-remote
