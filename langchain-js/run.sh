@@ -25,4 +25,8 @@ yarn build
 yarn add --dev jest-junit
 export JEST_JUNIT_OUTPUT_NAME=results.xml
 
+if [[ -n "$MONGODB_URI" ]]; then
+    export MONGODB_ATLAS_URI=$MONGODB_URI
+fi
+
 yarn test:int --reporters=default --reporters=jest-junit
