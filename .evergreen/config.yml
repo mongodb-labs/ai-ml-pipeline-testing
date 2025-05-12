@@ -91,6 +91,13 @@ post:
       working_dir: "src"
       binary: bash
       args: [drivers-evergreen-tools/.evergreen/teardown.sh]
+  - command: subprocess.exec
+    type: setup
+    include_expansions_in_env: [DIR, REPO_ORG, REPO_BRANCH]
+    params:
+      working_dir: "src"
+      binary: bash
+      args: [.evergreen/teardown.sh]
 
 tasks:
   - name: test-semantic-kernel-python-local
