@@ -13,4 +13,5 @@ source config.env
 set +a
 
 cd ${REPO_NAME}
-bash ${ROOT_DIR}/${DIR}/run.sh
+# TODO: remove comment-out
+# bash ${ROOT_DIR}/${DIR}/run.sh
