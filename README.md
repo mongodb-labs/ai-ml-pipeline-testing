@@ -24,7 +24,8 @@ Within each subdirectory you should expect to have:
 - `run.sh` -- A script that should handle any additional library installations and steps for executing the test suite. This script should not populate the Atlas database with any required test data.
 - `config.env` - A file that defines the following environment variables:
   - `REPO_NAME` -- The name of the AI/ML framework repository that will get cloned
-  - `CLONE_URL` -- The Github URL to clone into the specified `DIR`
+  - `REPO_ORG` -- The Github org of the repository
+  - `REPO_BRANCH` -- The optional branch to clone
   - `DATABASE` -- The optional database where the Atlas CLI will load your index configs
 - `database/` -- An optional directory used by `.evergreen/scaffold_atlas.py` to populate a MongoDB database with test data. Only provide this if your tests require pre-populated data.
 - `database/{collection}.json` -- An optional JSON file containing one or more MongoDB documents that will be uploaded to `$DATABASE.{collection}` in the local Atlas instance. Only provide this if your tests require pre-populated data.
@@ -117,7 +118,7 @@ Test execution flow is defined in `.evergreen/config.yml`. The test pipeline's c
 
 **[Functions](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Configuration-Files#functions)** -- We've defined some common functions that will be used. See the `.evergreen/config.yml` for example cases. The standard procedure is to fetch the repository, provision Atlas as needed, and then execute the tests specified in the `run.sh` script you create. Ensure that the expansions are provided for these functions, otherwise the tests will run improperly and most likely fail.
 
--   [`fetch repo`](https://github.com/mongodb-labs/ai-ml-pipeline-testing/blob/main/.evergreen/config.yml#L30) -- Clones the library's git repository; make sure to provide the expansion CLONE_URL
+-   [`fetch repo`](https://github.com/mongodb-labs/ai-ml-pipeline-testing/blob/main/.evergreen/config.yml#L30) -- Clones the library's git repository; make sure to provide the expansion REPO_ORG/REPO_NAME and REPO_BRANCH (optional)
 -   [`execute tests`](https://github.com/mongodb-labs/ai-ml-pipeline-testing/blob/main/.evergreen/config.yml#L51) -- Uses [subprocess.exec](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Commands#subprocessexec) to run the provided `run.sh` file. `run.sh` must be within the specified `DIR` path.
 -   `fetch source` -- Retrieves the current (`ai-ml-pipeline-testing`) repo
 -   `setup atlas cli` -- Sets up the local Atlas deployment
@@ -137,8 +138,7 @@ At the start, we will hopefully add the integration tests themselves.
 The bad news is that the maintainers of the AI/ML packages may take considerable
 time to review and merge our changes. The good news is that we can begin testing
 without pointing to the main branch of the upstream repo.
-The parameter value of the `CLONE_URL` is very flexible.
-We literally just call `git clone $CLONE_URL`.
+We can use `REPO_ORG`, `REPO_NAME`, and an optional `REPO_BRANCH` to define which repo to clone.
 As such, we can point to an arbitrary branch on an arbitrary repo.
 While developing, we encourage developers to point to a feature branch
 on their own fork, and add a TODO with the JIRA ticket to update the url
@@ -169,3 +169,11 @@ We realized that we could easily get this working without changing the upstream
 simply by applying a git patch file.
 This is a standard practice used by `conda package` maintainers,
 as they often have to build for a more broad set of scenarios than the original authors intended.
+
+### Running a patch build of a given PR
+
+Rather than making a new branch and modifying a `config.env` file, you can run a patch build as follows:
+
+```bash
+evergreen patch -p ai-ml-pipelin-testing --param REPO_ORG="<my-org>" --param REPO_BRANCH="<my-branch>" -y "<my-message>"
+```

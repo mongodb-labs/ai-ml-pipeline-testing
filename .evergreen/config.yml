@@ -40,7 +40,7 @@ functions:
     - command: subprocess.exec
       type: test
       params:
-        include_expansions_in_env: [DIR]
+        include_expansions_in_env: [DIR, REPO_ORG, REPO_BRANCH]
         working_dir: "src"
         binary: bash
         args: [.evergreen/fetch-repo.sh]
