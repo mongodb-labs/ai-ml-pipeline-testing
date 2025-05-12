@@ -28,7 +28,7 @@ fi
 rm -rf ${REPO_NAME}
 
 ARGS="https://github.com/${REPO_ORG}/${REPO_NAME}"
-if [ -n "${REPO_BRANCH:-}" ] then
+if [ -n "${REPO_BRANCH:-}" ]; then
   ARGS="-b ${REPO_BRANCH} ${ARGS}"
 fi
 
