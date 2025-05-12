@@ -93,8 +93,8 @@ post:
       args: [drivers-evergreen-tools/.evergreen/teardown.sh]
   - command: subprocess.exec
     type: setup
-    include_expansions_in_env: [DIR, REPO_ORG, REPO_BRANCH]
     params:
+      include_expansions_in_env: [DIR, REPO_ORG, REPO_BRANCH]
       working_dir: "src"
       binary: bash
       args: [.evergreen/teardown.sh]
