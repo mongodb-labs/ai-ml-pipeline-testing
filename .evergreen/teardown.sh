@@ -2,7 +2,6 @@
 
 set -eu
 
-env
 OVERRIDES=
 if [ -n "${REPO_ORG:-}" ]; then
   echo "REPO_ORG=$REPO_ORG"
