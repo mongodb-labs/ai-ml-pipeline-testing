@@ -68,7 +68,7 @@ functions:
       type: test
       retry_on_failure: true
       params:
-        include_expansions_in_env: [DIR]
+        include_expansions_in_env: [DIR, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN]
         working_dir: "src"
         binary: bash
         args:
@@ -78,7 +78,7 @@ functions:
     - command: subprocess.exec
       type: test
       params:
-        include_expansions_in_env: [DIR]
+        include_expansions_in_env: [DIR, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN]
         working_dir: "src"
         binary: bash
         args: [.evergreen/setup-remote.sh]
