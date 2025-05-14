@@ -2,11 +2,6 @@
 
 set -o errexit
 
-# TODO: remove before merging
-git branch
-git switch use-local-atlas
-git log -n 1
-
 setup_remote_atlas() {
     # Get the MONGODB_URI and OPENAI_API_KEY.
     SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
