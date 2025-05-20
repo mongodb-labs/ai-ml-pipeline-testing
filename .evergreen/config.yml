@@ -29,11 +29,15 @@ functions:
         directory: "src"
 
   "fetch secrets":
+    - command: ec2.assume_role
+      params:
+        role_arn: ${drivers_test_secrets_role}
     - command: subprocess.exec
       type: setup
       params:
         working_dir: "src"
         binary: bash
+        include_expansions_in_env: [AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID, AWS_SESSION_TOKEN]
         args: [.evergreen/fetch-secrets.sh]
 
   "fetch repo":
@@ -48,7 +52,7 @@ functions:
   "assume role":
     - command: ec2.assume_role
       params:
-        role_arn: ${assume_role_arn}
+        role_arn: ${drivers_test_secrets_role}
 
   "execute tests":
     - command: subprocess.exec
@@ -64,7 +68,7 @@ functions:
       type: test
       retry_on_failure: true
       params:
-        include_expansions_in_env: [DIR]
+        include_expansions_in_env: [DIR, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN]
         working_dir: "src"
         binary: bash
         args:
@@ -74,7 +78,7 @@ functions:
     - command: subprocess.exec
       type: test
       params:
-        include_expansions_in_env: [DIR]
+        include_expansions_in_env: [DIR, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN]
         working_dir: "src"
         binary: bash
         args: [.evergreen/setup-remote.sh]
@@ -82,6 +86,7 @@ functions:
 pre_error_fails_task: true
 post_error_fails_task: true
 pre:
+  - func: "assume role"
   - func: "fetch source"
   - func: "fetch secrets"
 post:
@@ -201,7 +206,6 @@ tasks:
     tags: [local]
     commands:
       - func: "fetch repo"
-      - func: "assume role"
       - func: "setup local atlas"
       - func: "execute tests"
 
@@ -209,7 +213,6 @@ tasks:
     tags: [remote]
     commands:
       - func: "fetch repo"
-      - func: "assume role"
       - func: "setup remote atlas"
       - func: "execute tests"
 
