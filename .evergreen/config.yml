@@ -250,6 +250,25 @@ tasks:
       - func: "fetch repo"
       - func: "execute tests"
 
+  - name: test-langchain-js-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "execute tests"
+      - command: attach.xunit_results
+        params:
+          file: src/langchain-js/langchainjs/libs/langchain-mongodb/results.xml
+
+  - name: test-langchain-js-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+      - command: attach.xunit_results
+        params:
+          file: src/langchain-js/langchainjs/libs/langchain-mongodb/results.xml
+
 buildvariants:
   - name: test-semantic-kernel-python-rhel
     display_name: Semantic-Kernel RHEL Python
@@ -369,3 +388,13 @@ buildvariants:
       - ubuntu2204-small
     tasks:
       - name: test-langchaingo-local
+
+  - name: test-langchain-js-ubuntu
+    display_name: LangchainJS Ubuntu2204
+    expansions:
+      DIR: langchain-js
+    run_on:
+      - ubuntu2204-small
+    tasks:
+      - name: test-langchain-js-local
+      - name: test-langchain-js-remote
