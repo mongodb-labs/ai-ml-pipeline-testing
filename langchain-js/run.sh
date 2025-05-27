@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -o errexit
 
 setup_remote_atlas() {
@@ -12,14 +11,12 @@ setup_remote_atlas() {
         source $ROOT_DIR/env.sh
     fi
 
-    bash ../../.evergreen/fetch-secrets.sh
+    bash "$ROOT_DIR/.evergreen/fetch-secrets.sh"
     source secrets-export.sh
 
     if [[ -n "$MONGODB_URI" ]]; then
         export MONGODB_ATLAS_URI=$MONGODB_URI
     fi
-
-    echo "MONGODB_ATLAS_URI: $MONGODB_ATLAS_URI"
 }
 
 setup_node_and_yarn() {
