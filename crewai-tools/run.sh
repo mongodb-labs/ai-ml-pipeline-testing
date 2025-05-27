@@ -18,6 +18,7 @@ pip install uv
 
 uv sync --extra mongodb
 uv run pytest tests/tools/test_mongodb_vector_search_tool.py
+uv run pytest tests/tools/test_mongodb_vector_search_tool2.py
 
 
 export MONGODB_URI=$MONGODB_URI
