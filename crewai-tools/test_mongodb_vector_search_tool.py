@@ -29,7 +29,7 @@ tool.add_texts([i.page_content for i in loader.load()])
 
 print("Creating vector index...")
 if not any([ix["name"] == "vector_index" for ix in coll.list_search_indexes()]):
-    tool.create_vector_search_index(dimensions=3072, timeout=60)
+    tool.create_vector_search_index(dimensions=3072, auto_index_timeout=60)
 
 # Create the MongoDB tool
 print("Creating tool and waiting for index to be complete...")
