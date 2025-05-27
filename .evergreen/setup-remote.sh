@@ -41,6 +41,9 @@ case $DIR in
     pymongo-voyageai)
         MONGODB_URI=$VOYAGEAI_MONGODB_URI
     ;;
+    crewai-tools)
+        MONGODB_URI=$CREWAI_TOOLS_URI
+    ;;
     *)
         echo "Missing config in setup-remote.sh for DIR: $DIR"
         exit 1
