@@ -16,7 +16,7 @@ source venv_pipeline/bin/activate
 
 pip install uv
 
-uv sync --extra mongodb --extra dev
+uv sync --extra mongodb
 uv run pytest tests/tools/test_mongodb_vector_search_tool.py
 
 
