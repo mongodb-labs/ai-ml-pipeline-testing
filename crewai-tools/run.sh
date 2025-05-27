@@ -17,7 +17,7 @@ source venv_pipeline/bin/activate
 pip install uv
 
 uv sync --extra mongodb
-uv run pytest tests/tools/test*mongodb*.py
+uv run pytest -v tests/tools/test*mongodb*.py
 
 export MONGODB_URI=$MONGODB_URI
 export OPENAI_API_KEY=$OPENAI_API_KEY
