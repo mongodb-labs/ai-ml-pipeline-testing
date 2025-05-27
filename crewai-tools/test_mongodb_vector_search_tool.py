@@ -1,3 +1,4 @@
+import os
 from crewai import Agent
 from crewai import Task
 from crewai import Crew, Process
@@ -7,7 +8,9 @@ import time
 
 # Pre-populate a collection and an index
 print("Creating collection...")
-conn_string = "mongodb://localhost:27017?directConnection=true"
+conn_string = os.environ.get(
+    "MONGODB_URI", "mongodb://localhost:27017?directConnection=true"
+)
 database_name = "crewai_test_db"
 collection_name = "vector_test"
 
