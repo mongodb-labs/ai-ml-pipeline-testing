@@ -354,11 +354,11 @@ buildvariants:
       - name: test-pymongo-voyageai-remote
 
   - name: test-crewai-tools-rhel
-    display_name: CrewAI-Tools RHEL
+    display_name: CrewAI-Tools Ubuntu
     expansions:
       DIR: crewai-tools
     run_on:
-      - rhel87-small
+      - ubuntu2204-small
     tasks:
       - name: test-crewai-tools-local
       - name: test-crewai-tools-remote
