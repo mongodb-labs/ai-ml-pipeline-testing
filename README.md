@@ -107,7 +107,7 @@ Test execution flow is defined in `.evergreen/config.yml`. The test pipeline's c
 
   - `DIR` -- The subdirectory where the tasks will run
 
-- `run_on` -- Specified platform to run on. `rhel87-small` should be used by default. Any other distro may fail Atlas CLI setup.
+- `run_on` -- Specified platform to run on. `rhel87-small` or `ubuntu2204-small` should be used by default. Any other distro may fail Atlas CLI setup.
 - `tasks` -- Tasks to run. See below for more details
 - `cron` -- The tests are run via a cron job on a nightly cadence. This can be modified by setting a different cadence. Cron jobs can be scheduled using [cron syntax](https://crontab.guru/#0_0_*_*_*)
 
