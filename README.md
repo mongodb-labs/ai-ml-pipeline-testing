@@ -175,5 +175,10 @@ as they often have to build for a more broad set of scenarios than the original 
 Rather than making a new branch and modifying a `config.env` file, you can run a patch build as follows:
 
 ```bash
-evergreen patch -p ai-ml-pipeline-testing --param REPO_ORG="<my-org>" --param REPO_BRANCH="<my-branch>" -y "<my-message>"
+evergreen patch -p ai-ml-pipeline-testing --param REPO_ORG="<my-org>" --param REPO_BRANCH="<my-branch>" -y -d "<my-message>"
+```
+
+For example
+```bash
+evergreen patch -p ai-ml-pipeline-testing --param REPO_ORG=caseyclements --param REPO_NAME="langchain-mongodb" --param REPO_BRANCH="INTPYTHON-629" -y -d "Increased retries to 4."
 ```
