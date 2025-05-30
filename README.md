@@ -177,3 +177,11 @@ Rather than making a new branch and modifying a `config.env` file, you can run a
 ```bash
 evergreen patch -p ai-ml-pipelin-testing --param REPO_ORG="<my-org>" --param REPO_BRANCH="<my-branch>" -y "<my-message>"
 ```
+
+### Handling Failing Tests
+
+If tests are found to be failing, and cannot be addressed quickly, the responsible team MUST create a JIRA ticket, and disable the relevant tests
+in the `config.yml` file, with a comment about the JIRA ticket that will address it.
+
+This policy will help ensure that a single failing integration does not cause noise in the `dbx-ai-ml-testing-pipeline-notifications` that would mask other
+failures.
