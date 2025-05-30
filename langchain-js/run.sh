@@ -42,8 +42,6 @@ setup_langchain_integration() {
     # export DEBUG=testcontainers*
 }
 
-exit 1
-
 setup_remote_atlas
 setup_node_and_yarn
 setup_langchain_integration
