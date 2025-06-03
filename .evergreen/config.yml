@@ -180,19 +180,20 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
-  - name: test-docarray-local
-    tags: [local]
-    commands:
-      - func: "fetch repo"
-      - func: "setup local atlas"
-      - func: "execute tests"
-
-  - name: test-docarray-remote
-    tags: [remote]
-    commands:
-      - func: "fetch repo"
-      - func: "setup remote atlas"
-      - func: "execute tests"
+# TODO https://jira.mongodb.org/browse/INTPYTHON-640
+#  - name: test-docarray-local
+#    tags: [local]
+#    commands:
+#      - func: "fetch repo"
+#      - func: "setup local atlas"
+#      - func: "execute tests"
+# TODO https://jira.mongodb.org/browse/INTPYTHON-640
+#  - name: test-docarray-remote
+#    tags: [remote]
+#    commands:
+#      - func: "fetch repo"
+#      - func: "setup remote atlas"
+#      - func: "execute tests"
 
   - name: test-pymongo-voyageai-local
     tags: [local]
