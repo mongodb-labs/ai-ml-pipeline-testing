@@ -330,15 +330,16 @@ buildvariants:
       # - name: test-llama-index-remote
       #   batchtime: 10080  # 1 week
 
-  - name: test-docarray-rhel
-    display_name: DocArray RHEL
-    expansions:
-      DIR: docarray
-    run_on:
-      - rhel87-small
-    tasks:
-      - name: test-docarray-local
-      - name: test-docarray-remote
+# TODO https://jira.mongodb.org/browse/INTPYTHON-640
+#  - name: test-docarray-rhel
+#    display_name: DocArray RHEL
+#    expansions:
+#      DIR: docarray
+#    run_on:
+#      - rhel87-small
+#    tasks:
+#      - name: test-docarray-local
+#      - name: test-docarray-remote
 
   - name: test-pymongo-voyageai-rhel
     display_name: PyMongo-VoyageAI RHEL
