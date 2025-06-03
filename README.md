@@ -182,3 +182,11 @@ For example
 ```bash
 evergreen patch -p ai-ml-pipeline-testing --param REPO_ORG=caseyclements --param REPO_NAME="langchain-mongodb" --param REPO_BRANCH="INTPYTHON-629" -y -d "Increased retries to 4."
 ```
+
+### Handling Failing Tests
+
+If tests are found to be failing, and cannot be addressed quickly, the responsible team MUST create a JIRA ticket, and disable the relevant tests
+in the `config.yml` file, with a comment about the JIRA ticket that will address it.
+
+This policy will help ensure that a single failing integration does not cause noise in the `dbx-ai-ml-testing-pipeline-notifications` that would mask other
+failures.
