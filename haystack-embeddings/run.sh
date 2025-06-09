@@ -22,4 +22,4 @@ PYTHON_BINARY=$(which python)
 $PYTHON_BINARY -m pip install -U pip hatch
 
 # Run tests.
-MONGO_CONNECTION_STRING="$MONGODB_URI" hatch run test
+MONGO_CONNECTION_STRING_2="$MONGODB_URI" hatch run test:all -v
