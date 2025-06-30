@@ -24,7 +24,7 @@ make install-python
 make install-sk
 make install-pre-commit
 
-cp ../../test_mongodb_atlas_memory_store.py .
+cp $SCRIPT_DIR/test_mongodb_atlas_memory_store.py .
 
 # shellcheck disable=SC2154
 OPENAI_API_KEY="$OPENAI_API_KEY" \
