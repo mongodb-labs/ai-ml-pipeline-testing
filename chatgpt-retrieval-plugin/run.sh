@@ -1,15 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
 # chat-gpt-retrieval-plugin is a poetry run project
 
 set -eu
 
 # Get the MONGODB_URI and OPENAI_API_KEY.
-# shellcheck disable=SC2154
-. $workdir/src/env.sh
+SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
+ROOT_DIR=$(dirname $SCRIPT_DIR)
+. $ROOT_DIR/env.sh
 
-# shellcheck disable=SC2154
-. $workdir/src/.evergreen/utils.sh
+. $ROOT_DIR/.evergreen/utils.sh
 
 PYTHON_BINARY=$(find_python3)
 $PYTHON_BINARY -c "import sys; print(f'Python version found: {sys.version_info}')"
@@ -24,7 +24,7 @@ $PYTHON_BINARY -m poetry env use $PYTHON_BINARY
 # Activate the poetry env, which itself does not include poetry
 . "$($PYTHON_BINARY -m poetry env info --path)/bin/activate"
 # Recreate the poetry lock file
-$PYTHON_BINARY -m poetry lock --no-update
+$PYTHON_BINARY -m poetry lock
 # Install from pyproject.toml into package specific environment
 $PYTHON_BINARY -m poetry install --with dev
 

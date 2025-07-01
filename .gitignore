@@ -50,7 +50,14 @@ xunit-results/
 # Miscellaneous
 .DS_Store
 drivers-evergreen-tools
+atlas
+.evergreen/.local_atlas_uri
 
 # Secrets
 secrets-export.sh
 env.sh
+
+# Repo checkouts
+haystack-fulltext/haystack-core-integrations
+haystack-embeddings/haystack-core-integrations
+pymongo-voyageai/pymongo-voyageai

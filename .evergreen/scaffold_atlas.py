@@ -44,7 +44,7 @@ def upload_data(db: Database, filename: Path) -> None:
     )
     collections = [c["name"] for c in db.list_collections()]
     if collection_name in collections:
-        logger.debug("Clearing existing collection", collection_name)
+        logger.debug("Clearing existing collection %s", collection_name)
         db[collection_name].delete_many({})
 
     if not isinstance(loaded_collection, list):

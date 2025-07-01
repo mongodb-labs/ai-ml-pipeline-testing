@@ -1,0 +1,18 @@
+{
+    "fields": [
+        {
+            "numDimensions": 768,
+            "path": "embedding",
+            "similarity": "dotProduct",
+            "type": "vector"
+        },
+            {
+            "type": "filter",
+            "path": "content"
+            }
+    ],
+    "name": "dotProduct_index",
+    "type": "vectorSearch",
+    "database": "haystack_integration_test",
+    "collectionName": "test_embeddings_collection"
+}

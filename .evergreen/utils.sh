@@ -52,65 +52,23 @@ is_python_310() {
 }
 
 
-retry() {
-    for i in 1 2 4 8 16; do
-        { "$@" && return 0; } || sleep $i
-    done
-    return 1
-}
-
 
 # start mongodb-atlas-local container, because of a bug in podman we have to define the healtcheck ourselves (is the same as in the image)
 # stores the connection string in .local_atlas_uri file
 setup_local_atlas() {
-    echo "Starting the container"
-
-    IMAGE=artifactory.corp.mongodb.com/dockerhub/mongodb/mongodb-atlas-local:latest
-    retry podman pull $IMAGE
-
-    CONTAINER_ID=$(podman run --rm -d -e DO_NOT_TRACK=1 -P --health-cmd "/usr/local/bin/runner healthcheck" mongodb/mongodb-atlas-local:latest)
-
-    echo "waiting for container to become healthy..."
-    function wait() {
-    CONTAINER_ID=$1
-    echo "waiting for container to become healthy..."
-    podman healthcheck run "$CONTAINER_ID"
-    for _ in $(seq 600); do
-        STATE=$(podman inspect -f '{{ .State.Health.Status }}' "$CONTAINER_ID")
-
-        case $STATE in
-            healthy)
-            echo "container is healthy"
-            return 0
-            ;;
-            unhealthy)
-            echo "container is unhealthy"
-            podman logs "$CONTAINER_ID"
-            stop
-            exit 1
-            ;;
-            *)
-            echo "Unrecognized state $STATE"
-            sleep 1
-        esac
-    done
-
-    echo "container did not get healthy within 120 seconds, quitting"
-    podman logs mongodb_atlas_local
-    stop
-    exit 2
-    }
-
-    wait "$CONTAINER_ID"
-    EXPOSED_PORT=$(podman inspect --format='{{ (index (index .NetworkSettings.Ports "27017/tcp") 0).HostPort }}' "$CONTAINER_ID")
-    export CONN_STRING="mongodb://127.0.0.1:$EXPOSED_PORT/?directConnection=true"
-    # shellcheck disable=SC2154
-    echo "CONN_STRING=mongodb://127.0.0.1:$EXPOSED_PORT/?directConnection=true" > $workdir/src/.evergreen/.local_atlas_uri
+    SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
+    # Ensure drivers-evergeen-tools checkout.
+    pushd $SCRIPT_DIR/..
+    git clone https://github.com/mongodb-labs/drivers-evergreen-tools || true
+    . drivers-evergreen-tools/.evergreen/run-orchestration.sh --local-atlas -v
+    popd
+    export CONN_STRING"=mongodb://127.0.0.1:27017/?directConnection=true"
+    echo "CONN_STRING=$CONN_STRING" > $SCRIPT_DIR/.local_atlas_uri
 }
 
 fetch_local_atlas_uri() {
-    # shellcheck disable=SC2154
-    . $workdir/src/.evergreen/.local_atlas_uri
+    SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
+    . $SCRIPT_DIR/.local_atlas_uri
 
     export CONN_STRING=$CONN_STRING
     echo "$CONN_STRING"
@@ -120,8 +78,7 @@ fetch_local_atlas_uri() {
 scaffold_atlas() {
     PYTHON_BINARY=$(find_python3)
 
-    # Should be called from src
-    EVERGREEN_PATH=$(pwd)/.evergreen
+    EVERGREEN_PATH=$(realpath "$(dirname ${BASH_SOURCE[0]})")
     TARGET_DIR=$(pwd)/$DIR
     SCAFFOLD_SCRIPT=$EVERGREEN_PATH/scaffold_atlas.py
 

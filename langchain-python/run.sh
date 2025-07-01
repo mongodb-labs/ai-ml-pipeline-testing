@@ -4,29 +4,27 @@
 set -eu
 
 # Get the MONGODB_URI and OPENAI_API_KEY.
-# shellcheck disable=SC2154
-. $workdir/src/env.sh
+SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
+ROOT_DIR=$(dirname $SCRIPT_DIR)
+. $ROOT_DIR/env.sh
 
-# shellcheck disable=SC2154
-. $workdir/src/.evergreen/utils.sh
+. $ROOT_DIR/.evergreen/utils.sh
 
 PYTHON_BINARY=$(find_python3)
 
 # shellcheck disable=SC2164
-cd libs/mongodb
+cd libs/langchain-mongodb
 
- $PYTHON_BINARY -m venv venv_pipeline
- source venv_pipeline/bin/activate
+$PYTHON_BINARY -m venv venv_pipeline
+source venv_pipeline/bin/activate
 
-pip install poetry
+pip install uv rust-just
 
-poetry lock --no-update
-
-poetry install --with dev
+just install
 
 export MONGODB_URI=$MONGODB_URI
 export OPENAI_API_KEY=$OPENAI_API_KEY
 
-make test
+just tests
 
-make integration_test
+just integration_tests

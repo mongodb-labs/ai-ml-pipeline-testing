@@ -22,6 +22,11 @@ Each subdirectory is scoped to run only one AI/ML integration's suite of tests f
 Within each subdirectory you should expect to have:
 
 - `run.sh` -- A script that should handle any additional library installations and steps for executing the test suite. This script should not populate the Atlas database with any required test data.
+- `config.env` - A file that defines the following environment variables:
+  - `REPO_NAME` -- The name of the AI/ML framework repository that will get cloned
+  - `REPO_ORG` -- The Github org of the repository
+  - `REPO_BRANCH` -- The optional branch to clone
+  - `DATABASE` -- The optional database where the Atlas CLI will load your index configs
 - `database/` -- An optional directory used by `.evergreen/scaffold_atlas.py` to populate a MongoDB database with test data. Only provide this if your tests require pre-populated data.
 - `database/{collection}.json` -- An optional JSON file containing one or more MongoDB documents that will be uploaded to `$DATABASE.{collection}` in the local Atlas instance. Only provide this if your tests require pre-populated data.
 - `indexConfig.json` -- An optional file containing configuration for a specified Atlas Search Index.
@@ -40,12 +45,15 @@ The general layout of this repo looks like this:
 │   │   └── furthestSearch.json                 # Populates $DATABASE.furthestSearch
 │   ├── indexes                                 # Optional Index definitions directory
 │   │   └── indexConfig.json                    # Optional Search index definition
+|   ├── config.env                              # Configuration file
 │   └── run.sh                                  # Script that executes test
+|
 ├── semantic-kernel-python                      # Folder scoped for one Integration
 │   ├── database                                # Optional database definition
 │   │   └── nearestSearch.json                  # Populates $DATABASE.nearestSearch
 │   │   └── furthestSearch.json                 # Populates $DATABASE.furthestSearch
 │   ├── indexConfig.json                        # Creates Search Index on $DATABASE
+|   ├── config.env                              # Configuration file
 │   └── run.sh                                  # Script that executes test
 ```
 
@@ -54,12 +62,28 @@ The general layout of this repo looks like this:
 Each test subdirectory will automatically have its own local Atlas deployment. As a result, database and collection names will not conflict between different AI/ML integrations. To connect to your local Atlas using a connection string, `utils.sh` has a `fetch_local_atlas_uri` that you can call from the `run.sh` script within your subdirectory. For example:
 
 ```bash
-. $workdir/src/.evergreen/utils.sh
+. .evergreen/utils.sh
 
 CONN_STRING=$(fetch_local_atlas_uri)
 ```
 
 Stores the local Atlas URI within the `CONN_STRING` var. The script can then pass `CONN_STRING` as an environment variable to the test suite.
+
+#### Running tests locally.
+
+We can run the tests with a local checkout of the repo.
+
+For example, to run the `docarray` tests using local atlas:
+
+```bash
+export DIR=docarray
+bash .evergreen/fetch-secrets.sh
+bash .evergreen/fetch-repo.sh
+bash .evergreen/provision-atlas.sh
+bash .evergreen/execute-tests.sh
+```
+
+Use `.evergreen/setup-remote.sh` instead of `.evergreen/provision-atlas.sh` to test against the remote cluster.
 
 #### Pre-populating the Local Atlas Deployment
 
@@ -82,11 +106,8 @@ Test execution flow is defined in `.evergreen/config.yml`. The test pipeline's c
 - [`expansions`](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Configuration-Files/#expansions) -- Build variant specific variables. Expansions that need to be maintained as secrets should be stored in [the Evergreen project settings](https://spruce.mongodb.com/project/ai-ml-pipeline-testing/settings/variables) using [variables](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-and-Distro-Settings#variables). Some common expansions needed are:
 
   - `DIR` -- The subdirectory where the tasks will run
-  - `REPO_NAME` -- The name of the AI/ML framework repository that will get cloned
-  - `CLONE_URL` -- The Github URL to clone into the specified `DIR`
-  - `DATABASE` -- The optional database where the Atlas CLI will load your index configs
 
-- `run_on` -- Specified platform to run on. `rhel87-small` should be used by default. Any other distro may fail Atlas CLI setup.
+- `run_on` -- Specified platform to run on. `rhel87-small` or `ubuntu2204-small` should be used by default. Any other distro may fail Atlas CLI setup.
 - `tasks` -- Tasks to run. See below for more details
 - `cron` -- The tests are run via a cron job on a nightly cadence. This can be modified by setting a different cadence. Cron jobs can be scheduled using [cron syntax](https://crontab.guru/#0_0_*_*_*)
 
@@ -97,7 +118,7 @@ Test execution flow is defined in `.evergreen/config.yml`. The test pipeline's c
 
 **[Functions](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Configuration-Files#functions)** -- We've defined some common functions that will be used. See the `.evergreen/config.yml` for example cases. The standard procedure is to fetch the repository, provision Atlas as needed, and then execute the tests specified in the `run.sh` script you create. Ensure that the expansions are provided for these functions, otherwise the tests will run improperly and most likely fail.
 
--   [`fetch repo`](https://github.com/mongodb-labs/ai-ml-pipeline-testing/blob/main/.evergreen/config.yml#L30) -- Clones the library's git repository; make sure to provide the expansion CLONE_URL
+-   [`fetch repo`](https://github.com/mongodb-labs/ai-ml-pipeline-testing/blob/main/.evergreen/config.yml#L30) -- Clones the library's git repository; make sure to provide the expansion REPO_ORG/REPO_NAME and REPO_BRANCH (optional)
 -   [`execute tests`](https://github.com/mongodb-labs/ai-ml-pipeline-testing/blob/main/.evergreen/config.yml#L51) -- Uses [subprocess.exec](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Commands#subprocessexec) to run the provided `run.sh` file. `run.sh` must be within the specified `DIR` path.
 -   `fetch source` -- Retrieves the current (`ai-ml-pipeline-testing`) repo
 -   `setup atlas cli` -- Sets up the local Atlas deployment
@@ -117,8 +138,7 @@ At the start, we will hopefully add the integration tests themselves.
 The bad news is that the maintainers of the AI/ML packages may take considerable
 time to review and merge our changes. The good news is that we can begin testing
 without pointing to the main branch of the upstream repo.
-The parameter value of the `CLONE_URL` is very flexible.
-We literally just call `git clone $CLONE_URL`.
+We can use `REPO_ORG`, `REPO_NAME`, and an optional `REPO_BRANCH` to define which repo to clone.
 As such, we can point to an arbitrary branch on an arbitrary repo.
 While developing, we encourage developers to point to a feature branch
 on their own fork, and add a TODO with the JIRA ticket to update the url
@@ -149,3 +169,24 @@ We realized that we could easily get this working without changing the upstream
 simply by applying a git patch file.
 This is a standard practice used by `conda package` maintainers,
 as they often have to build for a more broad set of scenarios than the original authors intended.
+
+### Running a patch build of a given PR
+
+Rather than making a new branch and modifying a `config.env` file, you can run a patch build as follows:
+
+```bash
+evergreen patch -p ai-ml-pipeline-testing --param REPO_ORG="<my-org>" --param REPO_BRANCH="<my-branch>" -y -d "<my-message>"
+```
+
+For example
+```bash
+evergreen patch -p ai-ml-pipeline-testing --param REPO_ORG=caseyclements --param REPO_NAME="langchain-mongodb" --param REPO_BRANCH="INTPYTHON-629" -y -d "Increased retries to 4."
+```
+
+### Handling Failing Tests
+
+If tests are found to be failing, and cannot be addressed quickly, the responsible team MUST create a JIRA ticket, and disable the relevant tests
+in the `config.yml` file, with a comment about the JIRA ticket that will address it.
+
+This policy will help ensure that a single failing integration does not cause noise in the `dbx-ai-ml-testing-pipeline-notifications` that would mask other
+failures.
