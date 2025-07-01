@@ -193,4 +193,4 @@ If tests are found to be failing, and cannot be addressed quickly, the responsib
 in the `config.yml` file, with a comment about the JIRA ticket that will address it.
 
 This policy will help ensure that a single failing integration does not cause noise in the `dbx-ai-ml-testing-pipeline-notifications` or `dbx-ai-ml-testing-pipeline-notifications-{language}` that would mask other
-failures. 
+failures.
