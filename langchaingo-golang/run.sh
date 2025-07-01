@@ -9,7 +9,7 @@ cd vectorstores/mongovector
 export PATH="$PATH:/opt/golang/$GO_VERSION/bin"
 export GOROOT="/opt/golang/$GO_VERSION"
 
-# TODO(GODRIVER-3606): Update regression with expected test error in
-# LangChainGo for non-tokenized filter.
+# TODO(GODRIVER-3606): Update expected error in LangChainGo test for
+# non-tokenized filter
 go test -v -failfast -race -shuffle=on \
   -skip "TestStore_SimilaritySearch_NonExactQuery/with_non-tokenized_filter"
