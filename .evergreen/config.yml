@@ -264,6 +264,7 @@ tasks:
 buildvariants:
   - name: test-semantic-kernel-python-rhel
     display_name: Semantic-Kernel RHEL Python
+    tags: [python]
     expansions:
       DIR: semantic-kernel-python
     run_on:
@@ -276,6 +277,7 @@ buildvariants:
 
   - name: test-semantic-kernel-csharp-rhel
     display_name: Semantic-Kernel RHEL CSharp
+    tags: [csharp]
     expansions:
       DIR: semantic-kernel-csharp
     run_on:
@@ -286,6 +288,7 @@ buildvariants:
 
   - name: test-langchain-python-rhel
     display_name: Langchain RHEL Python
+    tags: [python]
     expansions:
       DIR: langchain-python
     run_on:
@@ -297,6 +300,7 @@ buildvariants:
 
   - name: test-langgraph-python-rhel
     display_name: Langgraph RHEL Python
+    tags: [python]
     expansions:
       DIR: langgraph-python
     run_on:
@@ -308,6 +312,7 @@ buildvariants:
 
   - name: test-chatgpt-retrieval-plugin-rhel
     display_name: ChatGPT Retrieval Plugin
+    tags: [python]
     expansions:
       DIR: chatgpt-retrieval-plugin
     run_on:
@@ -319,6 +324,7 @@ buildvariants:
 
   - name: test-llama-index-vectorstore-rhel
     display_name: LlamaIndex RHEL Vector Store
+    tags: [python]
     expansions:
       DIR: llama-index-python-vectorstore
     run_on:
@@ -331,6 +337,7 @@ buildvariants:
 
   - name: test-docarray-rhel
     display_name: DocArray RHEL
+    tags: [python]
     expansions:
       DIR: docarray
     run_on:
@@ -341,6 +348,7 @@ buildvariants:
 
   - name: test-pymongo-voyageai-rhel
     display_name: PyMongo-VoyageAI RHEL
+    tags: [python]
     expansions:
       DIR: pymongo-voyageai
     run_on:
@@ -351,6 +359,7 @@ buildvariants:
 
   - name: test-haystack-embeddings-rhel
     display_name: Haystack Embeddings RHEL
+    tags: [python]
     expansions:
       DIR: haystack-embeddings
     run_on:
@@ -362,6 +371,7 @@ buildvariants:
 
   - name: test-haystack-fulltext-rhel
     display_name: Haystack FullText RHEL
+    tags: [python]
     expansions:
       DIR: haystack-fulltext
     run_on:
@@ -373,6 +383,7 @@ buildvariants:
 
   - name: test-langchaingo-ubuntu
     display_name: LangchainGo Ubuntu2204
+    tags: [golang]
     expansions:
       DIR: langchaingo-golang
     run_on:
@@ -382,6 +393,7 @@ buildvariants:
 
   - name: test-langchain-js-ubuntu
     display_name: LangchainJS Ubuntu2204
+    tags: [javascript]
     expansions:
       DIR: langchain-js
     run_on:
