@@ -22,6 +22,6 @@ pip install uv rust-just
 
 just install
 
-just tests
+just unit_tests
 
 just integration_tests
