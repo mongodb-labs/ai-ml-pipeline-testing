@@ -25,6 +25,7 @@ just install
 # Use the o4-mini model from Azure for tests.
 export AZURE_OPENAI_ENDPOINT=$AZURE_OPENAI_O4_MINI_URI
 export AZURE_OPENAI_API_KEY=$AZURE_OPENAI_O4_MINI_KEY
+export OPENAI_API_VERSION="2024-12-01-preview"
 
 just tests
 
