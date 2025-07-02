@@ -51,8 +51,16 @@ case $DIR in
 esac
 export MONGODB_URI
 
+# Get the secrets.
+source secrets-export.sh
+
 # Create the env file
-echo "export MONGODB_URI=$MONGODB_URI" > env.sh
+echo "export VOYAGEAI_S3_BUCKET=$VOYAGEAI_S3_BUCKET" >> env.sh
+echo "export AZURE_OPENAI_ENDPOINT=$AZURE_OPENAI_ENDPOINT" >> env.sh
+echo "export AZURE_OPENAI_API_KEY=$AZURE_OPENAI_API_KEY" >> env.sh
+echo "export OPENAI_API_VERSION=$OPENAI_API_VERSION" >> env.sh
+echo "export MONGODB_URI=$CONN_STRING" >> env.sh
+echo "export VOYAGEAI_API_KEY=$VOYAGEAI_API_KEY" >> env.sh
 
 # Ensure the remote database is populated.
 . .evergreen/utils.sh

@@ -306,7 +306,7 @@ buildvariants:
       - name: test-langgraph-python-remote
         batchtime: 10080  # 1 week
 
-  # Skip - INTPYTHON-667
+  # TODO: INTPYTHON-668
   # - name: test-chatgpt-retrieval-plugin-rhel
   #   display_name: ChatGPT Retrieval Plugin
   #   expansions:
@@ -381,7 +381,7 @@ buildvariants:
     tasks:
       - name: test-langchaingo-local
 
-  # Skip - INTPYTHON-667
+  # TODO: INTPYTHON-667
   # - name: test-langchain-js-ubuntu
   #   display_name: LangchainJS Ubuntu2204
   #   expansions:
