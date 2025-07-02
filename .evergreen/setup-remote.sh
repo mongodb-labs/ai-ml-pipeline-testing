@@ -51,9 +51,6 @@ case $DIR in
 esac
 export MONGODB_URI
 
-# Get the secrets.
-source secrets-export.sh
-
 # Create the env file
 echo "export VOYAGEAI_S3_BUCKET=$VOYAGEAI_S3_BUCKET" >> env.sh
 echo "export AZURE_OPENAI_ENDPOINT=$AZURE_OPENAI_ENDPOINT" >> env.sh
