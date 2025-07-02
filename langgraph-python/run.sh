@@ -18,9 +18,6 @@ cd libs/langgraph-checkpoint-mongodb
 $PYTHON_BINARY -m venv venv_pipeline
 source venv_pipeline/bin/activate
 
-awk 'BEGIN{for(v in ENVIRON) print v}'
-exit 1
-
 pip install uv rust-just
 
 just install
