@@ -306,28 +306,30 @@ buildvariants:
       - name: test-langgraph-python-remote
         batchtime: 10080  # 1 week
 
-  - name: test-chatgpt-retrieval-plugin-rhel
-    display_name: ChatGPT Retrieval Plugin
-    expansions:
-      DIR: chatgpt-retrieval-plugin
-    run_on:
-      - rhel87-small
-    tasks:
-      - name: test-chatgpt-retrieval-plugin-local
-      - name: test-chatgpt-retrieval-plugin-remote
-        batchtime: 10080  # 1 week
+  # TODO: INTPYTHON-668
+  # - name: test-chatgpt-retrieval-plugin-rhel
+  #   display_name: ChatGPT Retrieval Plugin
+  #   expansions:
+  #     DIR: chatgpt-retrieval-plugin
+  #   run_on:
+  #     - rhel87-small
+  #   tasks:
+  #     - name: test-chatgpt-retrieval-plugin-local
+  #     - name: test-chatgpt-retrieval-plugin-remote
+  #       batchtime: 10080  # 1 week
 
-  - name: test-llama-index-vectorstore-rhel
-    display_name: LlamaIndex RHEL Vector Store
-    expansions:
-      DIR: llama-index-python-vectorstore
-    run_on:
-      - rhel87-small
-    tasks:
-      - name: test-llama-index-local
-      # TODO: INTPYTHON-440
-      # - name: test-llama-index-remote
-      #   batchtime: 10080  # 1 week
+  # TODO: INTPYTHON-669
+  # - name: test-llama-index-vectorstore-rhel
+  #   display_name: LlamaIndex RHEL Vector Store
+  #   expansions:
+  #     DIR: llama-index-python-vectorstore
+  #   run_on:
+  #     - rhel87-small
+  #   tasks:
+  #     - name: test-llama-index-local
+  #     # TODO: INTPYTHON-440
+  #     # - name: test-llama-index-remote
+  #     #   batchtime: 10080  # 1 week
 
   - name: test-docarray-rhel
     display_name: DocArray RHEL
@@ -380,12 +382,13 @@ buildvariants:
     tasks:
       - name: test-langchaingo-local
 
-  - name: test-langchain-js-ubuntu
-    display_name: LangchainJS Ubuntu2204
-    expansions:
-      DIR: langchain-js
-    run_on:
-      - ubuntu2204-small
-    tasks:
-      - name: test-langchain-js-local
-      - name: test-langchain-js-remote
+  # TODO: INTPYTHON-667
+  # - name: test-langchain-js-ubuntu
+  #   display_name: LangchainJS Ubuntu2204
+  #   expansions:
+  #     DIR: langchain-js
+  #   run_on:
+  #     - ubuntu2204-small
+  #   tasks:
+  #     - name: test-langchain-js-local
+  #     - name: test-langchain-js-remote
