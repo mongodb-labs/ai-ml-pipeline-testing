@@ -2,6 +2,7 @@ import os
 from crewai import Agent
 from crewai import Task
 from crewai import Crew, Process, LLM
+from crewai.cli.constants import DEFAULT_LLM_MODEL
 from crewai_tools import MongoDBVectorSearchTool, MongoDBVectorSearchConfig
 from langchain_community.document_loaders import PyPDFLoader
 import time
@@ -56,7 +57,7 @@ researcher = Agent(
     backstory="You're specialized in analyzing technical content to extract insights and answers",
     verbose=False,
     tools=[tool],
-    llm=LLM(model="azure/gpt-4o-mini"),
+    llm=LLM(model=f"azure/{DEFAULT_LLM_MODEL}"),
 )
 research_task = Task(
     description="Research information in a technical document",
