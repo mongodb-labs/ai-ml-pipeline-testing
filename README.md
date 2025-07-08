@@ -107,7 +107,7 @@ Test execution flow is defined in `.evergreen/config.yml`. The test pipeline's c
 
   - `DIR` -- The subdirectory where the tasks will run
 
-- `run_on` -- Specified platform to run on. `rhel87-small` should be used by default. Any other distro may fail Atlas CLI setup.
+- `run_on` -- Specified platform to run on. `rhel87-small` or `ubuntu2204-small` should be used by default. Any other distro may fail Atlas CLI setup.
 - `tasks` -- Tasks to run. See below for more details
 - `cron` -- The tests are run via a cron job on a nightly cadence. This can be modified by setting a different cadence. Cron jobs can be scheduled using [cron syntax](https://crontab.guru/#0_0_*_*_*)
 
@@ -175,5 +175,18 @@ as they often have to build for a more broad set of scenarios than the original 
 Rather than making a new branch and modifying a `config.env` file, you can run a patch build as follows:
 
 ```bash
-evergreen patch -p ai-ml-pipelin-testing --param REPO_ORG="<my-org>" --param REPO_BRANCH="<my-branch>" -y "<my-message>"
+evergreen patch -p ai-ml-pipeline-testing --param REPO_ORG="<my-org>" --param REPO_BRANCH="<my-branch>" -y -d "<my-message>"
 ```
+
+For example
+```bash
+evergreen patch -p ai-ml-pipeline-testing --param REPO_ORG=caseyclements --param REPO_NAME="langchain-mongodb" --param REPO_BRANCH="INTPYTHON-629" -y -d "Increased retries to 4."
+```
+
+### Handling Failing Tests
+
+If tests are found to be failing, and cannot be addressed quickly, the responsible team MUST create a JIRA ticket, and disable the relevant tests
+in the `config.yml` file, with a comment about the JIRA ticket that will address it.
+
+This policy will help ensure that a single failing integration does not cause noise in the `dbx-ai-ml-testing-pipeline-notifications` that would mask other
+failures.

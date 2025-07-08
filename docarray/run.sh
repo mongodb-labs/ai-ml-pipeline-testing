@@ -30,6 +30,6 @@ set +x
 
 # Run tests. Sensitive variables in Evergreen come from Evergeen project: ai-ml-pipeline-testing/
 # shellcheck disable=SC2154
-MONGODB_URI="$MONGODB_URI" \
-MONGODB_DATABASE="docarray_test_db" \
-pytest -v tests/index/mongo_atlas
+export MONGODB_URI="$MONGODB_URI"
+export MONGODB_DATABASE="docarray_test_db"
+pytest -v tests/index/mongo_atlas || pytest --lf

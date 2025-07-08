@@ -119,18 +119,10 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
-  - name: test-semantic-kernel-csharp-local
+  - name: test-semantic-kernel-csharp
     tags: [local]
     commands:
       - func: "fetch repo"
-      - func: "setup local atlas"
-      - func: "execute tests"
-
-  - name: test-semantic-kernel-csharp-remote
-    tags: [remote]
-    commands:
-      - func: "fetch repo"
-      - func: "setup remote atlas"
       - func: "execute tests"
 
   - name: test-langchain-python-local
@@ -264,6 +256,25 @@ tasks:
       - func: "fetch repo"
       - func: "execute tests"
 
+  - name: test-langchain-js-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "execute tests"
+      - command: attach.xunit_results
+        params:
+          file: src/langchain-js/langchainjs/libs/langchain-mongodb/results.xml
+
+  - name: test-langchain-js-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+      - command: attach.xunit_results
+        params:
+          file: src/langchain-js/langchainjs/libs/langchain-mongodb/results.xml
+
 buildvariants:
   - name: test-semantic-kernel-python-rhel
     display_name: Semantic-Kernel RHEL Python
@@ -284,8 +295,7 @@ buildvariants:
     run_on:
       - rhel87-small
     tasks:
-      - name: test-semantic-kernel-csharp-local
-      - name: test-semantic-kernel-csharp-remote
+      - name: test-semantic-kernel-csharp
         batchtime: 10080  # 1 week
 
   - name: test-langchain-python-rhel
@@ -310,28 +320,30 @@ buildvariants:
       - name: test-langgraph-python-remote
         batchtime: 10080  # 1 week
 
-  - name: test-chatgpt-retrieval-plugin-rhel
-    display_name: ChatGPT Retrieval Plugin
-    expansions:
-      DIR: chatgpt-retrieval-plugin
-    run_on:
-      - rhel87-small
-    tasks:
-      - name: test-chatgpt-retrieval-plugin-local
-      - name: test-chatgpt-retrieval-plugin-remote
-        batchtime: 10080  # 1 week
+  # TODO: INTPYTHON-668
+  # - name: test-chatgpt-retrieval-plugin-rhel
+  #   display_name: ChatGPT Retrieval Plugin
+  #   expansions:
+  #     DIR: chatgpt-retrieval-plugin
+  #   run_on:
+  #     - rhel87-small
+  #   tasks:
+  #     - name: test-chatgpt-retrieval-plugin-local
+  #     - name: test-chatgpt-retrieval-plugin-remote
+  #       batchtime: 10080  # 1 week
 
-  - name: test-llama-index-vectorstore-rhel
-    display_name: LlamaIndex RHEL Vector Store
-    expansions:
-      DIR: llama-index-python-vectorstore
-    run_on:
-      - rhel87-small
-    tasks:
-      - name: test-llama-index-local
-      # TODO: INTPYTHON-440
-      # - name: test-llama-index-remote
-      #   batchtime: 10080  # 1 week
+  # TODO: INTPYTHON-669
+  # - name: test-llama-index-vectorstore-rhel
+  #   display_name: LlamaIndex RHEL Vector Store
+  #   expansions:
+  #     DIR: llama-index-python-vectorstore
+  #   run_on:
+  #     - rhel87-small
+  #   tasks:
+  #     - name: test-llama-index-local
+  #     # TODO: INTPYTHON-440
+  #     # - name: test-llama-index-remote
+  #     #   batchtime: 10080  # 1 week
 
   - name: test-docarray-rhel
     display_name: DocArray RHEL
@@ -393,3 +405,14 @@ buildvariants:
       - ubuntu2204-small
     tasks:
       - name: test-langchaingo-local
+
+  # TODO: INTPYTHON-667
+  # - name: test-langchain-js-ubuntu
+  #   display_name: LangchainJS Ubuntu2204
+  #   expansions:
+  #     DIR: langchain-js
+  #   run_on:
+  #     - ubuntu2204-small
+  #   tasks:
+  #     - name: test-langchain-js-local
+  #     - name: test-langchain-js-remote

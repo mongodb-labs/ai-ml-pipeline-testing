@@ -44,6 +44,9 @@ case $DIR in
     crewai-tools)
         MONGODB_URI=$CREWAI_TOOLS_URI
     ;;
+    langchain-js)
+        MONGODB_URI=$LANGCHAIN_MONGODB_URI
+    ;;
     *)
         echo "Missing config in setup-remote.sh for DIR: $DIR"
         exit 1
@@ -53,9 +56,11 @@ export MONGODB_URI
 
 # Create the env file
 echo "export VOYAGEAI_S3_BUCKET=$VOYAGEAI_S3_BUCKET" >> env.sh
-echo "export VOYAGEAI_API_KEY=$VOYAGEAI_API_KEY" >> env.sh
-echo "export OPENAI_API_KEY=$OPENAI_API_KEY" >> env.sh
+echo "export AZURE_OPENAI_ENDPOINT=$AZURE_OPENAI_ENDPOINT" >> env.sh
+echo "export AZURE_OPENAI_API_KEY=$AZURE_OPENAI_API_KEY" >> env.sh
+echo "export OPENAI_API_VERSION=$OPENAI_API_VERSION" >> env.sh
 echo "export MONGODB_URI=$MONGODB_URI" >> env.sh
+echo "export VOYAGEAI_API_KEY=$VOYAGEAI_API_KEY" >> env.sh
 
 # Ensure the remote database is populated.
 . .evergreen/utils.sh

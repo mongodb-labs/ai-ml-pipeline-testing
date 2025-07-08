@@ -24,22 +24,24 @@ make install-python
 make install-sk
 make install-pre-commit
 
-# shellcheck disable=SC2154
-OPENAI_API_KEY="$OPENAI_API_KEY" \
-    OPENAI_ORG_ID="" \
-    AZURE_OPENAI_DEPLOYMENT_NAME="" \
-    AZURE_OPENAI_ENDPOINT="" \
-    AZURE_OPENAI_API_KEY="" \
-    MONGODB_ATLAS_CONNECTION_STRING=$MONGODB_URI \
-    Python_Integration_Tests=1 \
-    uv run pytest tests/integration/memory/memory_stores/test_mongodb_atlas_memory_store.py -k test_collection_knn
+cp $SCRIPT_DIR/test_mongodb_atlas_memory_store.py .
 
 # shellcheck disable=SC2154
-OPENAI_API_KEY="$OPENAI_API_KEY" \
+OPENAI_API_KEY="" \
     OPENAI_ORG_ID="" \
     AZURE_OPENAI_DEPLOYMENT_NAME="" \
     AZURE_OPENAI_ENDPOINT="" \
     AZURE_OPENAI_API_KEY="" \
     MONGODB_ATLAS_CONNECTION_STRING=$MONGODB_URI \
     Python_Integration_Tests=1 \
-    uv run pytest tests/integration/memory/memory_stores/test_mongodb_atlas_memory_store.py
+    uv run pytest -rav test_mongodb_atlas_memory_store.py -k test_collection_knn
+
+# shellcheck disable=SC2154
+OPENAI_API_KEY="" \
+    OPENAI_ORG_ID="" \
+    AZURE_OPENAI_DEPLOYMENT_NAME="" \
+    AZURE_OPENAI_ENDPOINT="" \
+    AZURE_OPENAI_API_KEY="" \
+    MONGODB_ATLAS_CONNECTION_STRING=$MONGODB_URI \
+    Python_Integration_Tests=1 \
+    uv run pytest -rav test_mongodb_atlas_memory_store.py
