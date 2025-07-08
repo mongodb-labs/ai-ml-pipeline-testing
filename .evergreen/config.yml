@@ -370,7 +370,7 @@ buildvariants:
     expansions:
       DIR: crewai-tools
     run_on:
-      - ubuntu2204-small
+      - ubuntu2404-small
     tasks:
       - name: test-crewai-tools-local
       - name: test-crewai-tools-remote
