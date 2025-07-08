@@ -19,5 +19,7 @@ pip install uv
 uv sync --extra mongodb
 uv run pytest -v tests/tools/test*mongodb*.py
 
+env
+exit 1
 mv ../test_mongodb_vector_search_tool.py .
 uv run python test_mongodb_vector_search_tool.py
