@@ -6,6 +6,11 @@ from crewai_tools import MongoDBVectorSearchTool, MongoDBVectorSearchConfig
 from langchain_community.document_loaders import PyPDFLoader
 import time
 
+# Set environment as LiteLLM expects
+os.environ["AZURE_API_KEY"] = os.environ["AZURE_OPENAI_API_KEY"]
+os.environ["AZURE_API_BASE"] = os.environ["AZURE_OPENAI_ENDPOINT"]
+os.environ["AZURE_API_VERSION"] = os.environ["API_VERSION"]
+
 # Pre-populate a collection and an index
 print("Creating collection...")
 conn_string = os.environ.get(
