@@ -19,8 +19,5 @@ pip install uv
 uv sync --extra mongodb
 uv run pytest -v tests/tools/test*mongodb*.py
 
-export MONGODB_URI=$MONGODB_URI
-export OPENAI_API_KEY=$OPENAI_API_KEY
-
 mv ../test_mongodb_vector_search_tool.py .
 uv run python test_mongodb_vector_search_tool.py
