@@ -2,7 +2,7 @@ import os
 from crewai import Agent
 from crewai import Task
 from crewai import Crew, Process
-from crewai_tools import MongoDBVectorSearchTool
+from crewai_tools import MongoDBVectorSearchTool, MongoDBVectorSearchConfig
 from langchain_community.document_loaders import PyPDFLoader
 import time
 
@@ -36,9 +36,10 @@ print("Creating tool and waiting for index to be complete...")
 
 # Wait for index to be complete.
 n_docs = coll.count_documents({})
+tool.query_config = MongoDBVectorSearchConfig(limit=n_docs, oversampling_factor=1)
 start = time.monotonic()
 while time.monotonic() - start <= 60:
-    if len(tool._run(query="sandwich", limit=n_docs, oversampling_factor=1)) == n_docs:
+    if len(tool._run("sandwich")) == n_docs:
         break
     else:
         time.sleep(1)
