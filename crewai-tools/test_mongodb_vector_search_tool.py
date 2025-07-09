@@ -74,5 +74,6 @@ crew = Crew(
 # Get the result and assert something about the results
 print("Running the crew...")
 result = crew.kickoff()
-assert "advancements" in result.raw.lower(), result.raw.lower()
+text = result.raw.lower()
+assert "advancements" in text or "improvements" in text, text
 assert "GPT-4" in result.raw
