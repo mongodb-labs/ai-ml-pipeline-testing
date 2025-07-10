@@ -22,9 +22,6 @@ pip install uv rust-just
 
 just install
 
-export MONGODB_URI=$MONGODB_URI
-export OPENAI_API_KEY=$OPENAI_API_KEY
-
-just tests
+just unit_tests
 
 just integration_tests
