@@ -189,7 +189,7 @@ evergreen patch -p ai-ml-pipeline-testing --param REPO_ORG=caseyclements --param
 
 Tests are run periodically (nightly) and any failures will propagate into both the `dbx-ai-ml-testing-pipline-notifications` and `dbx-ai-ml-testing-pipeline-notifications-{language}` channel. Repo owners of this `ai-ml-testing-pipeline` library are required to join the `dbx-ai-ml-testing-pipeline-notifications`. Pipeline specific implementers must **at least** join `dbx-ai-ml-testing-pipline-notifications-{language}` (e.g. whomever implemented `langchain-js` must at least be a member of `dbx-ai-ml-testing-pipeline-notifications-js`).
 
-If tests are found to be failing, and cannot be addressed quickly, the responsible team MUST create a JIRA ticket, and disable the relevant tests
+If tests are found to be failing, and cannot be addressed quickly, the responsible team MUST create a JIRA ticket within their team's project (e.g. a python failure should generate an `INTPYTHON` ticket), and disable the relevant tests
 in the `config.yml` file, with a comment about the JIRA ticket that will address it.
 
 This policy will help ensure that a single failing integration does not cause noise in the `dbx-ai-ml-testing-pipeline-notifications` or `dbx-ai-ml-testing-pipeline-notifications-{language}` that would mask other
