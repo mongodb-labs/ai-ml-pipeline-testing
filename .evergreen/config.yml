@@ -208,6 +208,20 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
+  - name: test-crewai-tools-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-crewai-tools-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+
   - name: test-haystack-embeddings-local
     tags: [local]
     commands:
@@ -358,6 +372,16 @@ buildvariants:
     tasks:
       - name: test-pymongo-voyageai-local
       - name: test-pymongo-voyageai-remote
+
+  - name: test-crewai-tools-rhel
+    display_name: CrewAI-Tools Ubuntu
+    expansions:
+      DIR: crewai-tools
+    run_on:
+      - ubuntu2404-small
+    tasks:
+      - name: test-crewai-tools-local
+      - name: test-crewai-tools-remote
 
   - name: test-haystack-embeddings-rhel
     display_name: Haystack Embeddings RHEL
