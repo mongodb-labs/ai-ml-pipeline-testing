@@ -53,3 +53,12 @@ repos:
     rev: "v2.2.6"
     hooks:
       - id: codespell
+
+  - repo: local
+    hooks:
+      - id: check-buildvariant-tags
+        name: Check buildvariant language tags
+        entry: python3 .evergreen/lint_config.py
+        language: system
+        files: .evergreen/config.yml
+        args: ['--languages=python,golang,javascript,csharp']
