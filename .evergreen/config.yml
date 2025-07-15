@@ -325,7 +325,7 @@ buildvariants:
         batchtime: 10080  # 1 week
 
   # TODO: INTPYTHON-668
-  # - name: test-chatgpt-retrieval-plugin-rhel
+  # - name: test-chatgpt-retrieval-plugin-python-rhel
   #   display_name: ChatGPT Retrieval Plugin
   #   tags: [python]
   #   expansions:
@@ -338,7 +338,7 @@ buildvariants:
   #       batchtime: 10080  # 1 week
 
   # TODO: INTPYTHON-669
-  # - name: test-llama-index-vectorstore-rhel
+  # - name: test-llama-index-vectorstore-python-rhel
   #   display_name: LlamaIndex RHEL Vector Store
   #   tags: [python]
   #   expansions:
@@ -351,7 +351,7 @@ buildvariants:
   #     # - name: test-llama-index-remote
   #     #   batchtime: 10080  # 1 week
 
-  - name: test-docarray-rhel
+  - name: test-docarray-python-rhel
     display_name: DocArray RHEL
     tags: [python]
     expansions:
@@ -362,7 +362,7 @@ buildvariants:
       - name: test-docarray-local
       - name: test-docarray-remote
 
-  - name: test-pymongo-voyageai-rhel
+  - name: test-pymongo-voyageai-python-rhel
     display_name: PyMongo-VoyageAI RHEL
     tags: [python]
     expansions:
@@ -373,8 +373,9 @@ buildvariants:
       - name: test-pymongo-voyageai-local
       - name: test-pymongo-voyageai-remote
 
-  - name: test-crewai-tools-rhel
+  - name: test-crewai-tools-python-rhel
     display_name: CrewAI-Tools Ubuntu
+    tags: [python]
     expansions:
       DIR: crewai-tools
     run_on:
@@ -383,7 +384,7 @@ buildvariants:
       - name: test-crewai-tools-local
       - name: test-crewai-tools-remote
 
-  - name: test-haystack-embeddings-rhel
+  - name: test-haystack-embeddings-python-rhel
     display_name: Haystack Embeddings RHEL
     tags: [python]
     expansions:
@@ -395,7 +396,7 @@ buildvariants:
       # TODO: INTPYTHON-465
       # - name: test-haystack-embeddings-remote
 
-  - name: test-haystack-fulltext-rhel
+  - name: test-haystack-fulltext-python-rhel
     display_name: Haystack FullText RHEL
     tags: [python]
     expansions:
@@ -407,7 +408,7 @@ buildvariants:
       # TODO: INTPYTHON-465
       # - name: test-haystack-fulltext-remote
 
-  - name: test-langchaingo-ubuntu
+  - name: test-langchaingo-golang-ubuntu
     display_name: LangchainGo Ubuntu2204
     tags: [golang]
     expansions:

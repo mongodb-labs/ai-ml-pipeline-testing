@@ -25,9 +25,10 @@ def load_yaml_file(file_path: str) -> Dict[Any, Any]:
         return yaml.safe_load(file) or {}
 
 
-def check_buildvariant_tags(data: Dict[Any, Any]) -> List[str]:
+def check_buildvariants(data: Dict[Any, Any]) -> List[str]:
     """
-    Check if buildvariant tasks contain at least one required language tag.
+    Check if buildvariant tasks contain at least one required language tag
+    as well as the language within the buildvariant name.
 
     Example Buildvariant structure in YAML:
     buildvariants:
@@ -57,21 +58,34 @@ def check_buildvariant_tags(data: Dict[Any, Any]) -> List[str]:
 
     for i, buildvariant in enumerate(buildvariants):
         if not isinstance(buildvariant, dict):
-            errors.append(f"buildvariants[{i}] should be a dictionary")
+            errors.append(f"buildvariants[{i}] should contain sub-fields")
             continue
 
-        buildvariant_name = buildvariant.get("display_name", f"buildvariant_{i}")
+        buildvariant_name = buildvariant.get("name", "")
+        if not buildvariant_name:
+            errors.append(f"buildvariants[{i}] is missing 'name'")
+            continue
+        else:
+            if all([f"-{lang}-" not in buildvariant_name for lang in VALID_LANGUAGES]):
+                errors.append(
+                    f"buildvariant '{buildvariant_name}' should contain one"
+                    f" '-[{', '.join(VALID_LANGUAGES)}]-' in its name"
+                    f"got: {buildvariant_name}",
+                )
+
+        buildvariant_display_name = buildvariant.get("display_name", buildvariant_name)
+
         tags = buildvariant.get("tags", [])
 
         if not isinstance(tags, list) or len(tags) != 1:
             errors.append(
-                f"'tags' in buildvariant '{buildvariant_name}' should be a list of size 1"
+                f"'tags' in buildvariant '{buildvariant_display_name}' should be a list of size 1"
             )
             continue
 
         if tags[0] not in VALID_LANGUAGES:
             errors.append(
-                f"buildvariant '{buildvariant_name}' has invalid tag '{tags[0]}'. "
+                f"buildvariant '{buildvariant_display_name}' has invalid tag '{tags[0]}'. "
                 f"Valid tags are: {', '.join(VALID_LANGUAGES)}"
             )
     return errors
@@ -85,7 +99,7 @@ def main():
     if not data:
         raise FileNotFoundError(f"Failed to load or parse {CONFIG_YML}")
 
-    errors = check_buildvariant_tags(data)
+    errors = check_buildvariants(data)
 
     if errors:
         logger.error("❌ Errors found in %s:", CONFIG_YML)
