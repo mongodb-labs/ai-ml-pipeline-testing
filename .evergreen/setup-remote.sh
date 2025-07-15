@@ -41,6 +41,9 @@ case $DIR in
     pymongo-voyageai)
         MONGODB_URI=$VOYAGEAI_MONGODB_URI
     ;;
+    crewai-tools)
+        MONGODB_URI=$CREWAI_TOOLS_URI
+    ;;
     langchain-js)
         MONGODB_URI=$LANGCHAIN_MONGODB_URI
     ;;
