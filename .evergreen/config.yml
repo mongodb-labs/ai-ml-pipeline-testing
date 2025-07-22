@@ -446,6 +446,7 @@ buildvariants:
 
   - name: test-mem0-python-rhel
     display_name: mem0 RHEL Python
+    tags: [python]
     expansions:
       DIR: mem0-python
     run_on:
