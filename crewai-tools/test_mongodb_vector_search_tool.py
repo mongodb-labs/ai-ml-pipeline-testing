@@ -54,7 +54,7 @@ researcher = Agent(
     role="AI Accuracy Researcher",
     goal="Find and extract key information from a technical document",
     backstory="You're specialized in analyzing technical content to extract insights and answers",
-    verbose=False,
+    verbose=True,
     tools=[tool],
     llm=LLM(model="azure/gpt-4o", seed=12345),
 )
@@ -67,7 +67,7 @@ crew = Crew(
     agents=[researcher],
     tasks=[research_task],
     process=Process.sequential,
-    verbose=False,
+    verbose=True,
 )
 
 # Get the result and assert something about the results
