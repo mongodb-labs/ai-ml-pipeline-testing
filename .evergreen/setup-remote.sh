@@ -47,6 +47,9 @@ case $DIR in
     langchain-js)
         MONGODB_URI=$LANGCHAIN_MONGODB_URI
     ;;
+    mem0-python)
+        MONGODB_URI=$MEM0_URI
+    ;;
     *)
         echo "Missing config in setup-remote.sh for DIR: $DIR"
         exit 1
