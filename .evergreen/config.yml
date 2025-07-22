@@ -283,7 +283,7 @@ tasks:
       - func: "execute tests"
 
   - name: test-mem0-python-remote
-    tags: [ local ]
+    tags: [ remote ]
     commands:
       - func: "fetch repo"
       - func: "setup remote atlas"
