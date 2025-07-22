@@ -275,6 +275,20 @@ tasks:
         params:
           file: src/langchain-js/langchainjs/libs/langchain-mongodb/results.xml
 
+  - name: test-mem0-python-local
+    tags: [ local ]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-mem0-python-remote
+    tags: [ remote ]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+
 buildvariants:
   - name: test-semantic-kernel-python-rhel
     display_name: Semantic-Kernel RHEL Python
@@ -429,3 +443,14 @@ buildvariants:
   #   tasks:
   #     - name: test-langchain-js-local
   #     - name: test-langchain-js-remote
+
+  - name: test-mem0-python-rhel
+    display_name: mem0 RHEL Python
+    expansions:
+      DIR: mem0-python
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-mem0-python-local
+      - name: test-mem0-python-remote
+        batchtime: 10080  # 1 week
