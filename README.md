@@ -110,6 +110,8 @@ Test execution flow is defined in `.evergreen/config.yml`. The test pipeline's c
 - `run_on` -- Specified platform to run on. `rhel87-small` or `ubuntu2204-small` should be used by default. Any other distro may fail Atlas CLI setup.
 - `tasks` -- Tasks to run. See below for more details
 - `cron` -- The tests are run via a cron job on a nightly cadence. This can be modified by setting a different cadence. Cron jobs can be scheduled using [cron syntax](https://crontab.guru/#0_0_*_*_*)
+- `tags` -- This should include the language where the AI/ML is run. i.e. `[python, csharp, golang, javascript]` Any tagged language will populate the
+appropriate language-specific slack channel.
 
 **[Tasks](https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Configuration-Files#tasks)** -- These are the "building blocks" of our runs. Here is where we consolidate the specific set of functions. The basic parameters to add are shown below
 
@@ -185,8 +187,10 @@ evergreen patch -p ai-ml-pipeline-testing --param REPO_ORG=caseyclements --param
 
 ### Handling Failing Tests
 
-If tests are found to be failing, and cannot be addressed quickly, the responsible team MUST create a JIRA ticket, and disable the relevant tests
+Tests are run periodically (nightly) and any failures will propagate into both the `dbx-ai-ml-testing-pipline-notifications` and `dbx-ai-ml-testing-pipeline-notifications-{language}` channel. Repo owners of this `ai-ml-testing-pipeline` library are required to join the `dbx-ai-ml-testing-pipeline-notifications`. Pipeline specific implementers must **at least** join `dbx-ai-ml-testing-pipline-notifications-{language}` (e.g. whomever implemented `langchain-js` must at least be a member of `dbx-ai-ml-testing-pipeline-notifications-js`).
+
+If tests are found to be failing, and cannot be addressed quickly, the responsible team MUST create a JIRA ticket within their team's project (e.g. a python failure should generate an `INTPYTHON` ticket), and disable the relevant tests
 in the `config.yml` file, with a comment about the JIRA ticket that will address it.
 
-This policy will help ensure that a single failing integration does not cause noise in the `dbx-ai-ml-testing-pipeline-notifications` that would mask other
+This policy will help ensure that a single failing integration does not cause noise in the `dbx-ai-ml-testing-pipeline-notifications` or `dbx-ai-ml-testing-pipeline-notifications-{language}` that would mask other
 failures.
