@@ -39,7 +39,7 @@ setup_langchain_integration() {
     export JEST_JUNIT_OUTPUT_NAME=results.xml
     # Trim trailing slashes since lanchainjs is doing string manipulationn, not
     # using the URI class.
-    AZURE_OPENAI_BASE_PATH=$(echo "$$AZURE_OPENAI_ENDPOINT" | sed 's:/*$::')
+    AZURE_OPENAI_BASE_PATH=$(echo "$AZURE_OPENAI_ENDPOINT" | sed 's:/*$::')
     export AZURE_OPENAI_BASE_PATH
     export AZURE_OPENAI_API_VERSION=$OPENAI_API_VERSION
     # optionally enable to debug local atlas in CI.
