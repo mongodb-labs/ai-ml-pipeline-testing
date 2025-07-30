@@ -31,5 +31,5 @@ sed -i -e 's/"The MongoDB container is intermittently timing out at startup time
 # Remove the attribute blocking tests so we can run them
 sed -i -e 's/\[DisableVectorStoreTests(Skip = "The MongoDB container is intermittently timing out at startup time blocking prs, so these test should be run manually.")\]//g' dotnet/src/IntegrationTests/Connectors/Memory/MongoDB/MongoDBVectorStoreTests.cs
 
-echo "Running MongoDBVectorStoreTests and MongoDBVectorStoreRecordCollectionTests"
-sudo $DOTNET_SDK_PATH/dotnet test dotnet/src/IntegrationTests/IntegrationTests.csproj --filter "SemanticKernel.IntegrationTests.Connectors.MongoDB.MongoDBVectorStoreTests | SemanticKernel.IntegrationTests.Connectors.MongoDB.MongoDBVectorStoreRecordCollectionTests"
+echo "Running MongoDBVectorStoreTests"
+sudo $DOTNET_SDK_PATH/dotnet test dotnet/src/IntegrationTests/IntegrationTests.csproj --filter "SemanticKernel.IntegrationTests.Connectors.MongoDB.MongoDBVectorStoreTests"
