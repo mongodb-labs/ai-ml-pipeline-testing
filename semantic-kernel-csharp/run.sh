@@ -25,11 +25,8 @@ sudo systemctl enable --now podman.socket
 # Point docker commands to use the podman socket
 export DOCKER_HOST="unix:///run/podman/podman.sock"
 
-# Set SkipReason to null to enable tests
-sed -i -e 's/"The MongoDB container is intermittently timing out at startup time blocking prs, so these test should be run manually."/null/g' dotnet/src/IntegrationTests/Connectors/Memory/MongoDB/MongoDBVectorStoreRecordCollectionTests.cs
+# Enable MongoDB.ConformanceTests
+sed -i -e '/\[assembly: DisableTests/d' dotnet/test/VectorData/MongoDB.ConformanceTests/Properties/AssemblyInfo.cs
 
-# Remove the attribute blocking tests so we can run them
-sed -i -e 's/\[DisableVectorStoreTests(Skip = "The MongoDB container is intermittently timing out at startup time blocking prs, so these test should be run manually.")\]//g' dotnet/src/IntegrationTests/Connectors/Memory/MongoDB/MongoDBVectorStoreTests.cs
-
-echo "Running MongoDBVectorStoreTests"
-sudo $DOTNET_SDK_PATH/dotnet test dotnet/src/IntegrationTests/IntegrationTests.csproj --filter "SemanticKernel.IntegrationTests.Connectors.MongoDB.MongoDBVectorStoreTests"
+echo "Running MongoDB.ConformanceTests"
+sudo $DOTNET_SDK_PATH/dotnet test dotnet/test/VectorData/MongoDB.ConformanceTests/MongoDB.ConformanceTests.csproj --framework net8.0
