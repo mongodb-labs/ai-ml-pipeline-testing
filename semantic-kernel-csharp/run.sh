@@ -28,5 +28,8 @@ export DOCKER_HOST="unix:///run/podman/podman.sock"
 # Enable MongoDB.ConformanceTests
 sed -i -e '/\[assembly: DisableTests/d' dotnet/test/VectorData/MongoDB.ConformanceTests/Properties/AssemblyInfo.cs
 
+# Export the MongoDB connection string
+export MONGODB__CONNECTIONURL=$MONGODB_URI
+
 echo "Running MongoDB.ConformanceTests"
 sudo $DOTNET_SDK_PATH/dotnet test dotnet/test/VectorData/MongoDB.ConformanceTests/MongoDB.ConformanceTests.csproj --framework net8.0
