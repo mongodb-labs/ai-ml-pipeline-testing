@@ -119,11 +119,13 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
-  - name: test-semantic-kernel-csharp
-    tags: [local]
+  - name: test-semantic-kernel-csharp-remote
+    tags: [remote]
     commands:
       - func: "fetch repo"
+      - func: "setup remote atlas"
       - func: "execute tests"
+
 
   - name: test-langchain-python-local
     tags: [local]

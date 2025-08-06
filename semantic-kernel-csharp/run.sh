@@ -7,6 +7,8 @@ SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
 ROOT_DIR=$(dirname $SCRIPT_DIR)
 . $ROOT_DIR/env.sh
 
+. $ROOT_DIR/.evergreen/utils.sh
+
 # WORKING_DIR = $ROOT_DIR/semantic-kernel-csharp/semantic-kernel
 
 # Install .NET
