@@ -126,7 +126,6 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
-
   - name: test-langchain-python-local
     tags: [local]
     commands:
@@ -313,7 +312,7 @@ buildvariants:
     run_on:
       - rhel87-small
     tasks:
-      - name: test-semantic-kernel-csharp
+      - name: test-semantic-kernel-csharp-remote
         batchtime: 10080  # 1 week
 
   - name: test-langchain-python-rhel
