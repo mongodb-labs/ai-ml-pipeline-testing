@@ -433,17 +433,16 @@ buildvariants:
     tasks:
       - name: test-langchaingo-local
 
-  # TODO: INTPYTHON-667
-  # - name: test-langchain-js-ubuntu
-  #   display_name: LangchainJS Ubuntu2204
-  #   tags: [javascript]
-  #   expansions:
-  #     DIR: langchain-js
-  #   run_on:
-  #     - ubuntu2204-small
-  #   tasks:
-  #     - name: test-langchain-js-local
-  #     - name: test-langchain-js-remote
+  - name: test-langchain-javascript-ubuntu
+    display_name: LangchainJS Ubuntu2204
+    tags: [javascript]
+    expansions:
+      DIR: langchain-js
+    run_on:
+      - ubuntu2204-small
+    tasks:
+      - name: test-langchain-js-local
+      - name: test-langchain-js-remote
 
   - name: test-mem0-python-rhel
     display_name: mem0 RHEL Python
