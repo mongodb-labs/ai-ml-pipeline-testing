@@ -289,9 +289,24 @@ tasks:
         params:
           file: src/langchain-js/langchainjs/libs/langchain-mongodb/results.xml
 
+  - name: test-mem0-python-local
+    tags: [ local ]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-mem0-python-remote
+    tags: [ remote ]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+
 buildvariants:
   - name: test-semantic-kernel-python-rhel
     display_name: Semantic-Kernel RHEL Python
+    tags: [python]
     expansions:
       DIR: semantic-kernel-python
     run_on:
@@ -304,6 +319,7 @@ buildvariants:
 
   - name: test-semantic-kernel-csharp-rhel
     display_name: Semantic-Kernel RHEL CSharp
+    tags: [csharp]
     expansions:
       DIR: semantic-kernel-csharp
     run_on:
@@ -314,6 +330,7 @@ buildvariants:
 
   - name: test-langchain-python-rhel
     display_name: Langchain RHEL Python
+    tags: [python]
     expansions:
       DIR: langchain-python
     run_on:
@@ -325,6 +342,7 @@ buildvariants:
 
   - name: test-langgraph-python-rhel
     display_name: Langgraph RHEL Python
+    tags: [python]
     expansions:
       DIR: langgraph-python
     run_on:
@@ -346,8 +364,9 @@ buildvariants:
         batchtime: 10080  # 1 week
 
   # TODO: INTPYTHON-668
-  # - name: test-chatgpt-retrieval-plugin-rhel
+  # - name: test-chatgpt-retrieval-plugin-python-rhel
   #   display_name: ChatGPT Retrieval Plugin
+  #   tags: [python]
   #   expansions:
   #     DIR: chatgpt-retrieval-plugin
   #   run_on:
@@ -358,8 +377,9 @@ buildvariants:
   #       batchtime: 10080  # 1 week
 
   # TODO: INTPYTHON-669
-  # - name: test-llama-index-vectorstore-rhel
+  # - name: test-llama-index-vectorstore-python-rhel
   #   display_name: LlamaIndex RHEL Vector Store
+  #   tags: [python]
   #   expansions:
   #     DIR: llama-index-python-vectorstore
   #   run_on:
@@ -370,8 +390,9 @@ buildvariants:
   #     # - name: test-llama-index-remote
   #     #   batchtime: 10080  # 1 week
 
-  - name: test-docarray-rhel
+  - name: test-docarray-python-rhel
     display_name: DocArray RHEL
+    tags: [python]
     expansions:
       DIR: docarray
     run_on:
@@ -380,8 +401,9 @@ buildvariants:
       - name: test-docarray-local
       - name: test-docarray-remote
 
-  - name: test-pymongo-voyageai-rhel
+  - name: test-pymongo-voyageai-python-rhel
     display_name: PyMongo-VoyageAI RHEL
+    tags: [python]
     expansions:
       DIR: pymongo-voyageai
     run_on:
@@ -390,8 +412,9 @@ buildvariants:
       - name: test-pymongo-voyageai-local
       - name: test-pymongo-voyageai-remote
 
-  - name: test-crewai-tools-rhel
+  - name: test-crewai-tools-python-rhel
     display_name: CrewAI-Tools Ubuntu
+    tags: [python]
     expansions:
       DIR: crewai-tools
     run_on:
@@ -400,8 +423,9 @@ buildvariants:
       - name: test-crewai-tools-local
       - name: test-crewai-tools-remote
 
-  - name: test-haystack-embeddings-rhel
+  - name: test-haystack-embeddings-python-rhel
     display_name: Haystack Embeddings RHEL
+    tags: [python]
     expansions:
       DIR: haystack-embeddings
     run_on:
@@ -411,8 +435,9 @@ buildvariants:
       # TODO: INTPYTHON-465
       # - name: test-haystack-embeddings-remote
 
-  - name: test-haystack-fulltext-rhel
+  - name: test-haystack-fulltext-python-rhel
     display_name: Haystack FullText RHEL
+    tags: [python]
     expansions:
       DIR: haystack-fulltext
     run_on:
@@ -422,8 +447,9 @@ buildvariants:
       # TODO: INTPYTHON-465
       # - name: test-haystack-fulltext-remote
 
-  - name: test-langchaingo-ubuntu
+  - name: test-langchaingo-golang-ubuntu
     display_name: LangchainGo Ubuntu2204
+    tags: [golang]
     expansions:
       DIR: langchaingo-golang
     run_on:
@@ -431,13 +457,25 @@ buildvariants:
     tasks:
       - name: test-langchaingo-local
 
-  # TODO: INTPYTHON-667
-  # - name: test-langchain-js-ubuntu
-  #   display_name: LangchainJS Ubuntu2204
-  #   expansions:
-  #     DIR: langchain-js
-  #   run_on:
-  #     - ubuntu2204-small
-  #   tasks:
-  #     - name: test-langchain-js-local
-  #     - name: test-langchain-js-remote
+  - name: test-langchain-javascript-ubuntu
+    display_name: LangchainJS Ubuntu2204
+    tags: [javascript]
+    expansions:
+      DIR: langchain-js
+    run_on:
+      - ubuntu2204-small
+    tasks:
+      - name: test-langchain-js-local
+      - name: test-langchain-js-remote
+
+  - name: test-mem0-python-rhel
+    display_name: mem0 RHEL Python
+    tags: [python]
+    expansions:
+      DIR: mem0-python
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-mem0-python-local
+      - name: test-mem0-python-remote
+        batchtime: 10080  # 1 week
