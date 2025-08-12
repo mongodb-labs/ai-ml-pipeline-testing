@@ -354,6 +354,7 @@ buildvariants:
 
   - name: test-langgraph-store-python-rhel
     display_name: Langgraph Store RHEL Python
+    tags: [python]
     expansions:
       DIR: langgraph-store-python
     run_on:
