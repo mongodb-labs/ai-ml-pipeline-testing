@@ -153,6 +153,20 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
+  - name: test-langgraph-store-python-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-langgraph-store-python-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+
   - name: test-chatgpt-retrieval-plugin-local
     tags: [local]
     commands:
@@ -336,6 +350,18 @@ buildvariants:
     tasks:
       - name: test-langgraph-python-local
       - name: test-langgraph-python-remote
+        batchtime: 10080  # 1 week
+
+  - name: test-langgraph-store-python-rhel
+    display_name: Langgraph Store RHEL Python
+    tags: [python]
+    expansions:
+      DIR: langgraph-store-python
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-langgraph-store-python-local
+      - name: test-langgraph-store-python-remote
         batchtime: 10080  # 1 week
 
   # TODO: INTPYTHON-668
