@@ -119,10 +119,18 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
-  - name: test-semantic-kernel-csharp
+  - name: test-semantic-kernel-csharp-local
     tags: [local]
     commands:
       - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-semantic-kernel-csharp-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
       - func: "execute tests"
 
   - name: test-langchain-python-local
@@ -325,7 +333,8 @@ buildvariants:
     run_on:
       - rhel87-small
     tasks:
-      - name: test-semantic-kernel-csharp
+      - name: test-semantic-kernel-csharp-local
+      - name: test-semantic-kernel-csharp-remote
         batchtime: 10080  # 1 week
 
   - name: test-langchain-python-rhel
