@@ -287,6 +287,12 @@ tasks:
         params:
           file: src/langchain-js/langchainjs/libs/langchain-mongodb/results.xml
 
+  - name: test-n8n-js-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "execute tests"
+
   - name: test-langchain-js-remote
     tags: [remote]
     commands:
@@ -476,6 +482,16 @@ buildvariants:
     tasks:
       - name: test-langchain-js-local
       - name: test-langchain-js-remote
+
+  - name: test-n8n-javascript-ubuntu
+    display_name: n8n Ubuntu2204
+    tags: [javascript]
+    expansions:
+      DIR: n8n-js
+    run_on:
+      - ubuntu2204-small
+    tasks:
+      - name: test-n8n-js-local
 
   - name: test-mem0-python-rhel
     display_name: mem0 RHEL Python
