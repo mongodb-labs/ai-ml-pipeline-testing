@@ -317,6 +317,20 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
+  - name: test-pymongo-vectorsearch-utils-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-pymongo-vectorsearch-utils-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+
 buildvariants:
   - name: test-semantic-kernel-python-rhel
     display_name: Semantic-Kernel RHEL Python
@@ -504,3 +518,14 @@ buildvariants:
       - name: test-mem0-python-local
       - name: test-mem0-python-remote
         batchtime: 10080  # 1 week
+
+  - name: test-pymongo-vectorsearch-utils-python-rhel
+    display_name: PyMongo Vectorsearch Utils RHEL
+    tags: [python]
+    expansions:
+      DIR: pymongo-vectorsearch-utils
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-pymongo-vectorsearch-utils-local
+      - name: test-pymongo-vectorsearch-utils-remote
