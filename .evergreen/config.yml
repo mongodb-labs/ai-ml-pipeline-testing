@@ -520,7 +520,7 @@ buildvariants:
         batchtime: 10080  # 1 week
 
   - name: test-pymongo-vectorsearch-utils-python-rhel
-    display_name: PyMongo-Vectorsearch Utils RHEL
+    display_name: PyMongo Vectorsearch Utils RHEL
     tags: [python]
     expansions:
       DIR: pymongo-vectorsearch-utils
