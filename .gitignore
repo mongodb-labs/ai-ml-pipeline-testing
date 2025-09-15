@@ -61,3 +61,4 @@ env.sh
 haystack-fulltext/haystack-core-integrations
 haystack-embeddings/haystack-core-integrations
 pymongo-voyageai/pymongo-voyageai
+llama-index-python-vectorstore/llama_index/

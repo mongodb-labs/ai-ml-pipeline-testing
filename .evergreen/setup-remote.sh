@@ -23,7 +23,7 @@ case $DIR in
     semantic-kernel-csharp)
         MONGODB_URI=$SEMANTIC_KERNEL_MONGODB_URI
     ;;
-    langchain-python | langgraph-python)
+    langchain-python | langgraph-python | langgraph-store-python)
         MONGODB_URI=$LANGCHAIN_MONGODB_URI
     ;;
     chatgpt-retrieval-plugin)
@@ -49,6 +49,9 @@ case $DIR in
     ;;
     mem0-python)
         MONGODB_URI=$MEM0_URI
+    ;;
+    pymongo-vectorsearch-utils)
+    MONGODB_URI=$PYMONGO_VECTORSEARCH_UTILS_URI
     ;;
     *)
         echo "Missing config in setup-remote.sh for DIR: $DIR"

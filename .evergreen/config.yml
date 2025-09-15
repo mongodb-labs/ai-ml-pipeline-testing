@@ -119,10 +119,18 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
-  - name: test-semantic-kernel-csharp
+  - name: test-semantic-kernel-csharp-local
     tags: [local]
     commands:
       - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-semantic-kernel-csharp-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
       - func: "execute tests"
 
   - name: test-langchain-python-local
@@ -147,6 +155,20 @@ tasks:
       - func: "execute tests"
 
   - name: test-langgraph-python-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+
+  - name: test-langgraph-store-python-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-langgraph-store-python-remote
     tags: [remote]
     commands:
       - func: "fetch repo"
@@ -265,6 +287,12 @@ tasks:
         params:
           file: src/langchain-js/langchainjs/libs/langchain-mongodb/results.xml
 
+  - name: test-n8n-js-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "execute tests"
+
   - name: test-langchain-js-remote
     tags: [remote]
     commands:
@@ -284,6 +312,20 @@ tasks:
 
   - name: test-mem0-python-remote
     tags: [ remote ]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+
+  - name: test-pymongo-vectorsearch-utils-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-pymongo-vectorsearch-utils-remote
+    tags: [remote]
     commands:
       - func: "fetch repo"
       - func: "setup remote atlas"
@@ -311,8 +353,9 @@ buildvariants:
     run_on:
       - rhel87-small
     tasks:
-      - name: test-semantic-kernel-csharp
-        batchtime: 10080  # 1 week
+      - name: test-semantic-kernel-csharp-local
+      # - name: test-semantic-kernel-csharp-remote
+      #   batchtime: 10080  # 1 week
 
   - name: test-langchain-python-rhel
     display_name: Langchain RHEL Python
@@ -338,6 +381,18 @@ buildvariants:
       - name: test-langgraph-python-remote
         batchtime: 10080  # 1 week
 
+  - name: test-langgraph-store-python-rhel
+    display_name: Langgraph Store RHEL Python
+    tags: [python]
+    expansions:
+      DIR: langgraph-store-python
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-langgraph-store-python-local
+      - name: test-langgraph-store-python-remote
+        batchtime: 10080  # 1 week
+
   # TODO: INTPYTHON-668
   # - name: test-chatgpt-retrieval-plugin-python-rhel
   #   display_name: ChatGPT Retrieval Plugin
@@ -351,19 +406,18 @@ buildvariants:
   #     - name: test-chatgpt-retrieval-plugin-remote
   #       batchtime: 10080  # 1 week
 
-  # TODO: INTPYTHON-669
-  # - name: test-llama-index-vectorstore-python-rhel
-  #   display_name: LlamaIndex RHEL Vector Store
-  #   tags: [python]
-  #   expansions:
-  #     DIR: llama-index-python-vectorstore
-  #   run_on:
-  #     - rhel87-small
-  #   tasks:
-  #     - name: test-llama-index-local
-  #     # TODO: INTPYTHON-440
-  #     # - name: test-llama-index-remote
-  #     #   batchtime: 10080  # 1 week
+  - name: test-llama-index-vectorstore-python-rhel
+    display_name: LlamaIndex RHEL Vector Store
+    tags: [python]
+    expansions:
+      DIR: llama-index-python-vectorstore
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-llama-index-local
+      # TODO: INTPYTHON-440
+      # - name: test-llama-index-remote
+      #   batchtime: 10080  # 1 week
 
   - name: test-docarray-python-rhel
     display_name: DocArray RHEL
@@ -443,6 +497,16 @@ buildvariants:
       - name: test-langchain-js-local
       - name: test-langchain-js-remote
 
+  - name: test-n8n-javascript-ubuntu
+    display_name: n8n Ubuntu2204
+    tags: [javascript]
+    expansions:
+      DIR: n8n-js
+    run_on:
+      - ubuntu2204-small
+    tasks:
+      - name: test-n8n-js-local
+
   - name: test-mem0-python-rhel
     display_name: mem0 RHEL Python
     tags: [python]
@@ -454,3 +518,14 @@ buildvariants:
       - name: test-mem0-python-local
       - name: test-mem0-python-remote
         batchtime: 10080  # 1 week
+
+  - name: test-pymongo-vectorsearch-utils-python-rhel
+    display_name: PyMongo Vectorsearch Utils RHEL
+    tags: [python]
+    expansions:
+      DIR: pymongo-vectorsearch-utils
+    run_on:
+      - rhel87-small
+    tasks:
+      - name: test-pymongo-vectorsearch-utils-local
+      - name: test-pymongo-vectorsearch-utils-remote
