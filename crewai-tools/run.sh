@@ -20,4 +20,4 @@ uv sync --extra mongodb
 uv run pytest -v tests/tools/test*mongodb*.py
 
 mv ../test_mongodb_vector_search_tool.py .
-uv run --with langchain_community test_mongodb_vector_search_tool.py
+uv run --with langchain_community --with pypdf test_mongodb_vector_search_tool.py
