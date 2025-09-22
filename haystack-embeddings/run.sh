@@ -19,7 +19,8 @@ cd integrations/mongodb_atlas
 $PYTHON_BINARY -m venv .venv
 . .venv/bin/activate
 PYTHON_BINARY=$(which python)
-$PYTHON_BINARY -m pip install -U pip hatch
+# Workaround for https://github.com/pypa/hatch/issues/2050
+$PYTHON_BINARY -m pip install -U pip hatch "click<8.3.0"
 
 # Run tests.
 MONGO_CONNECTION_STRING="$MONGODB_URI" hatch run test:all -v
