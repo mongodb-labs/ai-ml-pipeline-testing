@@ -51,7 +51,7 @@ case $DIR in
         MONGODB_URI=$MEM0_URI
     ;;
     pymongo-vectorsearch-utils)
-    MONGODB_URI=$PYMONGO_VECTORSEARCH_UTILS_URI
+    MONGODB_URI=$PYMONGO_SEARCH_UTILS_URI
     ;;
     *)
         echo "Missing config in setup-remote.sh for DIR: $DIR"
