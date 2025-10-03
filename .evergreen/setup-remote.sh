@@ -50,7 +50,7 @@ case $DIR in
     mem0-python)
         MONGODB_URI=$MEM0_URI
     ;;
-    pymongo-vectorsearch-utils)
+    pymongo-search-utils)
     MONGODB_URI=$PYMONGO_SEARCH_UTILS_URI
     ;;
     *)
