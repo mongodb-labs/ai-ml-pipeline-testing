@@ -338,7 +338,7 @@ buildvariants:
     expansions:
       DIR: semantic-kernel-python
     run_on:
-      - rhel87-small
+      - rhel8.9-small
     tasks:
       - name: test-semantic-kernel-python-local
       # TODO: INTPYTHON-430
@@ -351,7 +351,7 @@ buildvariants:
     expansions:
       DIR: semantic-kernel-csharp
     run_on:
-      - rhel87-small
+      - rhel8.9-small
     tasks:
       - name: test-semantic-kernel-csharp-local
       # - name: test-semantic-kernel-csharp-remote
@@ -363,7 +363,7 @@ buildvariants:
     expansions:
       DIR: langchain-python
     run_on:
-      - rhel87-small
+      - rhel8.9-small
     tasks:
       - name: test-langchain-python-local
       - name: test-langchain-python-remote
@@ -375,7 +375,7 @@ buildvariants:
     expansions:
       DIR: langgraph-python
     run_on:
-      - rhel87-small
+      - rhel8.9-small
     tasks:
       - name: test-langgraph-python-local
       - name: test-langgraph-python-remote
@@ -387,7 +387,7 @@ buildvariants:
     expansions:
       DIR: langgraph-store-python
     run_on:
-      - rhel87-small
+      - rhel8.9-small
     tasks:
       - name: test-langgraph-store-python-local
       - name: test-langgraph-store-python-remote
@@ -400,7 +400,7 @@ buildvariants:
   #   expansions:
   #     DIR: chatgpt-retrieval-plugin
   #   run_on:
-  #     - rhel87-small
+  #     - rhel8.9-small
   #   tasks:
   #     - name: test-chatgpt-retrieval-plugin-local
   #     - name: test-chatgpt-retrieval-plugin-remote
@@ -412,7 +412,7 @@ buildvariants:
     expansions:
       DIR: llama-index-python-vectorstore
     run_on:
-      - rhel87-small
+      - rhel8.9-small
     tasks:
       - name: test-llama-index-local
       # TODO: INTPYTHON-440
@@ -425,7 +425,7 @@ buildvariants:
     expansions:
       DIR: docarray
     run_on:
-      - rhel87-small
+      - rhel8.9-small
     tasks:
       - name: test-docarray-local
       - name: test-docarray-remote
@@ -436,7 +436,7 @@ buildvariants:
     expansions:
       DIR: pymongo-voyageai
     run_on:
-      - rhel87-small
+      - rhel8.9-small
     tasks:
       - name: test-pymongo-voyageai-local
       - name: test-pymongo-voyageai-remote
@@ -458,7 +458,7 @@ buildvariants:
     expansions:
       DIR: haystack-embeddings
     run_on:
-      - rhel87-small
+      - rhel8.9-small
     tasks:
       - name: test-haystack-embeddings-local
       # TODO: INTPYTHON-465
@@ -470,7 +470,7 @@ buildvariants:
     expansions:
       DIR: haystack-fulltext
     run_on:
-      - rhel87-small
+      - rhel8.9-small
     tasks:
       - name: test-haystack-fulltext-local
       # TODO: INTPYTHON-465
@@ -513,7 +513,7 @@ buildvariants:
     expansions:
       DIR: mem0-python
     run_on:
-      - rhel87-small
+      - rhel8.9-small
     tasks:
       - name: test-mem0-python-local
       - name: test-mem0-python-remote
@@ -525,7 +525,7 @@ buildvariants:
     expansions:
       DIR: pymongo-search-utils
     run_on:
-      - rhel87-small
+      - rhel8.9-small
     tasks:
       - name: test-pymongo-search-utils-local
       - name: test-pymongo-search-utils-remote
