@@ -2,7 +2,7 @@
 
 set -eu
 
-# Get the MONGODB_URI and OPENAI_API_KEY.
+# Get the MONGODB_URI and AZURE_OPENAI_API_KEY.
 SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
 ROOT_DIR=$(dirname $SCRIPT_DIR)
 . $ROOT_DIR/env.sh
@@ -24,8 +24,6 @@ pip install uv
 
 # Run tests.
 UV_PYTHON=$PYTHON_BINARY \
-MONGODB_URI="$MONGODB_URI" \
-OPENAI_API_KEY="$OPENAI_API_KEY" \
 MONGODB_DATABASE="llama_index_test_db" \
 MONGODB_COLLECTION="llama_index_test_vectorstore" \
 MONGODB_INDEX="vector_index" \

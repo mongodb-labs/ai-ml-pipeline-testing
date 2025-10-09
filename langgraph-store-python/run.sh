@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# WORKING_DIR = src/langchain-python/langchain
 set -eu
 
 # Get the MONGODB_URI and OPENAI_API_KEY.
@@ -11,13 +12,16 @@ ROOT_DIR=$(dirname $SCRIPT_DIR)
 
 PYTHON_BINARY=$(find_python3)
 
+# shellcheck disable=SC2164
+cd libs/langgraph-store-mongodb
+
 $PYTHON_BINARY -m venv venv_pipeline
 source venv_pipeline/bin/activate
 
-pip install uv
+pip install uv rust-just
 
-uv sync --extra mongodb
-uv run pytest -v tests/tools/test*mongodb*.py
+just install
 
-mv ../test_mongodb_vector_search_tool.py .
-uv run --with langchain_community --with pypdf test_mongodb_vector_search_tool.py
+just unit_tests
+
+just integration_tests

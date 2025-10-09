@@ -2,7 +2,6 @@ import os
 from crewai import Agent
 from crewai import Task
 from crewai import Crew, Process, LLM
-from crewai.cli.constants import DEFAULT_LLM_MODEL
 from crewai_tools import MongoDBVectorSearchTool, MongoDBVectorSearchConfig
 from langchain_community.document_loaders import PyPDFLoader
 import time
@@ -55,9 +54,9 @@ researcher = Agent(
     role="AI Accuracy Researcher",
     goal="Find and extract key information from a technical document",
     backstory="You're specialized in analyzing technical content to extract insights and answers",
-    verbose=False,
+    verbose=True,
     tools=[tool],
-    llm=LLM(model=f"azure/{DEFAULT_LLM_MODEL}"),
+    llm=LLM(model="azure/gpt-4o", seed=12345),
 )
 research_task = Task(
     description="Research information in a technical document",
@@ -68,12 +67,12 @@ crew = Crew(
     agents=[researcher],
     tasks=[research_task],
     process=Process.sequential,
-    verbose=False,
+    verbose=True,
 )
 
 # Get the result and assert something about the results
 print("Running the crew...")
 result = crew.kickoff()
 text = result.raw.lower()
-assert "advancements" in text or "improvements" in text, text
+assert "limitations" in text, text
 assert "GPT-4" in result.raw

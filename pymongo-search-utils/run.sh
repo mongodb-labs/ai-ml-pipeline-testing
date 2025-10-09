@@ -2,7 +2,7 @@
 
 set -eu
 
-# Get the MONGODB_URI and OPENAI_API_KEY.
+# Get the MONGODB_URI.
 SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
 ROOT_DIR=$(dirname $SCRIPT_DIR)
 . $ROOT_DIR/env.sh
@@ -14,10 +14,10 @@ PYTHON_BINARY=$(find_python3)
 $PYTHON_BINARY -m venv venv_pipeline
 source venv_pipeline/bin/activate
 
-pip install uv
+pip install uv rust-just
 
-uv sync --extra mongodb
-uv run pytest -v tests/tools/test*mongodb*.py
+just install
 
-mv ../test_mongodb_vector_search_tool.py .
-uv run --with langchain_community --with pypdf test_mongodb_vector_search_tool.py
+export MONGODB_URI=$MONGODB_URI
+
+just test
