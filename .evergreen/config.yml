@@ -282,10 +282,11 @@ tasks:
     tags: [local]
     commands:
       - func: "fetch repo"
+      - func: "setup local atlas"
       - func: "execute tests"
       - command: attach.xunit_results
         params:
-          file: src/langchain-js/langchainjs/libs/langchain-mongodb/results.xml
+          file: src/langchain-js/langchainjs/libs/providers/langchain-mongodb/results.xml
 
   - name: test-n8n-js-local
     tags: [local]
@@ -301,7 +302,7 @@ tasks:
       - func: "execute tests"
       - command: attach.xunit_results
         params:
-          file: src/langchain-js/langchainjs/libs/langchain-mongodb/results.xml
+          file: src/langchain-js/langchainjs/libs/providers/langchain-mongodb/results.xml
 
   - name: test-mem0-python-local
     tags: [ local ]

@@ -13,6 +13,6 @@
             }
         }
     },
-    "database": "langchain",
-    "collectionName": "test"
+    "database": "langchain_test_db",
+    "collectionName": "langchain_test"
 }

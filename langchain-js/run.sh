@@ -26,16 +26,20 @@ setup_node_and_yarn() {
     export PATH
     export npm_config_prefix
 
-    npm install --global yarn
+    npm install -g pnpm@latest-10
+    npm install --global corepack --force
+    corepack enable
 }
 
 setup_langchain_integration() {
-    cd libs/langchain-mongodb
+    pnpm install
+    pnpm build
 
-    yarn install
-    yarn build
+    cd libs/providers/langchain-mongodb
 
-    yarn add --dev jest-junit
+    pnpm install
+    pnpm build
+
     export JEST_JUNIT_OUTPUT_NAME=results.xml
     # Trim trailing slashes since lanchainjs is doing string manipulationn, not
     # using the URI class.
@@ -50,4 +54,4 @@ setup_remote_atlas
 setup_node_and_yarn
 setup_langchain_integration
 
-yarn test:int --reporters=default --reporters=jest-junit
+pnpm test:int --reporter=default --reporter=junit --outputFile=./results.xml
