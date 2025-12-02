@@ -15,6 +15,7 @@ cd ${REPO_NAME}
 
 MAX_ATTEMPTS=3
 ATTEMPT=1
+EXIT_CODE=0
 
 while [ $ATTEMPT -le $MAX_ATTEMPTS ]; do  
   bash ${ROOT_DIR}/${DIR}/run.sh
