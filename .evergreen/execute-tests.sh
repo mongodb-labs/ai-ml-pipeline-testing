@@ -16,11 +16,15 @@ cd ${REPO_NAME}
 MAX_ATTEMPTS=3
 ATTEMPT=1
 EXIT_CODE=0
+set +e
 
 while [ $ATTEMPT -le $MAX_ATTEMPTS ]; do  
+  echo "Running test attempt $ATTEMPT"
   bash ${ROOT_DIR}/${DIR}/run.sh
     
   EXIT_CODE=$?
+
+  echo "Test attempt $ATTEMPT had exit code $EXIT_CODE"
 
   if [ $EXIT_CODE -eq 0 ]; then  
     break  
