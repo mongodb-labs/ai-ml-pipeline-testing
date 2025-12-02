@@ -33,4 +33,4 @@ done
 if [ $EXIT_CODE -ne 0 ]; then  
   echo "Tests failed after $MAX_ATTEMPTS attempts."
 fi  
-exit($EXIT_CODE)
+exit $EXIT_CODE
