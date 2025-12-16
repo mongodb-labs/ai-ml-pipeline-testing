@@ -19,5 +19,6 @@ pip install uv rust-just
 just install
 
 export MONGODB_URI=$MONGODB_URI
+export SSL_CERT_FILE=$($PYTHON_BINARY -c "import certifi; print(certifi.where())")
 
 just test

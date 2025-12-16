@@ -21,5 +21,6 @@ just install
 export S3_BUCKET_NAME=$VOYAGEAI_S3_BUCKET
 export MONGODB_URI=$MONGODB_URI
 export VOYAGEAI_API_KEY=$VOYAGEAI_API_KEY
+export SSL_CERT_FILE=$($PYTHON_BINARY -c "import certifi; print(certifi.where())")
 
 just test

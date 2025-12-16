@@ -18,6 +18,8 @@ cd libs/langgraph-store-mongodb
 $PYTHON_BINARY -m venv venv_pipeline
 source venv_pipeline/bin/activate
 
+export SSL_CERT_FILE=$($PYTHON_BINARY -c "import certifi; print(certifi.where())")
+
 pip install uv rust-just
 
 just install

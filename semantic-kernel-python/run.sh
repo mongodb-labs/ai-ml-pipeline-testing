@@ -23,6 +23,7 @@ pip install --upgrade uv
 make install-python
 make install-sk
 make install-pre-commit
+export SSL_CERT_FILE=$($PYTHON_BINARY -c "import certifi; print(certifi.where())")
 
 cp $SCRIPT_DIR/test_mongodb_atlas_memory_store.py .
 
