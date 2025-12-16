@@ -18,7 +18,8 @@ cd libs/langchain-mongodb
 $PYTHON_BINARY -m venv venv_pipeline
 source venv_pipeline/bin/activate
 
-export SSL_CERT_FILE=$($PYTHON_BINARY -c "import certifi; print(certifi.where())")
+SSL_CERT_FILE=$($PYTHON_BINARY -c "import certifi; print(certifi.where())")
+export SSL_CERT_FILE
 
 pip install uv rust-just
 

@@ -22,7 +22,8 @@ PYTHON_BINARY=$(which python)
 # Workaround for https://github.com/pypa/hatch/issues/2050
 $PYTHON_BINARY -m pip install -U pip hatch "click<8.3.0"
 
-export SSL_CERT_FILE=$($PYTHON_BINARY -c "import certifi; print(certifi.where())")
+SSL_CERT_FILE=$($PYTHON_BINARY -c "import certifi; print(certifi.where())")
+export SSL_CERT_FILE
 
 # Run tests.
 MONGO_CONNECTION_STRING="$MONGODB_URI" hatch run test:all -v

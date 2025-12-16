@@ -22,6 +22,7 @@ export MONGODB_URI=$MONGODB_URI
 pip install pytest
 pip install .
 
-export SSL_CERT_FILE=$($PYTHON_BINARY -c "import certifi; print(certifi.where())")
+SSL_CERT_FILE=$($PYTHON_BINARY -c "import certifi; print(certifi.where())")
+export SSL_CERT_FILE
 
 pytest tests/vector_stores/test_mongodb.py
