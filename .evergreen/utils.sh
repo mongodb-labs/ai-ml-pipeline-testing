@@ -15,7 +15,7 @@ find_python3() {
             PYTHON="/Library/Frameworks/Python.Framework/Versions/3.10/bin/python3"
         # macos 10.14
         elif [ -d "/Library/Frameworks/Python.Framework/Versions/3.7" ]; then
-            PYTHON="/Library/Frameworks/Python.Framework/Versions/3.7/bin/python3"
+            PYTHON="/Library/Frameworks/Python.Framework/Versions/3.7/bin/python3" 
         fi
     elif [ "Windows_NT" = "${OS:-}" ]; then # Magic variable in cygwin
         PYTHON="C:/python/Python37/python.exe"
@@ -64,7 +64,9 @@ setup_local_atlas() {
     if [ -z "${COMMUNITY:-}" ]; then 
         . $SCRIPT_DIR/../drivers-evergreen-tools/.evergreen/run-orchestration.sh --local-atlas -v
     else
-        bash $SCRIPT_DIR/../drivers-evergreen-tools/.evergreen/docker/setup.sh
+        if [ -n "${CI:-}" ]; then
+            bash $SCRIPT_DIR/../drivers-evergreen-tools/.evergreen/docker/setup.sh
+        fi
         bash .evergreen/mongodb-community-search/start-services.sh
     fi
     export CONN_STRING"=mongodb://127.0.0.1:27017/?directConnection=true"

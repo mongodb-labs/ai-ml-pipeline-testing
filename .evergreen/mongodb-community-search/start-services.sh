@@ -73,3 +73,5 @@ while true; do
   sleep 2  
 done  
 set -e
+
+docker compose logs
