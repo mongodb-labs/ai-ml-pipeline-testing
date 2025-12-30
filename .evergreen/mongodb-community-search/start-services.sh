@@ -51,21 +51,24 @@ URL="http://127.0.0.1:8080/healthcheck"
 
 echo "Waiting for the server to be alive and respond with the expected status..."  
   
-# Wait until the server responds as expected      
 while true; do  
-  # Make the request and capture the response      
-  RESPONSE=$(curl --max-time 10 -sk "$URL")  
-      
-  # Log the server response for debugging  
-  echo "Server Response: $RESPONSE"  
-      
-  # Check if the response matches the expected value      
-  if [ "$RESPONSE" == '{"status":"SERVING"}' ]; then      
-    echo "Server is now alive and responding properly!"      
-    break      
-  fi      
-        
-  # Wait for a while before trying again      
-  echo "Server not ready yet. Retrying in 2 seconds..."      
-  sleep 2      
+  # Make the request and capture response with detailed debugging  
+  RESPONSE=$(curl --max-time 10 -s "$URL")  
+  CURL_EXIT_CODE=$?  
+  
+  # Check for Curl exit code
+  if [ "$CURL_EXIT_CODE" -ne 0 ]; then  
+    echo "Curl failed with exit code $CURL_EXIT_CODE, retrying in 2 seconds..."  
+    sleep 2  
+    continue  
+  fi  
+  
+  # Verify the response matches the expected JSON  
+  if [ "$RESPONSE" == '{"status":"SERVING"}' ]; then  
+    echo "Server is now alive and responding properly!"  
+    break  
+  fi  
+  
+  echo "Server not ready yet. Retrying in 2 seconds..."  
+  sleep 2  
 done  
