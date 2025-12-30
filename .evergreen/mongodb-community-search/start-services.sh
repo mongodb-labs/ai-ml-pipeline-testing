@@ -54,15 +54,22 @@ echo "Waiting for the server to be alive and respond with the expected status...
 # Wait until the server responds as expected  
 while true; do  
   # Make the request and capture the response  
-  RESPONSE=$(curl -s "$URL")  
-    
-  # Check if the response matches the expected value  
-  if [ "$RESPONSE" == '{"status":"SERVING"}' ]; then  
+  RESPONSE=$(curl -s -o /dev/null -w '%{http_code}' $URL)  
+  CONTENT=$(curl -s $URL)  
+  
+  # Check if the server is reachable, then check the response content  
+  if [ "$RESPONSE" == "200" ] && [ "$CONTENT" == '{"status":"SERVING"}' ]; then  
     echo "Server is now alive and responding properly!"  
     break  
   fi  
-    
+  
+  # Detect connection issues (e.g., server not reachable)  
+  if [ "$RESPONSE" == "000" ]; then  
+    echo "Server not reachable yet. Retrying in 2 seconds..."  
+  else  
+    echo "Server responded with HTTP status: $RESPONSE. Waiting for the expected response..."  
+  fi  
+  
   # Wait for a while before trying again  
-  echo "Server not ready yet. Retrying in 2 seconds..."  
   sleep 2  
-done 
+done  
