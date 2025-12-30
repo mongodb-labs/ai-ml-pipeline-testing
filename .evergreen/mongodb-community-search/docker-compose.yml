@@ -1,0 +1,54 @@
+# Docker-compose template taken from public facing docs at -
+# https://www.mongodb.com/docs/atlas/atlas-vector-search/tutorials/vector-search-quick-start/?deployment-type=self
+services:
+  mongod:
+    image: mongodb/mongodb-community-server:latest
+    container_name: mongod
+    command: >-
+      mongod
+      --config /etc/mongod.conf
+      --replSetMember=host.docker.internal:27017
+    ports:
+      - 27017:27017
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - mongod_data:/data/db
+      - ./mongod.conf:/etc/mongod.conf:ro
+      - ./sampledata.archive:/sampledata.archive
+      - ./init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh:ro
+    networks:
+      - search-community
+
+  mongot:
+    depends_on:
+      - mongod
+    # The public facing docs have the publicly available mongot image but here
+    # we use the image published to the internal registry.
+
+    # Note that you first need to login to the registry by following the docs
+    # here:
+    # https://github.com/10gen/mongot/blob/master/docs/development/docker.md#authenticate-with-ecr
+    # image: mongodb/mongodb-community-search:latest
+    image: 901841024863.dkr.ecr.us-east-1.amazonaws.com/mongot-community/rapid-releases:latest
+    container_name: mongot
+    ports:
+      - 27028:27028 # Query server port from config
+      - 9946:9946 # Metrics port from config
+      - 8080:8080 # Health
+    volumes:
+      - mongot_data:/data/mongot
+      - ./mongot.conf:/mongot-community/config.default.yml
+      - ./secrets/voyage-api-query-key:/etc/voyage-api-query-key:ro
+      - ./secrets/voyage-api-indexing-key:/etc/voyage-api-indexing-key:ro
+      - ./mongot.pwd:/mongot-community/pwfile:ro
+    networks:
+      - search-community
+
+volumes:
+  mongod_data:
+  mongot_data:
+
+networks:
+  search-community:
+    name: search-community
