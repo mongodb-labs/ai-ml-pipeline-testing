@@ -54,7 +54,7 @@ echo "Waiting for the server to be alive and respond with the expected status...
 # Wait until the server responds as expected      
 while true; do  
   # Make the request and capture the response      
-  RESPONSE=$(curl --max-time 10 -s "$URL")  
+  RESPONSE=$(curl --max-time 10 -sk "$URL")  
       
   # Log the server response for debugging  
   echo "Server Response: $RESPONSE"  
