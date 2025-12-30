@@ -50,7 +50,7 @@ docker compose up -d
 URL="http://127.0.0.1:8080/healthcheck"  
 
 echo "Waiting for the server to be alive and respond with the expected status..."  
-  
+set -x
 while true; do  
   # Make the request and capture response with detailed debugging  
   RESPONSE=$(curl --max-time 10 -s "$URL")  
