@@ -4,13 +4,7 @@ source ../secrets-export.sh
 export VOYAGE_QUERY_API_KEY=$VOYAGEAI_API_KEY
 export VOYAGE_INDEXING_API_KEY=$VOYAGEAI_API_KEY
 
-# Download sample data if it doesn't exist
-if [ ! -f sampledata.archive ]; then
-  echo "Downloading sample data..."
-  curl https://atlas-education.s3.amazonaws.com/sampledata.archive -o sampledata.archive
-else
-  echo "Sample data already exists, skipping download."
-fi
+chmod 400 mongot.pwd
 
 # Create secrets directory if it doesn't exist
 mkdir -p secrets
@@ -48,4 +42,5 @@ else
   echo "secrets/voyage-api-indexing-key already exists, skipping."
 fi
 
+docker compose down; true
 docker compose up -d

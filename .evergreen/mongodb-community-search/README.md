@@ -27,10 +27,8 @@ sh ./start-services.sh
 
 This will:
 
-- Download sample data (if not present)
 - Create secret files from environment variables (if not present)
 - Start MongoDB and mongot containers
-- Restore the sample data using mongorestore
 
 Note: If you already have the secrets folder in your repo. The script will skip generating those secrets again and also skip the permission modifications. The permissions for the files containing secrets should be readonly otherwise `mongot` will refuse configuring a provider. Ensure that your files containing api keys that mounted to `mongot` container in the `docker-compose.yml` have the following permissions: `400`.
 

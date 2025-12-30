@@ -57,11 +57,17 @@ is_python_310() {
 # stores the connection string in .local_atlas_uri file
 setup_local_atlas() {
     SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
-    # Ensure drivers-evergeen-tools checkout.
-    pushd $SCRIPT_DIR/..
-    git clone https://github.com/mongodb-labs/drivers-evergreen-tools || true
-    . drivers-evergreen-tools/.evergreen/run-orchestration.sh --local-atlas -v
-    popd
+    if [ -z "${COMMUNITY:-}" ]; then 
+        # Ensure drivers-evergeen-tools checkout.
+        pushd $SCRIPT_DIR/..
+        git clone https://github.com/mongodb-labs/drivers-evergreen-tools || true
+        . drivers-evergreen-tools/.evergreen/run-orchestration.sh --local-atlas -v
+        popd
+    else
+        bash .evergreen/mongodb-community-search/start-services.sh
+        export CONN_STRING"=mongodb://127.0.0.1:27017/?directConnection=true"
+        echo "CONN_STRING=$CONN_STRING" > $SCRIPT_DIR/.local_atlas_uri
+    fi
     export CONN_STRING"=mongodb://127.0.0.1:27017/?directConnection=true"
     echo "CONN_STRING=$CONN_STRING" > $SCRIPT_DIR/.local_atlas_uri
 }

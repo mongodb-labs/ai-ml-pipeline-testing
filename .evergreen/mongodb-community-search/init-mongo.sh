@@ -24,18 +24,4 @@ if (error.code === 11000) {
 }
 "
 
-# Check for existing data
-# echo "Checking for existing sample data..."
-# if mongosh --quiet --eval "db.getSiblingDB('sample_airbnb').getCollectionNames().includes('listingsAndReviews')" | grep -q "true"; then
-# echo "Sample data already exists. Skipping restore."
-# else
-# echo "Sample data not found. Running mongorestore..."
-# if [ -f "/sampledata.archive" ]; then
-#    mongorestore --archive=/sampledata.archive
-#    echo "Sample data restored successfully."
-# else
-#    echo "Warning: sampledata.archive not found"
-# fi
-# fi
-
 echo "MongoDB initialization completed."
