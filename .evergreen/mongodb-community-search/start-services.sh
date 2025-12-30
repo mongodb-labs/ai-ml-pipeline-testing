@@ -1,6 +1,7 @@
+set -eu
 pushd $(dirname ${BASH_SOURCE:-$0}) > /dev/null
 
-source ../secrets-export.sh
+source ../../secrets-export.sh
 export VOYAGE_QUERY_API_KEY=$VOYAGEAI_API_KEY
 export VOYAGE_INDEXING_API_KEY=$VOYAGEAI_API_KEY
 
