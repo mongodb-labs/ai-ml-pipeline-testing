@@ -5,6 +5,8 @@ source ../../secrets-export.sh
 export VOYAGE_QUERY_API_KEY=$VOYAGEAI_API_KEY
 export VOYAGE_INDEXING_API_KEY=$VOYAGEAI_API_KEY
 
+grep -qxF '127.0.0.1 host.docker.internal' /etc/hosts || echo '127.0.0.1 host.docker.internal' | sudo tee -a /etc/hosts 
+
 chmod 400 mongot.pwd
 
 # Create secrets directory if it doesn't exist
