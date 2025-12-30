@@ -7,11 +7,9 @@ services:
     command: >-
       mongod
       --config /etc/mongod.conf
-      --replSetMember=host.docker.internal:27017
+      --replSetMember=mongod.search-community:27017
     ports:
       - 27017:27017
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     volumes:
       - mongod_data:/data/db
       - ./mongod.conf:/etc/mongod.conf:ro
