@@ -45,6 +45,7 @@ else
   echo "secrets/voyage-api-indexing-key already exists, skipping."
 fi
 
+docker network create search-community; true
 docker compose down; true
 docker compose up -d
 
