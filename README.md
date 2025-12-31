@@ -84,7 +84,7 @@ bash .evergreen/execute-tests.sh
 ```
 
 Use `.evergreen/setup-remote.sh` instead of `.evergreen/provision-atlas.sh` to test against the remote cluster.
-Set `COMMUNITY=1` to test against community edition of Atlas Search.
+Set `COMMUNITY=1` to test against community edition of Atlas Search.  Note: INTPYTHON-862 - community edition does not yet support the "status" field in list search index response.
 
 #### Pre-populating the Local Atlas Deployment
 
