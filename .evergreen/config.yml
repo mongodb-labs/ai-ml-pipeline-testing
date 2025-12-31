@@ -96,21 +96,6 @@ functions:
         binary: bash
         args: [.evergreen/setup-remote.sh]
 
-  "self test community":
-    - command: subprocess.exec
-      type: test
-      params:
-        include_expansions_in_env: [AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN]
-        working_dir: "src"
-        binary: bash
-        args: [.evergreen/mongodb-community-search/start-services.sh]
-    - command: subprocess.exec
-      type: test
-      params:
-        working_dir: "src"
-        binary: bash
-        args: [.evergreen/mongodb-community-search/self-test.sh]
-
 pre_error_fails_task: true
 post_error_fails_task: true
 pre:
@@ -370,7 +355,9 @@ tasks:
   - name: test-self-community
     tags: [local]
     commands:
-      - func: "self test community"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
 
 buildvariants:
   - name: test-semantic-kernel-python-rhel
@@ -575,6 +562,8 @@ buildvariants:
   - name: test-self-ubuntu
     display_name: Self Test Ubuntu
     tags: [python]
+    expansions:
+      DIR: .evergreen/mongodb-community-search
     run_on:
       - ubuntu2204-small
     tasks:
