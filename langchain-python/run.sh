@@ -25,6 +25,15 @@ pip install uv rust-just
 
 just install
 
-just unit_tests
+# TODO: add ticket number for this.
+if [ -n "${COMMUNITY:-}" ]; then 
+  just unit_tests -m auto-embedding
 
-just integration_tests
+  just integration_tests -m auto-embedding
+
+else 
+  just unit_tests
+
+  just integration_tests
+
+fi 
