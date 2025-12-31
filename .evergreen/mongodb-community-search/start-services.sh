@@ -6,7 +6,7 @@ source ../../secrets-export.sh
 export VOYAGE_QUERY_API_KEY=$VOYAGEAI_API_KEY
 export VOYAGE_INDEXING_API_KEY=$VOYAGEAI_API_KEY
 
-grep -qxF '127.0.0.1 host.docker.internal' /etc/hosts || echo '127.0.0.1 host.docker.internal' | sudo tee -a /etc/hosts 
+grep -qxF '127.0.0.1 host.docker.internal' /etc/hosts || echo '127.0.0.1 host.docker.internal' | sudo tee -a /etc/hosts
 
 chmod 400 mongot.pwd
 
@@ -51,31 +51,31 @@ docker compose down; true
 docker compose up -d
 
 # Wait for the healthcheck
-URL="http://127.0.0.1:8080/healthcheck"  
+URL="http://127.0.0.1:8080/healthcheck"
 
-echo "Waiting for the server to be alive and respond with the expected status..."  
+echo "Waiting for the server to be alive and respond with the expected status..."
 set +e
-while true; do  
-  # Make the request and capture response with detailed debugging  
-  RESPONSE=$(curl --max-time 10 -s "$URL")  
-  CURL_EXIT_CODE=$?  
-  
+while true; do
+  # Make the request and capture response with detailed debugging
+  RESPONSE=$(curl --max-time 10 -s "$URL")
+  CURL_EXIT_CODE=$?
+
   # Check for Curl exit code
-  if [ "$CURL_EXIT_CODE" -ne 0 ]; then  
-    echo "Curl failed with exit code $CURL_EXIT_CODE, retrying in 2 seconds..."  
-    sleep 2  
-    continue  
-  fi  
-  
-  # Verify the response matches the expected JSON  
-  if [ "$RESPONSE" == '{"status":"SERVING"}' ]; then  
-    echo "Server is now alive and responding properly!"  
-    break  
-  fi  
-  
-  echo "Server not ready yet. Retrying in 2 seconds..."  
-  sleep 2  
-done  
+  if [ "$CURL_EXIT_CODE" -ne 0 ]; then
+    echo "Curl failed with exit code $CURL_EXIT_CODE, retrying in 2 seconds..."
+    sleep 2
+    continue
+  fi
+
+  # Verify the response matches the expected JSON
+  if [ "$RESPONSE" == '{"status":"SERVING"}' ]; then
+    echo "Server is now alive and responding properly!"
+    break
+  fi
+
+  echo "Server not ready yet. Retrying in 2 seconds..."
+  sleep 2
+done
 set -e
 
 docker compose logs

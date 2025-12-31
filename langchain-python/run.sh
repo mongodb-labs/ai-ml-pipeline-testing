@@ -26,14 +26,14 @@ pip install uv rust-just
 just install
 
 # TODO: Remove this workaround in INTPYTHON-862
-if [ -n "${COMMUNITY:-}" ]; then 
+if [ -n "${COMMUNITY:-}" ]; then
   just unit_tests -m auto-embedding
 
   just integration_tests -m auto-embedding
 
-else 
+else
   just unit_tests
 
   just integration_tests
 
-fi 
+fi
