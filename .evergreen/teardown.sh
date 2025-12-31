@@ -15,8 +15,3 @@ fi
 if [ -z "${OVERRIDES}" ]; then
   echo "No overrides"
 fi
-
-set -x
-pushd .evergreen/mongodb-community-search
-docker compose logs
-popd
