@@ -40,37 +40,40 @@ movies.insert_many(
 )
 
 # Create auto-embed index (private preview-style syntax)
-movies.create_search_index(model=SearchIndexModel(
-    name="auto_embed_plot_index",
-    type="vectorSearch",
-    definition={
-        "fields": [
-            {
-                "type": "text",
-                "path": "plot",
-                "model": "voyage-3-large",
-            },
-        ],
-    })
+movies.create_search_index(
+    model=SearchIndexModel(
+        name="auto_embed_plot_index",
+        type="vectorSearch",
+        definition={
+            "fields": [
+                {
+                    "type": "text",
+                    "path": "plot",
+                    "model": "voyage-3-large",
+                },
+            ],
+        },
+    )
 )
 
 # Create normal vector index
-movies.create_search_index(model=SearchIndexModel(
-    name="plot_vector_index",
-    type="vectorSearch",
-    definition={
-        "fields": [
-            {
-                "type": "vector",
-                "path": "plot_embeddings",
-                "numDimensions": 1024,
-                "similarity": "cosine",
-                "quantization": "none",
-            },
-        ],
-    })
+movies.create_search_index(
+    model=SearchIndexModel(
+        name="plot_vector_index",
+        type="vectorSearch",
+        definition={
+            "fields": [
+                {
+                    "type": "vector",
+                    "path": "plot_embeddings",
+                    "numDimensions": 1024,
+                    "similarity": "cosine",
+                    "quantization": "none",
+                },
+            ],
+        },
+    )
 )
-
 
 
 # Run vector search aggregation using auto-embed index
@@ -90,4 +93,4 @@ cursor = movies.aggregate(
 
 for doc in cursor:
     print(doc)
-    assert doc['title'] == "Breathe"
+    assert doc["title"] == "Breathe"

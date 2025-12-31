@@ -53,6 +53,7 @@ repos:
     rev: "v2.2.6"
     hooks:
       - id: codespell
+        args: ["-L", "damon"]
 
   - repo: local
     hooks:
@@ -61,4 +62,4 @@ repos:
         entry: python3 .evergreen/lint_config.py
         language: system
         files: .evergreen/config.yml
-        args: ['--languages=python,golang,javascript,csharp']
+        args: ['--languages=python,golang,javascript,csharp,self']
