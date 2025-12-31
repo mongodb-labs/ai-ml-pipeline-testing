@@ -3,7 +3,6 @@
 services:
    mongod:
       image: mongodb/mongodb-community-server:latest
-      container_name: mongod-community
       command: >-
          mongod
          --config /etc/mongod.conf
@@ -21,14 +20,22 @@ services:
 
 
    mongot:
-      image: mongodb/mongodb-community-search:latest
-      container_name: mongot-community-pupr
+      # The public facing docs have the publicly available mongot image but here
+      # we use the image published to the internal registry.
+
+      # Note that you first need to login to the registry by following the docs
+      # here:
+      # https://github.com/10gen/mongot/blob/master/docs/development/docker.md#authenticate-with-ecr
+      # image: mongodb/mongodb-community-search:latest
+      image: 901841024863.dkr.ecr.us-east-1.amazonaws.com/mongot-community/rapid-releases:latest
       networks:
          - search-community
       volumes:
          - mongot_data:/data/mongot
          - ./mongot.conf:/mongot-community/config.default.yml
-         - ./mongot.pwd:/mongot-community/pwfile:ro
+         - ./pwfile:/mongot-community/pwfile:ro
+         - ./secrets/voyage-api-query-key:/etc/voyage-api-query-key:ro
+         - ./secrets/voyage-api-indexing-key:/etc/voyage-api-indexing-key:ro
       depends_on:
          - mongod
       ports:

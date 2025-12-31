@@ -52,6 +52,7 @@ xunit-results/
 drivers-evergreen-tools
 atlas
 .evergreen/.local_atlas_uri
+pwfile
 
 # Secrets
 secrets-export.sh

@@ -8,7 +8,9 @@ export VOYAGE_INDEXING_API_KEY=$VOYAGEAI_API_KEY
 
 grep -qxF '127.0.0.1 host.docker.internal' /etc/hosts || echo '127.0.0.1 host.docker.internal' | sudo tee -a /etc/hosts
 
-chmod 400 mongot.pwd
+rm -f pwfile || true
+echo -n "mongotPassword" > pwfile
+chmod 400 pwfile
 
 # Create secrets directory if it doesn't exist
 mkdir -p secrets
@@ -46,8 +48,8 @@ else
   echo "secrets/voyage-api-indexing-key already exists, skipping."
 fi
 
-docker network create search-community; true
-docker compose down; true
+docker network create search-community || true
+docker compose down || true
 docker compose up -d
 
 # Wait for the healthcheck
