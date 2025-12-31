@@ -25,7 +25,7 @@ pip install uv rust-just
 
 just install
 
-# TODO: Remove this workaound in INTPYTHON-862
+# TODO: Remove this workaround in INTPYTHON-862
 if [ -n "${COMMUNITY:-}" ]; then 
   just unit_tests -m auto-embedding
 
