@@ -355,7 +355,7 @@ tasks:
   - name: test-self-community
     tags: [local]
     commands:
-      - func: "setup local atlas"
+      - func: "setup community atlas"
       - func: "execute tests"
 
 
