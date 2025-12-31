@@ -8,6 +8,9 @@ ROOT_DIR=$(dirname $(dirname $SCRIPT_DIR))
 
 PYTHON_BINARY=$(find_python3)
 
+pushd $SCRIPT_DIR
+source env.sh 
+
 $PYTHON_BINARY -m venv .venv
 
 source .venv/bin/activate
@@ -15,3 +18,4 @@ source .venv/bin/activate
 pip install pymongo
 
 python self_test.py
+popd

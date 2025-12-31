@@ -1,8 +1,9 @@
+import os
 from pymongo import MongoClient
 from pymongo.operations import SearchIndexModel
 
 # Connect and get collection
-client = MongoClient()
+client = MongoClient(os.environ["MONGODB_URI"])
 db = client.self_test
 movies = db.movies
 
