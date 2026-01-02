@@ -69,7 +69,7 @@ CONN_STRING=$(fetch_local_atlas_uri)
 
 Stores the local Atlas URI within the `CONN_STRING` var. The script can then pass `CONN_STRING` as an environment variable to the test suite.
 
-#### Running tests locally.
+#### Running tests locally
 
 We can run the tests with a local checkout of the repo.
 
@@ -84,6 +84,18 @@ bash .evergreen/execute-tests.sh
 ```
 
 Use `.evergreen/setup-remote.sh` instead of `.evergreen/provision-atlas.sh` to test against the remote cluster.
+
+We can also run locally using `just` (`brew install just`):
+
+```bash
+just setup docarray  # local atlas
+just test
+```
+
+```bash
+just setup-remote n8n-js  # remote atlas
+just test
+```
 
 #### Pre-populating the Local Atlas Deployment
 
