@@ -58,7 +58,9 @@ repos:
     hooks:
       - id: check-buildvariant-tags
         name: Check buildvariant language tags
-        entry: python3 .evergreen/lint_config.py
-        language: system
+        entry: python .evergreen/lint_config.py
+        language: python
+        additional_dependencies:
+          - pyyaml
         files: .evergreen/config.yml
         args: ['--languages=python,golang,javascript,csharp']
