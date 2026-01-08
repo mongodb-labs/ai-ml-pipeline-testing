@@ -129,10 +129,6 @@ def _is_index_ready(collection: Any, index_name: str) -> bool:
     search_indexes = collection.list_search_indexes(index_name)
 
     for index in search_indexes:
-        # TODO: Remove this workaround in INTPYTHON-862
-        if "status" not in index:
-            sleep(5)
-            return True
         if index["status"] == "READY":
             return True
     return False
