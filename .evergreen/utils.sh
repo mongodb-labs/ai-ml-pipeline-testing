@@ -61,7 +61,7 @@ setup_local_atlas() {
     pushd $SCRIPT_DIR/..
     git clone https://github.com/mongodb-labs/drivers-evergreen-tools || true
     popd
-    if [ -z "${COMMUNITY:-}" ]; then
+    if [ -z "${COMMUNITY_WITH_SEARCH:-}" ]; then
         . $SCRIPT_DIR/../drivers-evergreen-tools/.evergreen/run-orchestration.sh --local-atlas -v
     else
         if [ -n "${CI:-}" ]; then
