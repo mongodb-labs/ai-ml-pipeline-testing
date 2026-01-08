@@ -42,7 +42,10 @@ services:
          - 27028:27028  # Query server port from config
          - 9946:9946    # Metrics port from config
          - 8080:8080 # Health
-
+      entrypoint:
+         - /mongot-community/mongot
+         - --config=/mongot-community/config.default.yml
+         - --internalListAllIndexesForTesting=true
 volumes:
    mongod_data:
    mongot_data:
