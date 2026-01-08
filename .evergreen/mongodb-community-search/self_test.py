@@ -49,7 +49,7 @@ movies.create_search_index(
                 {
                     "type": "text",
                     "path": "plot",
-                    "model": "voyage-3-large",
+                    "model": "voyage-4",
                 },
             ],
         },
