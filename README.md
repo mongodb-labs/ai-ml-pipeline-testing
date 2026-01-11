@@ -57,7 +57,7 @@ The general layout of this repo looks like this:
 │   └── run.sh                                  # Script that executes test
 ```
 
-### Configuring a Atlas CLI for testing
+### Configuring an Atlas CLI for testing
 
 Each test subdirectory will automatically have its own local Atlas deployment. As a result, database and collection names will not conflict between different AI/ML integrations. To connect to your local Atlas using a connection string, `utils.sh` has a `fetch_local_atlas_uri` that you can call from the `run.sh` script within your subdirectory. For example:
 
