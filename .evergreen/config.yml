@@ -74,6 +74,19 @@ functions:
         args:
           - .evergreen/provision-atlas.sh
 
+  "setup community atlas":
+    - command: subprocess.exec
+      type: test
+      retry_on_failure: true
+      params:
+        env:
+          COMMUNITY_WITH_SEARCH: "1"
+        include_expansions_in_env: [DIR, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN]
+        working_dir: "src"
+        binary: bash
+        args:
+          - .evergreen/provision-atlas.sh
+
   "setup remote atlas":
     - command: subprocess.exec
       type: test
@@ -138,6 +151,13 @@ tasks:
     commands:
       - func: "fetch repo"
       - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-langchain-python-community
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup community atlas"
       - func: "execute tests"
 
   - name: test-langchain-python-remote
@@ -332,6 +352,13 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
+  - name: test-self-community
+    tags: [local]
+    commands:
+      - func: "setup community atlas"
+      - func: "execute tests"
+
+
 buildvariants:
   - name: test-semantic-kernel-python-rhel
     display_name: Semantic-Kernel RHEL Python
@@ -359,14 +386,15 @@ buildvariants:
       #   batchtime: 10080  # 1 week
 
   - name: test-langchain-python-rhel
-    display_name: Langchain RHEL Python
+    display_name: Langchain Ubuntu Python
     tags: [python]
     expansions:
       DIR: langchain-python
     run_on:
-      - rhel8.9-small
+      - ubuntu2204-small
     tasks:
       - name: test-langchain-python-local
+      - name: test-langchain-python-community
       - name: test-langchain-python-remote
         batchtime: 10080  # 1 week
 
@@ -530,3 +558,13 @@ buildvariants:
     tasks:
       - name: test-pymongo-search-utils-local
       - name: test-pymongo-search-utils-remote
+
+  - name: test-self-ubuntu
+    display_name: Self Test Ubuntu
+    tags: [python]
+    expansions:
+      DIR: .evergreen/mongodb-community-search
+    run_on:
+      - ubuntu2204-small
+    tasks:
+      - name: test-self-community

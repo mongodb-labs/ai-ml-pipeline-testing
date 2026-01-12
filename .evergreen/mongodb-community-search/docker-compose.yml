@@ -1,0 +1,56 @@
+# Docker-compose template taken from public facing docs at -
+# https://www.mongodb.com/docs/atlas/atlas-vector-search/tutorials/vector-search-quick-start/?deployment-type=self
+services:
+   mongod:
+      image: mongodb/mongodb-community-server:latest
+      command: >-
+         mongod
+         --config /etc/mongod.conf
+         --replSetMember=mongod.search-community:27017
+      ports:
+         - 27017:27017
+      extra_hosts:
+         - "host.docker.internal:host-gateway"
+      volumes:
+         - mongod_data:/data/db
+         - ./mongod.conf:/etc/mongod.conf:ro
+         - ./init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh:ro
+      networks:
+         - search-community
+
+
+   mongot:
+      # The public facing docs have the publicly available mongot image but here
+      # we use the image published to the internal registry.
+
+      # Note that you first need to login to the registry by following the docs
+      # here:
+      # https://github.com/10gen/mongot/blob/master/docs/development/docker.md#authenticate-with-ecr
+      # image: mongodb/mongodb-community-search:latest
+      image: 901841024863.dkr.ecr.us-east-1.amazonaws.com/mongot-community/rapid-releases:latest
+      networks:
+         - search-community
+      volumes:
+         - mongot_data:/data/mongot
+         - ./mongot.conf:/mongot-community/config.default.yml
+         - ./pwfile:/mongot-community/pwfile:ro
+         - ./secrets/voyage-api-query-key:/etc/voyage-api-query-key:ro
+         - ./secrets/voyage-api-indexing-key:/etc/voyage-api-indexing-key:ro
+      depends_on:
+         - mongod
+      ports:
+         - 27028:27028  # Query server port from config
+         - 9946:9946    # Metrics port from config
+         - 8080:8080 # Health
+      entrypoint:
+         - /mongot-community/mongot
+         - --config=/mongot-community/config.default.yml
+         - --internalListAllIndexesForTesting=true
+volumes:
+   mongod_data:
+   mongot_data:
+
+networks:
+   search-community:
+      name: search-community
+      external: true  # Use an external network if it exists. Comment this line if you want to create a new network.

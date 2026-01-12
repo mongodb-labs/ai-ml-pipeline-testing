@@ -84,6 +84,7 @@ bash .evergreen/execute-tests.sh
 ```
 
 Use `.evergreen/setup-remote.sh` instead of `.evergreen/provision-atlas.sh` to test against the remote cluster.
+Set `COMMUNITY_WITH_SEARCH=1` to test against MongoDB Community with Search edition.
 
 We can also run locally using `just` (`brew install just`):
 

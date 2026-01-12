@@ -60,8 +60,15 @@ setup_local_atlas() {
     # Ensure drivers-evergeen-tools checkout.
     pushd $SCRIPT_DIR/..
     git clone https://github.com/mongodb-labs/drivers-evergreen-tools || true
-    . drivers-evergreen-tools/.evergreen/run-orchestration.sh --local-atlas -v
     popd
+    if [ -z "${COMMUNITY_WITH_SEARCH:-}" ]; then
+        . $SCRIPT_DIR/../drivers-evergreen-tools/.evergreen/run-orchestration.sh --local-atlas -v
+    else
+        if [ -n "${CI:-}" ]; then
+            bash $SCRIPT_DIR/../drivers-evergreen-tools/.evergreen/docker/setup.sh
+        fi
+        bash .evergreen/mongodb-community-search/start-services.sh
+    fi
     export CONN_STRING"=mongodb://127.0.0.1:27017/?directConnection=true"
     echo "CONN_STRING=$CONN_STRING" > $SCRIPT_DIR/.local_atlas_uri
 }

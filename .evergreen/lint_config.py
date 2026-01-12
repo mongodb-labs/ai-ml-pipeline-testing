@@ -16,7 +16,7 @@ logger.setLevel(logging.DEBUG)
 
 CURRENT_DIR = Path(__file__).parent.resolve()
 CONFIG_YML = CURRENT_DIR / "config.yml"
-VALID_LANGUAGES = {"python", "golang", "javascript", "csharp"}
+VALID_LANGUAGES = {"python", "golang", "javascript", "csharp", "self"}
 
 
 def load_yaml_file(file_path: str) -> Dict[Any, Any]:
