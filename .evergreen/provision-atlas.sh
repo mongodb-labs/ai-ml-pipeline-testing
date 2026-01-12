@@ -17,6 +17,7 @@ scaffold_atlas
 source secrets-export.sh
 
 # Create the env file
+echo "export DIR=$DIR" > env.sh
 echo "export VOYAGEAI_S3_BUCKET=$VOYAGEAI_S3_BUCKET" >> env.sh
 echo "export AZURE_OPENAI_ENDPOINT=$AZURE_OPENAI_ENDPOINT" >> env.sh
 echo "export AZURE_OPENAI_API_KEY=$AZURE_OPENAI_API_KEY" >> env.sh

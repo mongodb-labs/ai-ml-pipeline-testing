@@ -13,13 +13,13 @@ set +a
 
 cd ${REPO_NAME}
 
-MAX_ATTEMPTS=3
+MAX_ATTEMPTS=${MAX_ATTEMPTS:-3}
 ATTEMPT=1
 EXIT_CODE=0
 set +e
 
 while [ $ATTEMPT -le $MAX_ATTEMPTS ]; do
-  bash ${ROOT_DIR}/${DIR}/run.sh
+  bash ${ROOT_DIR}/${DIR}/run.sh "$@"
 
   EXIT_CODE=$?
 
@@ -27,7 +27,7 @@ while [ $ATTEMPT -le $MAX_ATTEMPTS ]; do
     break
   else
     echo "Tests failed on attempt $ATTEMPT of $MAX_ATTEMPTS..."
-    ((ATTEMPT++))
+    ATTEMPT=$((ATTEMPT+1))
   fi
 done
 
