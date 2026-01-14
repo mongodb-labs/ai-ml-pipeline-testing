@@ -352,6 +352,13 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
+  - name: test-pymongo-search-utils-community
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup community atlas"
+      - func: "execute tests"
+
   - name: test-self-community
     tags: [local]
     commands:
@@ -548,15 +555,16 @@ buildvariants:
       - name: test-mem0-python-remote
         batchtime: 10080  # 1 week
 
-  - name: test-pymongo-search-utils-python-rhel
-    display_name: PyMongo Search Utils RHEL
+  - name: test-pymongo-search-utils-python-ubuntu
+    display_name: PyMongo Search Utils Ubuntu
     tags: [python]
     expansions:
       DIR: pymongo-search-utils
     run_on:
-      - rhel8.9-small
+      - ubuntu2204-small
     tasks:
       - name: test-pymongo-search-utils-local
+      - name: test-pymongo-search-utils-community
       - name: test-pymongo-search-utils-remote
 
   - name: test-self-ubuntu
