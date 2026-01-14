@@ -188,6 +188,13 @@ tasks:
       - func: "setup local atlas"
       - func: "execute tests"
 
+  - name: test-langgraph-store-python-community
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup community atlas"
+      - func: "execute tests"
+
   - name: test-langgraph-store-python-remote
     tags: [remote]
     commands:
@@ -417,15 +424,16 @@ buildvariants:
       - name: test-langgraph-python-remote
         batchtime: 10080  # 1 week
 
-  - name: test-langgraph-store-python-rhel
-    display_name: Langgraph Store RHEL Python
+  - name: test-langgraph-store-python-ubuntu
+    display_name: Langgraph Store Ubuntu Python
     tags: [python]
     expansions:
       DIR: langgraph-store-python
     run_on:
-      - rhel8.9-small
+      - ubuntu2204-small
     tasks:
       - name: test-langgraph-store-python-local
+      - name: test-langgraph-store-python-community
       - name: test-langgraph-store-python-remote
         batchtime: 10080  # 1 week
 
