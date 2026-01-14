@@ -50,6 +50,10 @@ fi
 
 docker network create search-community || true
 docker compose down || true
+
+if [ -n "${USE_INTERNAL_MONGOT:-}" ]; then
+  export MONGOT_IMAGE="901841024863.dkr.ecr.us-east-1.amazonaws.com/mongot-community/rapid-releases:latest"
+fi
 docker compose up -d
 
 # Wait for the healthcheck
