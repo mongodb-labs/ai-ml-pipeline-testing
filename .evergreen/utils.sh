@@ -63,12 +63,12 @@ setup_local_atlas() {
     popd
     if [ -z "${COMMUNITY_WITH_SEARCH:-}" ]; then
         bash $SCRIPT_DIR/mongodb-community-search/teardown.sh
-        . $SCRIPT_DIR/../drivers-evergreen-tools/.evergreen/run-orchestration.sh --local-atlas -v
+        bash $SCRIPT_DIR/../drivers-evergreen-tools/.evergreen/run-orchestration.sh --local-atlas -v
     else
         if [ -n "${CI:-}" ]; then
             bash $SCRIPT_DIR/../drivers-evergreen-tools/.evergreen/docker/setup.sh
         fi
-        . $SCRIPT_DIR/../drivers-evergreen-tools/.evergreen/stop-orchestration.sh
+        bash $SCRIPT_DIR/../drivers-evergreen-tools/.evergreen/stop-orchestration.sh
         bash $SCRIPT_DIR/mongodb-community-search/start-services.sh
     fi
     export CONN_STRING"=mongodb://127.0.0.1:27017/?directConnection=true"
