@@ -61,6 +61,7 @@ URL="http://127.0.0.1:8080/healthcheck"
 
 MAX_ATTEMPTS=5
 ATTEMPT=1
+set +e
 echo "Waiting for the server to be alive and respond with the expected status..."
 while [ "$ATTEMPT" -le "$MAX_ATTEMPTS" ]; do
   echo "Attempt $ATTEMPT of $MAX_ATTEMPTS..."
