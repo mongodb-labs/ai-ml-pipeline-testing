@@ -53,6 +53,7 @@ drivers-evergreen-tools
 atlas
 .evergreen/.local_atlas_uri
 pwfile
+mo-expansion.*
 
 # Secrets
 secrets-export.sh
