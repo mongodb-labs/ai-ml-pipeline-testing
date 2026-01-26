@@ -59,9 +59,13 @@ docker compose up -d
 # Wait for the healthcheck
 URL="http://127.0.0.1:8080/healthcheck"
 
-echo "Waiting for the server to be alive and respond with the expected status..."
+MAX_ATTEMPTS=5
+ATTEMPT=1
 set +e
-while true; do
+echo "Waiting for the server to be alive and respond with the expected status..."
+while [ "$ATTEMPT" -le "$MAX_ATTEMPTS" ]; do
+  echo "Attempt $ATTEMPT of $MAX_ATTEMPTS..."
+
   # Make the request and capture response with detailed debugging
   RESPONSE=$(curl --max-time 10 -s "$URL")
   CURL_EXIT_CODE=$?
@@ -69,6 +73,7 @@ while true; do
   # Check for Curl exit code
   if [ "$CURL_EXIT_CODE" -ne 0 ]; then
     echo "Curl failed with exit code $CURL_EXIT_CODE, retrying in 2 seconds..."
+    ATTEMPT=$((ATTEMPT + 1))
     sleep 2
     continue
   fi
@@ -80,8 +85,13 @@ while true; do
   fi
 
   echo "Server not ready yet. Retrying in 2 seconds..."
+  ATTEMPT=$((ATTEMPT + 1))
   sleep 2
 done
-set -e
 
 docker compose logs
+
+if [ "$ATTEMPT" -gt "$MAX_ATTEMPTS" ]; then
+  echo "Server did not become ready after $MAX_ATTEMPTS attempts. Failing."
+  exit 1
+fi

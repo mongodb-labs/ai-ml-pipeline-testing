@@ -54,6 +54,7 @@ atlas
 .evergreen/.local_atlas_uri
 mo-expansion.*
 pwfile
+mo-expansion.*
 
 # Secrets
 secrets-export.sh
