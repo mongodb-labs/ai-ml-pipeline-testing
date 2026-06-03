@@ -14,7 +14,7 @@ setup_remote_atlas() {
     bash "$ROOT_DIR/.evergreen/fetch-secrets.sh"
     source secrets-export.sh
 
-    if [[ -n "$MONGODB_URI" ]]; then
+    if [[ "$MONGODB_URI" == mongodb+srv://* ]]; then
         export MONGODB_ATLAS_URI=$MONGODB_URI
     fi
 }
