@@ -1,8 +1,8 @@
 #!/bin/bash
 set -o errexit
 
-setup_remote_atlas() {
-    # Get the MONGODB_URI and OPENAI_API_KEY.
+setup_environment() {
+    # Load secrets and set MONGODB_ATLAS_URI for remote Atlas connections.
     SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
     ROOT_DIR=$(dirname $SCRIPT_DIR)
 
@@ -50,7 +50,7 @@ setup_langchain_integration() {
     # export DEBUG=testcontainers*
 }
 
-setup_remote_atlas
+setup_environment
 setup_node_and_yarn
 setup_langchain_integration
 
