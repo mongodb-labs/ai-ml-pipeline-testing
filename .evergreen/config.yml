@@ -309,7 +309,6 @@ tasks:
     tags: [local]
     commands:
       - func: "fetch repo"
-      - func: "setup local atlas"
       - func: "execute tests"
       - command: attach.xunit_results
         params:
