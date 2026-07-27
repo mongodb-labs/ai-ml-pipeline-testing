@@ -330,6 +330,18 @@ tasks:
         params:
           file: src/langchain-js/langchainjs/libs/providers/langchain-mongodb/results.xml
 
+  - name: test-mastra-js-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "execute tests"
+      - command: attach.xunit_results
+        params:
+          file: src/mastra-js/mastra/stores/mongodb/results-mongodb.xml
+      - command: attach.xunit_results
+        params:
+          file: src/mastra-js/mastra/packages/rag/results-rag.xml
+
   - name: test-mem0-python-local
     tags: [ local ]
     commands:
@@ -549,6 +561,21 @@ buildvariants:
       - ubuntu2204-small
     tasks:
       - name: test-n8n-js-local
+
+  - name: test-mastra-javascript-ubuntu
+    display_name: Mastra Ubuntu2204
+    tags: [javascript]
+    expansions:
+      DIR: mastra-js
+    run_on:
+      - ubuntu2204-small
+    tasks:
+      - name: test-mastra-js-local
+      # TODO: NODE-7719 Add test-mastra-js-remote once stores/mongodb's
+      # vector tests support connecting to a remote Atlas URI (they
+      # currently hardcode mongodb://localhost:27017 / :27018).
+      # - name: test-mastra-js-remote
+      #   batchtime: 10080  # 1 week
 
   - name: test-mem0-python-rhel
     display_name: mem0 RHEL Python
