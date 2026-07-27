@@ -571,7 +571,7 @@ buildvariants:
       - ubuntu2204-small
     tasks:
       - name: test-mastra-js-local
-      # TODO: NODE-7617 Add test-mastra-js-remote once stores/mongodb's
+      # TODO: NODE-7719 Add test-mastra-js-remote once stores/mongodb's
       # vector tests support connecting to a remote Atlas URI (they
       # currently hardcode mongodb://localhost:27017 / :27018).
       # - name: test-mastra-js-remote
