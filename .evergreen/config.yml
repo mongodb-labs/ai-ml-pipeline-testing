@@ -167,14 +167,14 @@ tasks:
       - func: "setup remote atlas"
       - func: "execute tests"
 
-  - name: test-langchain-mongodb-deepagents-vfs-python-local
+  - name: test-langchain-deepagents-vfs-python-local
     tags: [local]
     commands:
       - func: "fetch repo"
       - func: "setup local atlas"
       - func: "execute tests"
 
-  - name: test-langchain-mongodb-deepagents-vfs-python-remote
+  - name: test-langchain-deepagents-vfs-python-remote
     tags: [remote]
     commands:
       - func: "fetch repo"
@@ -437,16 +437,16 @@ buildvariants:
       - name: test-langchain-python-remote
         batchtime: 10080  # 1 week
 
-  - name: test-langchain-mongodb-deepagents-vfs-python-linux
+  - name: test-langchain-deepagents-vfs-python-linux
     display_name: Langchain DeepAgents VFS Linux Python
     tags: [python]
     expansions:
-      DIR: langchain-mongodb-deepagents-vfs-python
+      DIR: langchain-deepagents-vfs-python
     run_on:
       - ubuntu2204-small
     tasks:
-      - name: test-langchain-mongodb-deepagents-vfs-python-local
-      - name: test-langchain-mongodb-deepagents-vfs-python-remote
+      - name: test-langchain-deepagents-vfs-python-local
+      - name: test-langchain-deepagents-vfs-python-remote
         batchtime: 10080  # 1 week
 
   - name: test-langgraph-python-rhel
