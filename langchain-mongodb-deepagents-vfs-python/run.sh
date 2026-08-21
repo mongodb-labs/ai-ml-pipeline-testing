@@ -27,3 +27,5 @@ just install
 just unit_tests
 
 just integration_tests
+
+just e2e_tests
