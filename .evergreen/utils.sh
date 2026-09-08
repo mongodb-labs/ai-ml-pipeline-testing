@@ -53,17 +53,27 @@ is_python_310() {
 
 
 
-# start mongodb-atlas-local container, because of a bug in podman we have to define the healtcheck ourselves (is the same as in the image)
+# start mongodb-atlas-local container, because of a bug in podman we have to define the healthcheck ourselves (is the same as in the image)
 # stores the connection string in .local_atlas_uri file
+#
+# The mongodb/mongodb-atlas-local image tag is selected by ATLAS_LOCAL_VERSION
+# (default "latest"), either as the first argument or from the environment, e.g.
+#   setup_local_atlas preview
+#   ATLAS_LOCAL_VERSION=preview setup_local_atlas
+# drivers-evergreen-tools uses MONGODB_VERSION as the image tag for --local-atlas,
+# and its env vars take precedence over its CLI flags, so we export it for the call.
 setup_local_atlas() {
     SCRIPT_DIR=$(realpath "$(dirname ${BASH_SOURCE[0]})")
+    local atlas_local_version="${1:-${ATLAS_LOCAL_VERSION:-latest}}"
     # Ensure drivers-evergeen-tools checkout.
     pushd $SCRIPT_DIR/..
     git clone https://github.com/mongodb-labs/drivers-evergreen-tools || true
     popd
     if [ -z "${COMMUNITY_WITH_SEARCH:-}" ]; then
         bash $SCRIPT_DIR/mongodb-community-search/teardown.sh
-        bash $SCRIPT_DIR/../drivers-evergreen-tools/.evergreen/run-orchestration.sh --local-atlas -v
+        echo "Starting mongodb/mongodb-atlas-local:${atlas_local_version}..."
+        MONGODB_VERSION="$atlas_local_version" \
+            bash $SCRIPT_DIR/../drivers-evergreen-tools/.evergreen/run-orchestration.sh --local-atlas -v
     else
         if [ -n "${CI:-}" ]; then
             bash $SCRIPT_DIR/../drivers-evergreen-tools/.evergreen/docker/setup.sh
