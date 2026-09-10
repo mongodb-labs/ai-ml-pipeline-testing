@@ -126,9 +126,6 @@ start_atlas_local_autoembed() {
     esac
     if [ -n "$expected_prefix" ] && [ "${VOYAGE_API_KEY#$expected_prefix}" = "$VOYAGE_API_KEY" ]; then
         echo "VOYAGE_API_KEY does not match the configured embedding endpoint!"
-        echo "  endpoint: ${EMBEDDING_PROVIDER_ENDPOINT:-ai.mongodb.com (image default)}"
-        echo "  expected key prefix: ${expected_prefix}"
-        echo "  actual key prefix:   ${VOYAGE_API_KEY:0:3}"
         echo "Keys from voyageai.com begin with 'pa-' and require"
         echo "EMBEDDING_PROVIDER_ENDPOINT=https://api.voyageai.com/v1/embeddings;"
         echo "keys from mongodb.com begin with 'al-' and require it to be unset."
