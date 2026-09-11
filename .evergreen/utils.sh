@@ -96,10 +96,23 @@ start_atlas_local_autoembed() {
     bash $det_dir/stop-orchestration.sh || true
     $docker_cmd rm -f mongodb_atlas_local > /dev/null 2>&1 || true
 
+    local hub_image="$image"
+
     # On Evergreen, authenticate to and pull through the ECR mirror.
     if [ -n "${CI:-}" ] && [ -z "${GITHUB_ACTION:-}" ]; then
         bash $det_dir/docker/setup.sh
         image="901841024863.dkr.ecr.us-east-1.amazonaws.com/dockerhub/${image}"
+    fi
+
+    # Fall back to Docker Hub, where these tags are public.
+    if ! $docker_cmd pull "$image"; then
+        if [ "$image" = "$hub_image" ]; then
+            echo "Failed to pull ${image}!"
+            exit 1
+        fi
+        echo "Failed to pull ${image} from the ECR mirror, falling back to Docker Hub."
+        image="$hub_image"
+        $docker_cmd pull "$image"
     fi
 
     # Podman does not pick up the image's HEALTHCHECK, so declare it explicitly.
