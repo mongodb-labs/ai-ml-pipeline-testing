@@ -19,8 +19,10 @@ cd integrations/mongodb_atlas
 $PYTHON_BINARY -m venv .venv
 . .venv/bin/activate
 PYTHON_BINARY=$(which python)
-# Workaround for https://github.com/pypa/hatch/issues/2050
-$PYTHON_BINARY -m pip install -U pip hatch "click<8.3.0"
+# certifi is used below, and is no longer a transitive dependency of hatch,
+# which moved to truststore in 1.18.0. Install it explicitly.
+# The click pin is a workaround for https://github.com/pypa/hatch/issues/2050
+$PYTHON_BINARY -m pip install -U pip hatch certifi "click<8.3.0"
 
 SSL_CERT_FILE=$($PYTHON_BINARY -c "import certifi; print(certifi.where())")
 export SSL_CERT_FILE
