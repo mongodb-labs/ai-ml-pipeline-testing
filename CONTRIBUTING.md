@@ -30,14 +30,6 @@ The general layout of this repo looks like this:
 ├── README.md                                   # This Document
 ├── langchain-python                            # Folder scoped for one Integration
 │   └── run.sh                                  # Script that executes test
-├── semantic-kernel-csharp                      # Folder scoped for one Integration
-│   ├── database                                # Optional database definition directory
-│   │   └── nearestSearch.json                  # Populates $DATABASE.nearestSearch
-│   │   └── furthestSearch.json                 # Populates $DATABASE.furthestSearch
-│   ├── indexes                                 # Optional Index definitions directory
-│   │   └── indexConfig.json                    # Optional Search index definition
-|   ├── config.env                              # Configuration file
-│   └── run.sh                                  # Script that executes test
 |
 ├── semantic-kernel-python                      # Folder scoped for one Integration
 │   ├── database                                # Optional database definition
