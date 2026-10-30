@@ -17,10 +17,7 @@ cd libs/langchain-mongodb-deepagents-vfs
 $PYTHON_BINARY -m venv venv_pipeline
 source venv_pipeline/bin/activate
 
-# Install certifi explicitly in case toolchain doesn't contain it..
-pip install certifi
-SSL_CERT_FILE=$(python -c "import certifi; print(certifi.where())")
-export SSL_CERT_FILE
+export_ssl_cert_file
 
 pip install uv rust-just
 

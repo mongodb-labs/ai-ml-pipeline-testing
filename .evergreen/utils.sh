@@ -52,6 +52,31 @@ is_python_310() {
 }
 
 
+# Point SSL_CERT_FILE at a certifi CA bundle.
+#
+# certifi is no longer a transitive dependency of the toolchain -- hatch moved to
+# truststore in 1.18.0, and a bare `python -m venv` has never included it -- so the
+# lookup has to install it first.
+#
+# It also has to run under the interpreter it installed into. $PYTHON_BINARY is the
+# system/toolchain python returned by find_python3, not the activated venv, so
+# `$PYTHON_BINARY -c "import certifi"` still fails after a `pip install certifi`
+# that went into the venv. Default to the python on PATH, which is the venv's.
+#
+# Usage: call after activating the venv. Pass an interpreter to override.
+export_ssl_cert_file() {
+    local python_binary="${1:-$(command -v python || true)}"
+    if [ -z "$python_binary" ]; then
+        echo "export_ssl_cert_file: no python on PATH; activate a venv first."
+        exit 1
+    fi
+    $python_binary -m pip install -q -U certifi
+    SSL_CERT_FILE=$($python_binary -c "import certifi; print(certifi.where())")
+    export SSL_CERT_FILE
+    echo "SSL_CERT_FILE=$SSL_CERT_FILE"
+}
+
+
 
 # Start the mongodb-atlas-local container ourselves, with auto-embedding enabled.
 #
