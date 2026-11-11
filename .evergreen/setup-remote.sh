@@ -50,6 +50,9 @@ case $DIR in
     pymongo-search-utils)
     MONGODB_URI=$PYMONGO_SEARCH_UTILS_URI
     ;;
+    mlflow-mongodb-python)
+        MONGODB_URI=$MLFLOW_MONGODB_URI
+    ;;
     *)
         echo "Missing config in setup-remote.sh for DIR: $DIR"
         exit 1

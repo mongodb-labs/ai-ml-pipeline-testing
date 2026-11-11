@@ -377,6 +377,20 @@ tasks:
       - func: "setup community atlas"
       - func: "execute tests"
 
+  - name: test-mlflow-mongodb-python-local
+    tags: [local]
+    commands:
+      - func: "fetch repo"
+      - func: "setup local atlas"
+      - func: "execute tests"
+
+  - name: test-mlflow-mongodb-python-remote
+    tags: [remote]
+    commands:
+      - func: "fetch repo"
+      - func: "setup remote atlas"
+      - func: "execute tests"
+
   - name: test-self-community
     tags: [local]
     commands:
@@ -600,6 +614,18 @@ buildvariants:
       - name: test-pymongo-search-utils-local
       - name: test-pymongo-search-utils-community
       - name: test-pymongo-search-utils-remote
+
+  - name: test-mlflow-mongodb-python-ubuntu
+    display_name: MLflow MongoDB Ubuntu Python
+    tags: [python]
+    expansions:
+      DIR: mlflow-mongodb-python
+    run_on:
+      - ubuntu2204-small
+    tasks:
+      - name: test-mlflow-mongodb-python-local
+      - name: test-mlflow-mongodb-python-remote
+        batchtime: 10080  # 1 week
 
   - name: test-self-ubuntu
     display_name: Self Test Ubuntu
